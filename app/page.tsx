@@ -1,103 +1,280 @@
 import Image from "next/image";
+import Link from "next/link";
+import {
+  ArrowRight,
+  Brain,
+  CalendarCheck2,
+  ChevronLeft,
+  ChevronRight,
+  HeartPulse,
+  Microscope,
+  Phone,
+  ShieldCheck,
+  Stethoscope,
+  Syringe,
+  UserRoundSearch,
+} from "lucide-react";
+import { PageSection, SiteFooter, SiteHeader } from "@/components/site-shell";
+import {
+  articles,
+  featuredSpecialties,
+  homeQuickLinks,
+  metrics,
+  patientStory,
+  trustFeatures,
+} from "@/lib/site-data";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+    <>
+      <SiteHeader activePath="/" />
+      <main className="pb-24">
+        <section className="relative overflow-hidden">
+          <div className="absolute inset-0">
             <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBr9RrxGGyOf8Ku3KJcXXsmPAENM9y9ffh8YU8WZ1pTFmO5-9cJz-Bl5347TOYwT5m-DoGjiENTQeRS9pN0VMfO6_0RNcXGGvg_qiYcfKi2GOcBTTDf3tY2GY7VfTWJMP_OyUDh0tEGB0Tv-pSdDNldx3CgVYSidS7GrXYb9Xw0z8fxoivcVDFKuixWay96FEBwOIvHgWE4iqjZNl06y4Aa4J6v79XFsmDpbvU7aIy65bVcpUwB-mHInlDNyx_UZjif71L-xLt-_A8"
+              alt="Modern hospital campus at dawn"
+              fill
+              priority
+              className="object-cover"
+              sizes="100vw"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
+            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,42,88,0.86),rgba(0,42,88,0.54),rgba(0,42,88,0.08))]" />
+          </div>
+          <div className="site-container relative flex min-h-[36rem] items-center py-24 md:min-h-[48rem]">
+            <div className="max-w-3xl space-y-7 text-white">
+              <span className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-4 py-1 text-sm font-semibold tracking-[0.22em] uppercase text-white/80 backdrop-blur">
+                Modern Healthcare Portal
+              </span>
+              <h1 className="max-w-2xl text-4xl font-extrabold leading-tight md:text-6xl">
+                Compassionate Care, Clinical Excellence.
+              </h1>
+              <p className="max-w-2xl text-lg leading-8 text-blue-50/90 md:text-xl">
+                Combining advanced medical technology with a patient-first
+                approach to provide the highest standards of healthcare for you
+                and your family.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <Link className="btn-danger" href="/book-appointment">
+                  <CalendarCheck2 className="h-5 w-5" />
+                  Book an Appointment
+                </Link>
+                <a className="btn-glass" href="tel:+18001066">
+                  <Phone className="h-5 w-5" />
+                  Emergency: 1066
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <PageSection className="-mt-14 relative z-10">
+          <div className="grid gap-5 md:grid-cols-3">
+            {homeQuickLinks.map((link) => (
+              <Link
+                key={link.title}
+                href={link.href}
+                className="surface-card group flex items-center justify-between gap-6 p-7"
+              >
+                <div className="space-y-3">
+                  <span className="inline-flex rounded-2xl bg-[var(--color-secondary-container)] p-3 text-[var(--color-secondary)]">
+                    <QuickLinkIcon icon={link.icon} />
+                  </span>
+                  <div>
+                    <h2 className="text-xl font-semibold text-[var(--color-primary)]">
+                      {link.title}
+                    </h2>
+                    <p className="mt-1 text-sm leading-6 text-[var(--color-on-surface-variant)]">
+                      {link.description}
+                    </p>
+                  </div>
+                </div>
+                <ArrowRight className="h-5 w-5 text-[var(--color-outline)] transition-transform duration-200 group-hover:translate-x-1 group-hover:text-[var(--color-secondary)]" />
+              </Link>
+            ))}
+          </div>
+        </PageSection>
+
+        <PageSection
+          eyebrow="Our Commitment"
+          title="Why Patients Trust St. Marina"
+          description="A modern tertiary hospital built around urgent access, surgical precision, and specialist-led continuity of care."
+          className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]"
+          tinted
+        >
+          <div className="relative">
+            <div className="relative aspect-[0.95] overflow-hidden rounded-[2rem] shadow-[var(--shadow-strong)]">
+              <Image
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOjQcjEbC-QdAvuis7MAI3YqDQY5GmkHolkgoxq5fneImtdJCPSFH78wMm6LW2x9o7UL4qjTmdDCk_m0zg49JG5KgYy72AjXsPCcv8cXcFWxZ0Lc8WnoVtgYW2wov5sqfD9RN7qWuidGquKWt_PL8Msq6HJwEiNqyv-DA1WlZzoatxw0ORDrHAvMVRckB3J8SASYptpGZpxwOGGSwy5PdxRxBgQWeLhTquGSnOhb4k2giN0HSw3JX76kV7AzdgqZeQBiZ8jFg0Too"
+                alt="Robotic surgery suite"
+                fill
+                className="object-cover"
+                sizes="(min-width: 1024px) 40vw, 100vw"
+              />
+            </div>
+            <div className="absolute -right-3 -bottom-3 rounded-[1.4rem] bg-[var(--color-primary)] px-8 py-7 text-white shadow-[var(--shadow-strong)] md:-right-8 md:-bottom-8">
+              <div className="text-4xl font-bold">{metrics.years}</div>
+              <div className="mt-1 text-xs font-semibold uppercase tracking-[0.24em] text-blue-100/80">
+                Years of Excellence
+              </div>
+            </div>
+          </div>
+          <div className="space-y-7">
+            {trustFeatures.map((feature) => (
+              <div key={feature.title} className="flex gap-5">
+                <div className="mt-1 inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white text-[var(--color-secondary)] shadow-[var(--shadow-soft)]">
+                  <TrustIcon icon={feature.icon} />
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-[var(--color-primary)]">
+                    {feature.title}
+                  </h3>
+                  <p className="mt-2 max-w-xl text-base leading-7 text-[var(--color-on-surface-variant)]">
+                    {feature.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </PageSection>
+
+        <PageSection
+          eyebrow="Medical Excellence"
+          title="Featured Specialties"
+          description="Flagship departments designed around high-volume expertise and fast care coordination."
+          action={
+            <Link className="section-link" href="/services">
+              View All Departments
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          }
+        >
+          <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+            {featuredSpecialties.map((specialty) => (
+              <article
+                key={specialty.title}
+                className="surface-card group flex h-full flex-col p-7 transition duration-200 hover:-translate-y-1 hover:shadow-[var(--shadow-strong)]"
+              >
+                <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--color-secondary-container)] text-[var(--color-on-secondary-container)]">
+                  <SpecialtyIcon icon={specialty.icon} />
+                </div>
+                <h3 className="text-xl font-semibold text-[var(--color-primary)]">
+                  {specialty.title}
+                </h3>
+                <p className="mt-3 flex-1 text-sm leading-7 text-[var(--color-on-surface-variant)]">
+                  {specialty.description}
+                </p>
+                <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-secondary)]">
+                  Learn More
+                  <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
+                </span>
+              </article>
+            ))}
+          </div>
+        </PageSection>
+
+        <section className="bg-[var(--color-primary)] py-20 text-white">
+          <div className="site-container grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+            <div className="space-y-6">
+              <span className="eyebrow text-blue-100/75">Patient Stories</span>
+              <h2 className="text-4xl font-bold md:text-5xl">
+                {patientStory.heading}
+              </h2>
+              <p className="max-w-xl text-lg leading-8 text-blue-100/80">
+                {patientStory.intro}
+              </p>
+              <div className="flex gap-3">
+                <button
+                  type="button"
+                  aria-label="Previous story"
+                  className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/20 text-white/90 transition hover:bg-white/10"
+                >
+                  <ChevronLeft className="h-5 w-5" />
+                </button>
+                <button
+                  type="button"
+                  aria-label="Next story"
+                  className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/20 text-white/90 transition hover:bg-white/10"
+                >
+                  <ChevronRight className="h-5 w-5" />
+                </button>
+              </div>
+            </div>
+            <article className="rounded-[2rem] border border-white/10 bg-white/7 p-8 shadow-[0_24px_60px_rgba(0,0,0,0.25)] backdrop-blur-md md:p-10">
+              <p className="text-5xl leading-none text-[var(--color-secondary-fixed)]">
+                “
+              </p>
+              <p className="mt-5 text-xl leading-9 text-white/92">
+                {patientStory.quote}
+              </p>
+              <div className="mt-9 flex items-center gap-4">
+                <div className="relative h-14 w-14 overflow-hidden rounded-full">
+                  <Image
+                    src={patientStory.image}
+                    alt={patientStory.name}
+                    fill
+                    className="object-cover"
+                    sizes="56px"
+                  />
+                </div>
+                <div>
+                  <div className="font-semibold">{patientStory.name}</div>
+                  <div className="text-sm text-blue-100/75">
+                    {patientStory.role}
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <PageSection title="Latest from Our Hospital">
+          <div className="grid gap-7 md:grid-cols-3">
+            {articles.map((article) => (
+              <article key={article.title} className="group">
+                <div className="relative aspect-[16/10] overflow-hidden rounded-[1.5rem]">
+                  <Image
+                    src={article.image}
+                    alt={article.title}
+                    fill
+                    className="object-cover transition duration-500 group-hover:scale-105"
+                    sizes="(min-width: 768px) 30vw, 100vw"
+                  />
+                </div>
+                <p className="mt-5 text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-secondary)]">
+                  {article.date}
+                </p>
+                <h3 className="mt-3 text-xl font-semibold text-[var(--color-primary)] transition-colors group-hover:text-[var(--color-secondary)]">
+                  {article.title}
+                </h3>
+                <p className="mt-3 text-sm leading-7 text-[var(--color-on-surface-variant)]">
+                  {article.description}
+                </p>
+              </article>
+            ))}
+          </div>
+        </PageSection>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      <SiteFooter />
+    </>
   );
+}
+
+function QuickLinkIcon({ icon }: { icon: string }) {
+  if (icon === "doctor") return <UserRoundSearch className="h-6 w-6" />;
+  if (icon === "services") return <Stethoscope className="h-6 w-6" />;
+  return <ShieldCheck className="h-6 w-6" />;
+}
+
+function TrustIcon({ icon }: { icon: string }) {
+  if (icon === "emergency") return <Phone className="h-6 w-6" />;
+  if (icon === "technology") return <Microscope className="h-6 w-6" />;
+  return <HeartPulse className="h-6 w-6" />;
+}
+
+function SpecialtyIcon({ icon }: { icon: string }) {
+  if (icon === "cardiology") return <HeartPulse className="h-6 w-6" />;
+  if (icon === "orthopedics") return <Syringe className="h-6 w-6" />;
+  if (icon === "oncology") return <Microscope className="h-6 w-6" />;
+  return <Brain className="h-6 w-6" />;
 }

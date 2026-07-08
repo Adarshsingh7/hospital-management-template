@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Book Appointment | St. Marina General</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .step-active { @apply text-primary border-primary; }
+        .step-inactive { @apply text-outline-variant border-outline-variant; }
+        
+        /* Custom scrollbar for time slots */
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #c3c6d2; border-radius: 10px; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-fixed-dim": "#5dd8e2",
+                      "secondary": "#006970",
+                      "surface-container-high": "#e2e8f8",
+                      "tertiary-container": "#87001a",
+                      "on-primary-container": "#83aef5",
+                      "on-error-container": "#93000a",
+                      "tertiary-fixed-dim": "#ffb3b1",
+                      "on-secondary": "#ffffff",
+                      "on-tertiary-fixed": "#410007",
+                      "on-secondary-container": "#006e75",
+                      "on-surface": "#151c27",
+                      "on-tertiary-container": "#ff8b8a",
+                      "on-primary": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "primary-fixed": "#d6e3ff",
+                      "inverse-surface": "#2a313d",
+                      "inverse-on-surface": "#ebf1ff",
+                      "secondary-fixed": "#7df4ff",
+                      "secondary-container": "#7af1fc",
+                      "surface-dim": "#d3daea",
+                      "surface": "#f9f9ff",
+                      "inverse-primary": "#a9c7ff",
+                      "on-primary-fixed-variant": "#0e4686",
+                      "surface-container": "#e7eefe",
+                      "on-tertiary": "#ffffff",
+                      "surface-container-low": "#f0f3ff",
+                      "outline": "#737781",
+                      "surface-bright": "#f9f9ff",
+                      "on-surface-variant": "#424750",
+                      "on-error": "#ffffff",
+                      "primary-fixed-dim": "#a9c7ff",
+                      "outline-variant": "#c3c6d2",
+                      "error": "#ba1a1a",
+                      "on-background": "#151c27",
+                      "primary": "#002a58",
+                      "surface-container-highest": "#dce2f3",
+                      "background": "#f9f9ff",
+                      "surface-tint": "#305ea0",
+                      "tertiary": "#5d000f",
+                      "on-secondary-fixed-variant": "#004f54",
+                      "surface-container-lowest": "#ffffff",
+                      "on-tertiary-fixed-variant": "#92001d",
+                      "primary-container": "#004080",
+                      "on-secondary-fixed": "#002022",
+                      "on-primary-fixed": "#001b3d",
+                      "surface-variant": "#dce2f3",
+                      "tertiary-fixed": "#ffdad8"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "margin-desktop": "48px",
+                      "base": "8px",
+                      "margin-mobile": "16px",
+                      "container-max": "1280px",
+                      "section-gap": "80px"
+              },
+              "fontFamily": {
+                      "headline-md": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "display-lg-mobile": ["Inter"],
+                      "body-md": ["Inter"],
+                      "label-lg": ["Inter"],
+                      "label-md": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                      "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+      </script>
+</head>
+<body class="bg-background text-on-surface">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-50 w-full flex justify-between items-center px-margin-desktop h-20 max-w-container-max mx-auto shadow-md bg-surface dark:bg-inverse-surface">
+<div class="flex items-center">
+<span class="text-headline-lg font-headline-lg font-bold text-primary dark:text-inverse-primary">St. Marina General</span>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant dark:text-outline-variant hover:text-secondary dark:hover:text-secondary-fixed-dim transition-colors duration-200 text-label-lg font-label-lg" href="#">Home</a>
+<a class="text-on-surface-variant dark:text-outline-variant hover:text-secondary dark:hover:text-secondary-fixed-dim transition-colors duration-200 text-label-lg font-label-lg" href="#">Services</a>
+<a class="text-on-surface-variant dark:text-outline-variant hover:text-secondary dark:hover:text-secondary-fixed-dim transition-colors duration-200 text-label-lg font-label-lg" href="#">Doctors</a>
+<a class="text-on-surface-variant dark:text-outline-variant hover:text-secondary dark:hover:text-secondary-fixed-dim transition-colors duration-200 text-label-lg font-label-lg" href="#">About Us</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="px-6 py-2 bg-error text-on-error rounded-lg font-bold hover:opacity-90 transition-opacity flex items-center gap-2">
+<span class="material-symbols-outlined">emergency</span> Emergency
+            </button>
+<button class="px-6 py-2 bg-primary text-on-primary rounded-lg font-bold text-primary-fixed dark:text-inverse-primary border-b-2 border-primary dark:border-inverse-primary pb-1">
+                Book Appointment
+            </button>
+</div>
+</header>
+<main class="max-w-container-max mx-auto px-margin-desktop py-12">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Side: Booking Progress -->
+<div class="lg:col-span-3">
+<div class="sticky top-32 space-y-8">
+<h1 class="text-headline-lg font-headline-lg text-primary">Appointment Booking</h1>
+<div class="flex flex-col gap-6">
+<div class="flex items-center gap-4 text-primary font-bold">
+<div class="w-10 h-10 rounded-full border-2 border-primary flex items-center justify-center bg-primary text-on-primary">1</div>
+<span class="text-label-lg">Department</span>
+</div>
+<div class="flex items-center gap-4 text-outline-variant">
+<div class="w-10 h-10 rounded-full border-2 border-outline-variant flex items-center justify-center">2</div>
+<span class="text-label-lg">Doctor</span>
+</div>
+<div class="flex items-center gap-4 text-outline-variant">
+<div class="w-10 h-10 rounded-full border-2 border-outline-variant flex items-center justify-center">3</div>
+<span class="text-label-lg">Schedule</span>
+</div>
+<div class="flex items-center gap-4 text-outline-variant">
+<div class="w-10 h-10 rounded-full border-2 border-outline-variant flex items-center justify-center">4</div>
+<span class="text-label-lg">Details</span>
+</div>
+</div>
+<!-- Need Help Card -->
+<div class="bg-surface-container rounded-xl p-6 shadow-sm border border-outline-variant">
+<h3 class="text-headline-md font-headline-md text-primary mb-2">Need Help?</h3>
+<p class="text-body-md text-on-surface-variant mb-6">Our booking assistance team is available 24/7 for support.</p>
+<a class="flex items-center justify-center gap-3 w-full py-3 bg-secondary text-on-secondary rounded-lg font-bold hover:opacity-90 transition-opacity" href="tel:+1800MARINA">
+<span class="material-symbols-outlined">call</span>
+                            Call Helpdesk
+                        </a>
+</div>
+</div>
+</div>
+<!-- Middle: Form Steps (Simulated with scrollable/conditional sections) -->
+<div class="lg:col-span-9 space-y-section-gap">
+<!-- Step 1: Select Specialty -->
+<section class="bg-surface-container-lowest p-8 rounded-xl shadow-md border border-outline-variant" id="step-1">
+<div class="flex items-center justify-between mb-8">
+<h2 class="text-headline-md font-headline-md text-primary">Step 1: Select Department</h2>
+<span class="text-label-md text-on-surface-variant px-3 py-1 bg-surface-container rounded-full">Required</span>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<button class="p-4 border-2 border-primary bg-primary-fixed rounded-lg text-left transition-all hover:shadow-md group">
+<span class="material-symbols-outlined text-primary mb-2 text-3xl">cardiology</span>
+<p class="text-label-lg font-bold text-primary">Cardiology</p>
+</button>
+<button class="p-4 border border-outline-variant rounded-lg text-left transition-all hover:border-primary hover:bg-surface-container group">
+<span class="material-symbols-outlined text-outline mb-2 text-3xl group-hover:text-primary">neurology</span>
+<p class="text-label-lg font-bold text-on-surface">Neurology</p>
+</button>
+<button class="p-4 border border-outline-variant rounded-lg text-left transition-all hover:border-primary hover:bg-surface-container group">
+<span class="material-symbols-outlined text-outline mb-2 text-3xl group-hover:text-primary">orthopedics</span>
+<p class="text-label-lg font-bold text-on-surface">Orthopedics</p>
+</button>
+<button class="p-4 border border-outline-variant rounded-lg text-left transition-all hover:border-primary hover:bg-surface-container group">
+<span class="material-symbols-outlined text-outline mb-2 text-3xl group-hover:text-primary">pediatrics</span>
+<p class="text-label-lg font-bold text-on-surface">Pediatrics</p>
+</button>
+<button class="p-4 border border-outline-variant rounded-lg text-left transition-all hover:border-primary hover:bg-surface-container group">
+<span class="material-symbols-outlined text-outline mb-2 text-3xl group-hover:text-primary">ophthalmology</span>
+<p class="text-label-lg font-bold text-on-surface">Eye Care</p>
+</button>
+<button class="p-4 border border-outline-variant rounded-lg text-left transition-all hover:border-primary hover:bg-surface-container group">
+<span class="material-symbols-outlined text-outline mb-2 text-3xl group-hover:text-primary">dermatology</span>
+<p class="text-label-lg font-bold text-on-surface">Dermatology</p>
+</button>
+<button class="p-4 border border-outline-variant rounded-lg text-left transition-all hover:border-primary hover:bg-surface-container group">
+<span class="material-symbols-outlined text-outline mb-2 text-3xl group-hover:text-primary">emergency</span>
+<p class="text-label-lg font-bold text-on-surface">Emergency Medicine</p>
+</button>
+<button class="p-4 border border-outline-variant rounded-lg text-left transition-all hover:border-primary hover:bg-surface-container group">
+<span class="material-symbols-outlined text-outline mb-2 text-3xl group-hover:text-primary">psychology</span>
+<p class="text-label-lg font-bold text-on-surface">Mental Health</p>
+</button>
+</div>
+</section>
+<!-- Step 2: Choose a Doctor -->
+<section class="bg-surface-container-lowest p-8 rounded-xl shadow-md border border-outline-variant" id="step-2">
+<div class="flex items-center justify-between mb-8">
+<h2 class="text-headline-md font-headline-md text-primary">Step 2: Choose Your Specialist</h2>
+<div class="relative">
+<input class="pl-10 pr-4 py-2 border border-outline-variant rounded-lg bg-surface-container-low focus:ring-secondary focus:border-secondary" placeholder="Search doctor name..." type="text"/>
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-outline">search</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Doctor Card -->
+<div class="flex gap-4 p-4 rounded-xl border-2 border-secondary bg-secondary-container/10 relative overflow-hidden">
+<div class="absolute top-2 right-2 flex items-center gap-1 bg-surface py-1 px-2 rounded-full shadow-sm">
+<span class="material-symbols-outlined text-sm text-secondary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-label-md font-bold text-on-surface">4.9</span>
+</div>
+<img class="w-24 h-24 rounded-lg object-cover" data-alt="A professional headshot of a mature female cardiologist wearing a white clinical coat and a stethoscope. She is smiling warmly in a bright, modern hospital corridor with soft blue and white ambient lighting. The style is crisp, high-resolution corporate medical photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxKd-JE4ROElVJzopH2ih6-oOfleIZBwdaYmYTts0QOyX9w-lULFvprIpQ-VjPYHGO-XzXeBo50kxPXFTHXZuINcNSkxIAkJd4B1VjTkDGxgNaeSB5xpBb8RtbajID-sJESUFiZSoKWc7a_fFEmGjqEQWmXO97aQuu_c262zE2Iz-Y0TZ20TWzcnH5AdvkEsVAI9ffIDh1ZhjGgwWE_L-ViqV4LMUREwaFJ0LXtwLtxYRGkZ2x03q-3878ItV7Wtk5duLf4mlptZU"/>
+<div class="flex-1">
+<p class="text-label-lg font-bold text-primary">Dr. Sarah J. Bennett</p>
+<p class="text-label-md text-on-surface-variant mb-2">Senior Cardiologist • 15 Yrs Exp</p>
+<div class="flex items-center gap-2 text-secondary mb-3">
+<span class="material-symbols-outlined text-sm">verified</span>
+<span class="text-label-md">Available Today</span>
+</div>
+<button class="text-label-md font-bold text-secondary underline">View Full Profile</button>
+</div>
+</div>
+<!-- Doctor Card 2 -->
+<div class="flex gap-4 p-4 rounded-xl border border-outline-variant hover:border-secondary transition-colors cursor-pointer group">
+<img class="w-24 h-24 rounded-lg object-cover" data-alt="A professional portrait of a male specialist doctor in his late 40s. He has a kind expression, wearing a navy blue medical scrub and glasses. The background is a clean, minimalist clinical setting with soft natural light. Professional medical branding style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1P429ubEi5-z3kbt-GpAvtol4waWf5_Kiduzu4qXCHICjarNim3TEjFFMaX1w3Qkc2L0OLMICkBHuxrrcxcoisuoBaf4EYJ_l7-Kskvyp-5zlecFqHytRAC4TYILCmD7pRnY16wgnUkd6DvPEgGauL1orK36ovtGTrEFJw6s7B__FNh00TZw-umOiAOLcejPUXVbordmXeD90JRFJ9El82mEcVJi9AZqFHb_GRrzsIpuJSebHwYnR72Q0ozik_YqXKCZn0TpkdnI"/>
+<div class="flex-1">
+<p class="text-label-lg font-bold text-on-surface group-hover:text-primary transition-colors">Dr. Marcus Thorne</p>
+<p class="text-label-md text-on-surface-variant mb-2">Electrophysiologist • 12 Yrs Exp</p>
+<div class="flex items-center gap-2 text-outline-variant mb-3">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span class="text-label-md">Next: Tomorrow, 9:00 AM</span>
+</div>
+<button class="text-label-md font-bold text-outline underline">View Full Profile</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Step 3: Date & Time -->
+<section class="bg-surface-container-lowest p-8 rounded-xl shadow-md border border-outline-variant" id="step-3">
+<h2 class="text-headline-md font-headline-md text-primary mb-8">Step 3: Select Date &amp; Time</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Mini Calendar UI -->
+<div class="bg-surface-container rounded-xl p-6">
+<div class="flex items-center justify-between mb-4">
+<p class="font-bold text-on-surface">October 2024</p>
+<div class="flex gap-2">
+<button class="w-8 h-8 rounded-full bg-surface flex items-center justify-center border border-outline-variant hover:bg-primary-fixed"><span class="material-symbols-outlined">chevron_left</span></button>
+<button class="w-8 h-8 rounded-full bg-surface flex items-center justify-center border border-outline-variant hover:bg-primary-fixed"><span class="material-symbols-outlined">chevron_right</span></button>
+</div>
+</div>
+<div class="grid grid-cols-7 gap-2 text-center text-label-md mb-2">
+<div class="text-outline-variant">S</div><div class="text-outline-variant">M</div><div class="text-outline-variant">T</div><div class="text-outline-variant">W</div><div class="text-outline-variant">T</div><div class="text-outline-variant">F</div><div class="text-outline-variant">S</div>
+</div>
+<div class="grid grid-cols-7 gap-2 text-center">
+<div class="p-2 text-outline-variant opacity-30">29</div><div class="p-2 text-outline-variant opacity-30">30</div>
+<div class="p-2 rounded-lg hover:bg-secondary-container cursor-pointer transition-colors">1</div>
+<div class="p-2 rounded-lg bg-primary text-on-primary font-bold">2</div>
+<div class="p-2 rounded-lg hover:bg-secondary-container cursor-pointer">3</div>
+<div class="p-2 rounded-lg hover:bg-secondary-container cursor-pointer">4</div>
+<div class="p-2 rounded-lg hover:bg-secondary-container cursor-pointer">5</div>
+<div class="p-2 rounded-lg hover:bg-secondary-container cursor-pointer">6</div>
+<div class="p-2 rounded-lg hover:bg-secondary-container cursor-pointer">7</div>
+<div class="p-2 rounded-lg hover:bg-secondary-container cursor-pointer">8</div>
+<div class="p-2 rounded-lg hover:bg-secondary-container cursor-pointer">9</div>
+<div class="p-2 rounded-lg hover:bg-secondary-container cursor-pointer">10</div>
+<div class="p-2 rounded-lg hover:bg-secondary-container cursor-pointer">11</div>
+<div class="p-2 rounded-lg hover:bg-secondary-container cursor-pointer">12</div>
+</div>
+</div>
+<!-- Time Slots -->
+<div class="space-y-4">
+<p class="font-bold text-on-surface">Available Slots for Oct 2nd</p>
+<div class="grid grid-cols-2 gap-3 h-64 overflow-y-auto custom-scrollbar pr-2">
+<button class="py-3 px-4 border border-outline-variant rounded-lg text-on-surface hover:bg-secondary-container hover:border-secondary transition-all font-medium">09:00 AM</button>
+<button class="py-3 px-4 border-2 border-secondary bg-secondary-container/20 rounded-lg text-primary font-bold">10:30 AM</button>
+<button class="py-3 px-4 border border-outline-variant rounded-lg text-on-surface hover:bg-secondary-container hover:border-secondary transition-all font-medium">11:15 AM</button>
+<button class="py-3 px-4 bg-surface-container-highest text-outline-variant rounded-lg cursor-not-allowed line-through" disabled="">01:00 PM</button>
+<button class="py-3 px-4 border border-outline-variant rounded-lg text-on-surface hover:bg-secondary-container hover:border-secondary transition-all font-medium">02:30 PM</button>
+<button class="py-3 px-4 border border-outline-variant rounded-lg text-on-surface hover:bg-secondary-container hover:border-secondary transition-all font-medium">03:00 PM</button>
+<button class="py-3 px-4 border border-outline-variant rounded-lg text-on-surface hover:bg-secondary-container hover:border-secondary transition-all font-medium">03:45 PM</button>
+<button class="py-3 px-4 border border-outline-variant rounded-lg text-on-surface hover:bg-secondary-container hover:border-secondary transition-all font-medium">04:30 PM</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Step 4: Patient Details -->
+<section class="bg-surface-container-lowest p-8 rounded-xl shadow-md border border-outline-variant" id="step-4">
+<h2 class="text-headline-md font-headline-md text-primary mb-8">Step 4: Patient Details</h2>
+<form class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-label-lg text-on-surface font-bold">Full Name</label>
+<input class="w-full px-4 py-3 border border-outline-variant rounded-lg bg-surface focus:ring-secondary focus:border-secondary outline-none transition-all" placeholder="John Doe" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-label-lg text-on-surface font-bold">Contact Number</label>
+<input class="w-full px-4 py-3 border border-outline-variant rounded-lg bg-surface focus:ring-secondary focus:border-secondary outline-none transition-all" placeholder="+1 (555) 000-0000" type="tel"/>
+</div>
+<div class="md:col-span-2 space-y-2">
+<label class="text-label-lg text-on-surface font-bold">Reason for Visit</label>
+<textarea class="w-full px-4 py-3 border border-outline-variant rounded-lg bg-surface focus:ring-secondary focus:border-secondary outline-none transition-all" placeholder="Briefly describe your symptoms or reason for the appointment..." rows="3"></textarea>
+</div>
+</div>
+<div class="p-4 bg-surface-container-high rounded-lg flex gap-3 items-start">
+<span class="material-symbols-outlined text-primary">info</span>
+<p class="text-body-md text-on-surface-variant">By clicking confirm, you agree to our patient confidentiality policy. An SMS confirmation will be sent to your mobile number.</p>
+</div>
+<div class="flex flex-col md:flex-row justify-end gap-4 pt-6 border-t border-outline-variant">
+<button class="px-8 py-3 border border-outline-variant rounded-lg font-bold text-on-surface-variant hover:bg-surface-container transition-colors" type="button">Save as Draft</button>
+<button class="px-10 py-3 bg-error text-on-error rounded-lg font-bold text-headline-md shadow-lg hover:opacity-90 active:scale-95 transition-all" type="submit">Confirm Appointment</button>
+</div>
+</form>
+</section>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-section-gap px-margin-desktop bg-primary dark:bg-surface-container-highest mt-20">
+<div class="max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-4 gap-gutter text-on-primary dark:text-on-surface">
+<div class="space-y-4">
+<span class="text-headline-md font-headline-md font-bold text-on-primary dark:text-on-surface">St. Marina General</span>
+<p class="text-body-md font-body-md text-on-primary/80 dark:text-on-surface-variant">© 2024 St. Marina General Hospital. All rights reserved. Precision Care, Compassionate Healing.</p>
+</div>
+<div class="space-y-4">
+<p class="text-label-lg font-bold">Quick Links</p>
+<ul class="space-y-2 text-body-md">
+<li><a class="text-on-primary/80 dark:text-on-surface-variant hover:text-secondary-fixed-dim dark:hover:text-secondary underline transition-all" href="#">Privacy Policy</a></li>
+<li><a class="text-on-primary/80 dark:text-on-surface-variant hover:text-secondary-fixed-dim dark:hover:text-secondary underline transition-all" href="#">Terms of Service</a></li>
+<li><a class="text-on-primary/80 dark:text-on-surface-variant hover:text-secondary-fixed-dim dark:hover:text-secondary underline transition-all" href="#">Patient Portal</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<p class="text-label-lg font-bold">Support</p>
+<ul class="space-y-2 text-body-md">
+<li><a class="text-on-primary/80 dark:text-on-surface-variant hover:text-secondary-fixed-dim dark:hover:text-secondary underline transition-all" href="#">Contact Us</a></li>
+<li><a class="text-on-primary/80 dark:text-on-surface-variant hover:text-secondary-fixed-dim dark:hover:text-secondary underline transition-all" href="#">Careers</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<p class="text-label-lg font-bold">Emergency Hotline</p>
+<p class="text-headline-md font-bold text-error-container">+1 800-MARINA-911</p>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-on-primary/60">face_nod</span>
+<span class="material-symbols-outlined text-on-primary/60">emergency_share</span>
+<span class="material-symbols-outlined text-on-primary/60">group</span>
+</div>
+</div>
+</div>
+</footer>
+<script>
+        // Simple micro-interaction for button selection
+        document.querySelectorAll('#step-1 button').forEach(button => {
+            button.addEventListener('click', function() {
+                document.querySelectorAll('#step-1 button').forEach(b => {
+                    b.classList.remove('border-primary', 'bg-primary-fixed');
+                    b.classList.add('border-outline-variant');
+                    b.querySelector('span').classList.remove('text-primary');
+                    b.querySelector('span').classList.add('text-outline');
+                    b.querySelector('p').classList.remove('text-primary');
+                    b.querySelector('p').classList.add('text-on-surface');
+                });
+                this.classList.add('border-primary', 'bg-primary-fixed');
+                this.classList.remove('border-outline-variant');
+                this.querySelector('span').classList.add('text-primary');
+                this.querySelector('span').classList.remove('text-outline');
+                this.querySelector('p').classList.add('text-primary');
+                this.querySelector('p').classList.remove('text-on-surface');
+            });
+        });
+
+        // Time slot selection
+        document.querySelectorAll('#step-3 button').forEach(button => {
+            if(!button.disabled) {
+                button.addEventListener('click', function() {
+                    document.querySelectorAll('#step-3 button').forEach(b => {
+                        if(!b.disabled) {
+                            b.classList.remove('border-2', 'border-secondary', 'bg-secondary-container/20', 'text-primary', 'font-bold');
+                            b.classList.add('border', 'border-outline-variant', 'text-on-surface', 'font-medium');
+                        }
+                    });
+                    this.classList.add('border-2', 'border-secondary', 'bg-secondary-container/20', 'text-primary', 'font-bold');
+                    this.classList.remove('border', 'border-outline-variant', 'text-on-surface', 'font-medium');
+                });
+            }
+        });
+    </script>
+</body></html>

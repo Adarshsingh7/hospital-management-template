@@ -1,0 +1,310 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Our Specialities | St. Marina General Hospital</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .clinical-shadow {
+            box-shadow: 0 4px 12px rgba(0, 42, 88, 0.05);
+        }
+        .clinical-shadow-hover:hover {
+            box-shadow: 0 10px 25px rgba(0, 42, 88, 0.1);
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed-dim": "#5dd8e2",
+                    "secondary": "#006970",
+                    "surface-container-high": "#e2e8f8",
+                    "tertiary-container": "#87001a",
+                    "on-primary-container": "#83aef5",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed-dim": "#ffb3b1",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary-fixed": "#410007",
+                    "on-secondary-container": "#006e75",
+                    "on-surface": "#151c27",
+                    "on-tertiary-container": "#ff8b8a",
+                    "on-primary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "primary-fixed": "#d6e3ff",
+                    "inverse-surface": "#2a313d",
+                    "inverse-on-surface": "#ebf1ff",
+                    "secondary-fixed": "#7df4ff",
+                    "secondary-container": "#7af1fc",
+                    "surface-dim": "#d3daea",
+                    "surface": "#f9f9ff",
+                    "inverse-primary": "#a9c7ff",
+                    "on-primary-fixed-variant": "#0e4686",
+                    "surface-container": "#e7eefe",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-low": "#f0f3ff",
+                    "outline": "#737781",
+                    "surface-bright": "#f9f9ff",
+                    "on-surface-variant": "#424750",
+                    "on-error": "#ffffff",
+                    "primary-fixed-dim": "#a9c7ff",
+                    "outline-variant": "#c3c6d2",
+                    "error": "#ba1a1a",
+                    "on-background": "#151c27",
+                    "primary": "#002a58",
+                    "surface-container-highest": "#dce2f3",
+                    "background": "#f9f9ff",
+                    "surface-tint": "#305ea0",
+                    "tertiary": "#5d000f",
+                    "on-secondary-fixed-variant": "#004f54",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-fixed-variant": "#92001d",
+                    "primary-container": "#004080",
+                    "on-secondary-fixed": "#002022",
+                    "on-primary-fixed": "#001b3d",
+                    "surface-variant": "#dce2f3",
+                    "tertiary-fixed": "#ffdad8"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "margin-desktop": "48px",
+                    "base": "8px",
+                    "margin-mobile": "16px",
+                    "container-max": "1280px",
+                    "section-gap": "80px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "display-lg-mobile": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-lg": ["Inter"],
+                    "label-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="sticky top-0 z-50 w-full bg-surface shadow-md dark:shadow-none h-20">
+<nav class="max-w-container-max mx-auto px-margin-desktop h-full flex justify-between items-center">
+<div class="text-headline-lg font-headline-lg font-bold text-primary">
+                St. Marina General
+            </div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant font-label-lg text-label-lg hover:text-secondary transition-colors duration-200" href="#">Home</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-label-lg text-label-lg" href="#">Services</a>
+<a class="text-on-surface-variant font-label-lg text-label-lg hover:text-secondary transition-colors duration-200" href="#">Doctors</a>
+<a class="text-on-surface-variant font-label-lg text-label-lg hover:text-secondary transition-colors duration-200" href="#">About Us</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="hidden lg:block px-6 py-2 rounded-lg bg-surface-container-highest text-primary font-label-lg text-label-lg hover:bg-surface-container-high transition-colors">
+                    Emergency
+                </button>
+<button class="px-6 py-2 rounded-lg bg-primary text-on-primary font-label-lg text-label-lg hover:opacity-90 transition-opacity shadow-md">
+                    Book Appointment
+                </button>
+</div>
+</nav>
+</header>
+<main class="flex-grow max-w-container-max mx-auto px-margin-desktop w-full py-12">
+<!-- Header Section -->
+<div class="mb-12">
+<h1 class="text-display-lg font-display-lg text-primary mb-4">Our Specialities and Centers of Excellence</h1>
+<p class="text-body-lg font-body-lg text-on-surface-variant max-w-3xl">Providing world-class medical expertise with cutting-edge technology and a compassionate approach to patient care across all departments.</p>
+</div>
+<!-- Search & Filter Bar -->
+<div class="mb-12">
+<div class="relative w-full max-w-2xl bg-surface-container-lowest border border-outline-variant rounded-xl p-2 flex items-center shadow-sm">
+<span class="material-symbols-outlined ml-3 text-outline">search</span>
+<input class="w-full bg-transparent border-none focus:ring-0 px-4 py-3 text-body-md font-body-md text-on-surface" placeholder="Search Specialties, Conditions, or Procedures..." type="text">
+<button class="bg-secondary text-on-secondary px-6 py-2.5 rounded-lg font-label-lg text-label-lg hover:opacity-90 transition-all">
+                    Find Service
+                </button>
+</div>
+</div>
+<!-- Bento Grid of Services -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-section-gap">
+<!-- Cardiology -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-8 clinical-shadow clinical-shadow-hover transition-all group">
+<div class="w-14 h-14 bg-secondary-container text-secondary flex items-center justify-center rounded-lg mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-4xl">cardiology</span>
+</div>
+<h3 class="text-headline-md font-headline-md text-primary mb-3">Cardiology</h3>
+<p class="text-body-md font-body-md text-on-surface-variant mb-6 line-clamp-2">Comprehensive heart care focusing on prevention, diagnostics, and advanced interventional treatments.</p>
+<a class="inline-flex items-center text-secondary font-label-lg text-label-lg group-hover:underline" href="#">
+                    Learn More
+                    <span class="material-symbols-outlined text-sm ml-1">arrow_forward</span>
+</a>
+</div>
+<!-- Gastroenterology -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-8 clinical-shadow clinical-shadow-hover transition-all group">
+<div class="w-14 h-14 bg-secondary-container text-secondary flex items-center justify-center rounded-lg mb-6 group-hover:scale-110 transition-transform">
+
+</div>
+<h3 class="text-headline-md font-headline-md text-primary mb-3">Gastroenterology</h3>
+<p class="text-body-md font-body-md text-on-surface-variant mb-6 line-clamp-2">Expert management of digestive disorders, liver diseases, and therapeutic endoscopy procedures.</p>
+<a class="inline-flex items-center text-secondary font-label-lg text-label-lg group-hover:underline" href="#">
+                    Learn More
+                    <span class="material-symbols-outlined text-sm ml-1">arrow_forward</span>
+</a>
+</div>
+<!-- Nephrology -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-8 clinical-shadow clinical-shadow-hover transition-all group">
+<div class="w-14 h-14 bg-secondary-container text-secondary flex items-center justify-center rounded-lg mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-4xl">nephrology</span>
+</div>
+<h3 class="text-headline-md font-headline-md text-primary mb-3">Nephrology</h3>
+<p class="text-body-md font-body-md text-on-surface-variant mb-6 line-clamp-2">Specialized treatment for kidney conditions, including dialysis services and transplant support.</p>
+<a class="inline-flex items-center text-secondary font-label-lg text-label-lg group-hover:underline" href="#">
+                    Learn More
+                    <span class="material-symbols-outlined text-sm ml-1">arrow_forward</span>
+</a>
+</div>
+<!-- Orthopedics -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-8 clinical-shadow clinical-shadow-hover transition-all group">
+<div class="w-14 h-14 bg-secondary-container text-secondary flex items-center justify-center rounded-lg mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-4xl">orthopedics</span>
+</div>
+<h3 class="text-headline-md font-headline-md text-primary mb-3">Orthopedics</h3>
+<p class="text-body-md font-body-md text-on-surface-variant mb-6 line-clamp-2">Advanced surgical and non-surgical solutions for bone, joint, and musculoskeletal health.</p>
+<a class="inline-flex items-center text-secondary font-label-lg text-label-lg group-hover:underline" href="#">
+                    Learn More
+                    <span class="material-symbols-outlined text-sm ml-1">arrow_forward</span>
+</a>
+</div>
+<!-- Neurology -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-8 clinical-shadow clinical-shadow-hover transition-all group">
+<div class="w-14 h-14 bg-secondary-container text-secondary flex items-center justify-center rounded-lg mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-4xl">neurology</span>
+</div>
+<h3 class="text-headline-md font-headline-md text-primary mb-3">Neurology</h3>
+<p class="text-body-md font-body-md text-on-surface-variant mb-6 line-clamp-2">Comprehensive neurological care for brain, spine, and nerve disorders with precise diagnostic tools.</p>
+<a class="inline-flex items-center text-secondary font-label-lg text-label-lg group-hover:underline" href="#">
+                    Learn More
+                    <span class="material-symbols-outlined text-sm ml-1">arrow_forward</span>
+</a>
+</div>
+<!-- Oncology -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-8 clinical-shadow clinical-shadow-hover transition-all group">
+<div class="w-14 h-14 bg-secondary-container text-secondary flex items-center justify-center rounded-lg mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-4xl">oncology</span>
+</div>
+<h3 class="text-headline-md font-headline-md text-primary mb-3">Oncology</h3>
+<p class="text-body-md font-body-md text-on-surface-variant mb-6 line-clamp-2">Multidisciplinary cancer treatment providing chemotherapy, radiation, and surgical oncology.</p>
+<a class="inline-flex items-center text-secondary font-label-lg text-label-lg group-hover:underline" href="#">
+                    Learn More
+                    <span class="material-symbols-outlined text-sm ml-1">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Specialized Health Packages Section -->
+<section class="mt-section-gap">
+<div class="bg-primary-container rounded-2xl p-10 flex flex-col md:flex-row gap-10 items-center overflow-hidden relative">
+<!-- Background decoration -->
+<div class="absolute -right-20 -bottom-20 w-80 h-80 bg-on-primary-container opacity-10 rounded-full blur-3xl"></div>
+<div class="flex-1 z-10">
+<h2 class="text-headline-lg font-headline-lg text-on-primary-container mb-4">Specialized Health Packages</h2>
+<p class="text-body-md font-body-md text-on-primary-container/80 mb-8 max-w-md">Preventive healthcare designed for different life stages. Invest in your long-term wellness today.</p>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div class="bg-surface-container-lowest p-6 rounded-xl clinical-shadow">
+<span class="material-symbols-outlined text-primary mb-2">favorite</span>
+<h4 class="text-label-lg font-label-lg text-primary mb-2">Executive Heart Check</h4>
+<p class="text-label-md font-label-md text-on-surface-variant mb-4">Complete cardiovascular screening for busy professionals.</p>
+<button class="text-secondary font-bold text-label-md">View Package</button>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl clinical-shadow">
+<span class="material-symbols-outlined text-primary mb-2">elderly</span>
+<h4 class="text-label-lg font-label-lg text-primary mb-2">Senior Citizen Health</h4>
+<p class="text-label-md font-label-md text-on-surface-variant mb-4">Comprehensive geriatric evaluation and mobility screening.</p>
+<button class="text-secondary font-bold text-label-md">View Package</button>
+</div>
+</div>
+</div>
+<div class="flex-1 w-full md:w-auto h-64 md:h-80 rounded-xl overflow-hidden relative shadow-lg">
+<div class="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent"></div>
+<img class="w-full h-full object-cover" data-alt="A professional and empathetic medical setting where a modern doctor in a crisp white coat is explaining health data on a tablet to an elderly couple. The environment is a brightly lit, clean, and airy clinical room with large windows showing soft daylight. The aesthetic is modern corporate healthcare with a palette of deep navy blues, soft whites, and surgical cyan accents, emphasizing trust and precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_KhZuAEIHOFlcJzJiW44FY-WPvxQBtIC_ViX4WbEAP1QsRQbIOOz9ljS0r2AZJoMHzorAmADMe-V8f7rlmxAqdMcqBfAWFv9McKJHNAVZrXAy5eWqD1vbIYwVAbqdS1RaQPDbxdYhywb72ilt_OjTGjH_MVyVSSBVWyQ0c4bMJInxWsjwvw0qtYrdSk5mac0jdmem7N2zFlCgNW1_awv_zxY1CXAzKCN_hnrmqBa3_BMEPc8WZgn7kO760fn3ksNMKkpFGp7qk0A">
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full bg-primary py-16 px-margin-desktop grid grid-cols-1 md:grid-cols-4 gap-gutter text-on-primary">
+<div class="md:col-span-1">
+<div class="text-headline-md font-headline-md font-bold text-on-primary mb-6">
+                St. Marina General
+            </div>
+<p class="text-body-md font-body-md text-on-primary/80 leading-relaxed">
+                Precision Care, Compassionate Healing. Delivering the highest standards of medical excellence in our community.
+            </p>
+</div>
+<div>
+<h4 class="text-label-lg font-label-lg mb-6 opacity-60 uppercase tracking-wider">Quick Links</h4>
+<ul class="space-y-4">
+<li class=""><a class="text-body-md font-body-md text-on-primary/80 hover:text-secondary-fixed-dim transition-all underline" href="#">Privacy Policy</a></li>
+<li class=""><a class="text-body-md font-body-md text-on-primary/80 hover:text-secondary-fixed-dim transition-all underline" href="#">Terms of Service</a></li>
+<li class=""><a class="text-body-md font-body-md text-on-primary/80 hover:text-secondary-fixed-dim transition-all underline" href="#">Patient Portal</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-label-lg font-label-lg mb-6 opacity-60 uppercase tracking-wider">Support</h4>
+<ul class="space-y-4">
+<li class=""><a class="text-body-md font-body-md text-on-primary/80 hover:text-secondary-fixed-dim transition-all underline" href="#">Contact Us</a></li>
+<li class=""><a class="text-body-md font-body-md text-on-primary/80 hover:text-secondary-fixed-dim transition-all underline" href="#">Careers</a></li>
+<li class=""><a class="text-body-md font-body-md text-on-primary/80 hover:text-secondary-fixed-dim transition-all underline" href="#">Find a Doctor</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-label-lg font-label-lg mb-6 opacity-60 uppercase tracking-wider">Contact</h4>
+<address class="not-italic text-body-md font-body-md text-on-primary/80 space-y-4">
+<p class="">123 Medical Plaza, Coastal District</p>
+<p class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">call</span> +1 (555) 000-1234</p>
+<p class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">mail</span> contact@stmarina.hospital</p>
+</address>
+</div>
+<div class="md:col-span-4 pt-12 mt-12 border-t border-on-primary/10 flex flex-col md:flex-row justify-between items-center gap-6">
+<p class="text-label-md font-label-md text-on-primary/80">© 2024 St. Marina General Hospital. All rights reserved. Precision Care, Compassionate Healing.</p>
+<div class="flex gap-6">
+<span class="material-symbols-outlined cursor-pointer hover:text-secondary-fixed-dim">face_nod</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-secondary-fixed-dim">link</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-secondary-fixed-dim">share</span>
+</div>
+</div>
+</footer>
+<!-- Floating Action Button - Search Contextual -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-secondary text-on-secondary rounded-full flex items-center justify-center shadow-xl hover:scale-110 transition-transform z-40 md:hidden">
+<span class="material-symbols-outlined">search</span>
+</button>
+
+
+</body></html>

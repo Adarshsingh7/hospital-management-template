@@ -1,0 +1,32 @@
+{
+  "project": {
+    "title": "Modern Healthcare Portal",
+    "id": "6706444761738713430"
+  },
+  "screens": [
+    {
+      "title": "Book an Appointment",
+      "id": "0d56e7555e3d4d8d930fdcd92900c17e",
+      "html": "stitch-source/book-an-appointment.html",
+      "image": "public/stitch/book-an-appointment.png"
+    },
+    {
+      "title": "Medical Services & Specialities",
+      "id": "7ea44e5e5317473d8319bff783a6095b",
+      "html": "stitch-source/medical-services-specialities.html",
+      "image": "public/stitch/medical-services-specialities.png"
+    },
+    {
+      "title": "Hospital Homepage",
+      "id": "880f10ea57e444aaa7679ed52fe6ff03",
+      "html": "stitch-source/hospital-homepage.html",
+      "image": "public/stitch/hospital-homepage.png"
+    },
+    {
+      "title": "Contact Us",
+      "id": "23b29c284008483bb8a5a3a019c3b69e",
+      "html": "stitch-source/contact-us.html",
+      "image": "public/stitch/contact-us.png"
+    }
+  ]
+}

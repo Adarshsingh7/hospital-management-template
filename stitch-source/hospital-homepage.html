@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>St. Marina General | Compassionate Care, Clinical Excellence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed-dim": "#5dd8e2",
+                        "secondary": "#006970",
+                        "surface-container-high": "#e2e8f8",
+                        "tertiary-container": "#87001a",
+                        "on-primary-container": "#83aef5",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#ffb3b1",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed": "#410007",
+                        "on-secondary-container": "#006e75",
+                        "on-surface": "#151c27",
+                        "on-tertiary-container": "#ff8b8a",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "primary-fixed": "#d6e3ff",
+                        "inverse-surface": "#2a313d",
+                        "inverse-on-surface": "#ebf1ff",
+                        "secondary-fixed": "#7df4ff",
+                        "secondary-container": "#7af1fc",
+                        "surface-dim": "#d3daea",
+                        "surface": "#f9f9ff",
+                        "inverse-primary": "#a9c7ff",
+                        "on-primary-fixed-variant": "#0e4686",
+                        "surface-container": "#e7eefe",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-low": "#f0f3ff",
+                        "outline": "#737781",
+                        "surface-bright": "#f9f9ff",
+                        "on-surface-variant": "#424750",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#a9c7ff",
+                        "outline-variant": "#c3c6d2",
+                        "error": "#ba1a1a",
+                        "on-background": "#151c27",
+                        "primary": "#002a58",
+                        "surface-container-highest": "#dce2f3",
+                        "background": "#f9f9ff",
+                        "surface-tint": "#305ea0",
+                        "tertiary": "#5d000f",
+                        "on-secondary-fixed-variant": "#004f54",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed-variant": "#92001d",
+                        "primary-container": "#004080",
+                        "on-secondary-fixed": "#002022",
+                        "on-primary-fixed": "#001b3d",
+                        "surface-variant": "#dce2f3",
+                        "tertiary-fixed": "#ffdad8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "margin-desktop": "48px",
+                        "base": "8px",
+                        "margin-mobile": "16px",
+                        "container-max": "1280px",
+                        "section-gap": "80px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "display-lg-mobile": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "500"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .fill-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+        .glass-nav {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-50 w-full flex justify-between items-center px-margin-desktop h-20 max-w-container-max mx-auto shadow-md bg-surface dark:bg-inverse-surface glass-nav">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">medical_services</span>
+<span class="text-headline-lg font-headline-lg font-bold text-primary dark:text-inverse-primary">St. Marina General</span>
+</div>
+<nav class="hidden md:flex gap-8">
+<a class="text-primary dark:text-inverse-primary font-bold border-b-2 border-primary dark:border-inverse-primary pb-1 font-label-lg text-label-lg transition-opacity duration-200" href="#">Home</a>
+<a class="text-on-surface-variant dark:text-outline-variant font-label-lg text-label-lg hover:text-secondary dark:hover:text-secondary-fixed-dim transition-colors duration-200" href="#">Services</a>
+<a class="text-on-surface-variant dark:text-outline-variant font-label-lg text-label-lg hover:text-secondary dark:hover:text-secondary-fixed-dim transition-colors duration-200" href="#">Doctors</a>
+<a class="text-on-surface-variant dark:text-outline-variant font-label-lg text-label-lg hover:text-secondary dark:hover:text-secondary-fixed-dim transition-colors duration-200" href="#">About Us</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="hidden lg:flex items-center gap-2 px-4 py-2 border-2 border-error text-error font-label-lg rounded-lg hover:bg-error hover:text-white transition-all">
+<span class="material-symbols-outlined">call</span> Emergency
+            </button>
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-lg font-label-lg hover:bg-primary-container transition-all shadow-sm">
+                Book Appointment
+            </button>
+</div>
+</header>
+<main>
+<!-- Hero Section -->
+<section class="relative h-[870px] w-full flex items-center overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover" data-alt="A wide-angle, high-resolution photograph of a state-of-the-art modern hospital building at dawn. The architecture features clean glass facades and warm interior lighting. In the foreground, a diverse team of professional medical staff in surgical scrubs and white coats walk confidently toward the entrance. The lighting is soft and hopeful, emphasizing a clinical yet compassionate atmosphere with deep navy and clinical white tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBr9RrxGGyOf8Ku3KJcXXsmPAENM9y9ffh8YU8WZ1pTFmO5-9cJz-Bl5347TOYwT5m-DoGjiENTQeRS9pN0VMfO6_0RNcXGGvg_qiYcfKi2GOcBTTDf3tY2GY7VfTWJMP_OyUDh0tEGB0Tv-pSdDNldx3CgVYSidS7GrXYb9Xw0z8fxoivcVDFKuixWay96FEBwOIvHgWE4iqjZNl06y4Aa4J6v79XFsmDpbvU7aIy65bVcpUwB-mHInlDNyx_UZjif71L-xLt-_A8"/>
+<div class="absolute inset-0 bg-gradient-to-r from-primary/80 via-primary/40 to-transparent"></div>
+</div>
+<div class="relative z-10 max-w-container-max mx-auto px-margin-desktop w-full">
+<div class="max-w-2xl">
+<h1 class="text-white font-display-lg text-display-lg mb-6 leading-tight">Compassionate Care, Clinical Excellence.</h1>
+<p class="text-primary-fixed font-body-lg text-body-lg mb-10 opacity-90">Combining advanced medical technology with a patient-first approach to provide the highest standards of healthcare for you and your family.</p>
+<div class="flex flex-wrap gap-4">
+<button class="bg-error text-white px-8 py-4 rounded-lg font-headline-md flex items-center gap-3 hover:scale-105 transition-transform shadow-xl">
+                            Book an Appointment
+                        </button>
+<button class="bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-4 rounded-lg font-headline-md flex items-center gap-3 hover:bg-white hover:text-primary transition-all">
+<span class="material-symbols-outlined text-error fill-icon">call</span> Emergency: 1066
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Quick Links (Bento Style) -->
+<section class="max-w-container-max mx-auto px-margin-desktop -mt-16 relative z-20 pb-section-gap">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<a class="group bg-surface-container-lowest p-8 rounded-xl shadow-lg border border-outline-variant hover:border-secondary transition-all flex items-center justify-between" href="#">
+<div>
+<span class="material-symbols-outlined text-4xl text-secondary mb-4">person_search</span>
+<h3 class="font-headline-md text-headline-md text-primary">Find a Doctor</h3>
+<p class="text-on-surface-variant text-label-lg">Search our expert medical team.</p>
+</div>
+<span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_forward</span>
+</a>
+<a class="group bg-surface-container-lowest p-8 rounded-xl shadow-lg border border-outline-variant hover:border-secondary transition-all flex items-center justify-between" href="#">
+<div>
+<span class="material-symbols-outlined text-4xl text-secondary mb-4">stethoscope</span>
+<h3 class="font-headline-md text-headline-md text-primary">View Specialties</h3>
+<p class="text-on-surface-variant text-label-lg">Explore our 40+ departments.</p>
+</div>
+<span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_forward</span>
+</a>
+<a class="group bg-surface-container-lowest p-8 rounded-xl shadow-lg border border-outline-variant hover:border-secondary transition-all flex items-center justify-between" href="#">
+<div>
+<span class="material-symbols-outlined text-4xl text-secondary mb-4">health_and_safety</span>
+<h3 class="font-headline-md text-headline-md text-primary">Health Checkups</h3>
+<p class="text-on-surface-variant text-label-lg">Book your annual wellness screening.</p>
+</div>
+<span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_forward</span>
+</a>
+</div>
+</section>
+<!-- Why Choose Us? -->
+<section class="bg-surface-container-low py-section-gap">
+<div class="max-w-container-max mx-auto px-margin-desktop grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+<div class="relative">
+<div class="aspect-square rounded-2xl overflow-hidden shadow-2xl">
+<img class="w-full h-full object-cover" data-alt="A macro close-up of a modern robotic surgical arm in a clean, sterile operating room. The lighting is cool, surgical cyan, emphasizing high-tech precision and clinical advancement. The background is softly blurred, showing professional surgeons in scrubs monitoring high-resolution digital displays. The overall mood is one of extreme technological authority and safety." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOjQcjEbC-QdAvuis7MAI3YqDQY5GmkHolkgoxq5fneImtdJCPSFH78wMm6LW2x9o7UL4qjTmdDCk_m0zg49JG5KgYy72AjXsPCcv8cXcFWxZ0Lc8WnoVtgYW2wov5sqfD9RN7qWuidGquKWt_PL8Msq6HJwEiNqyv-DA1WlZzoatxw0ORDrHAvMVRckB3J8SASYptpGZpxwOGGSwy5PdxRxBgQWeLhTquGSnOhb4k2giN0HSw3JX76kV7AzdgqZeQBiZ8jFg0Too"/>
+</div>
+<div class="absolute -bottom-8 -right-8 bg-primary text-on-primary p-10 rounded-xl shadow-xl hidden md:block">
+<div class="text-4xl font-bold mb-2">25+</div>
+<div class="text-label-lg opacity-80 uppercase tracking-widest">Years of Excellence</div>
+</div>
+</div>
+<div>
+<span class="text-secondary font-label-lg uppercase tracking-widest mb-4 block">Our Commitment</span>
+<h2 class="text-display-lg text-primary mb-8 font-display-lg">Why Patients Trust St. Marina</h2>
+<div class="space-y-8">
+<div class="flex gap-6">
+<div class="w-16 h-16 shrink-0 bg-white shadow-md rounded-lg flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-3xl">emergency</span>
+</div>
+<div>
+<h4 class="font-headline-md text-headline-md text-primary mb-2">24/7 Emergency Care</h4>
+<p class="text-on-surface-variant">Our Level-1 Trauma center is staffed round-the-clock with critical care specialists and immediate response teams.</p>
+</div>
+</div>
+<div class="flex gap-6">
+<div class="w-16 h-16 shrink-0 bg-white shadow-md rounded-lg flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-3xl">precision_manufacturing</span>
+</div>
+<div>
+<h4 class="font-headline-md text-headline-md text-primary mb-2">Advanced Technology</h4>
+<p class="text-on-surface-variant">Utilizing the latest AI-driven diagnostic tools and minimally invasive robotic surgical systems for faster recovery.</p>
+</div>
+</div>
+<div class="flex gap-6">
+<div class="w-16 h-16 shrink-0 bg-white shadow-md rounded-lg flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-3xl">groups</span>
+</div>
+<div>
+<h4 class="font-headline-md text-headline-md text-primary mb-2">Expert Medical Board</h4>
+<p class="text-on-surface-variant">Access to world-renowned doctors and consultants across all major medical and surgical disciplines.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Featured Specialties -->
+<section class="py-section-gap max-w-container-max mx-auto px-margin-desktop">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+<div>
+<span class="text-secondary font-label-lg uppercase tracking-widest mb-4 block">Medical Excellence</span>
+<h2 class="text-headline-lg font-headline-lg text-primary">Featured Specialties</h2>
+</div>
+<button class="text-primary font-label-lg flex items-center gap-2 hover:gap-4 transition-all">
+                    View All Departments <span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Cardiology -->
+<div class="p-8 rounded-xl bg-surface border border-outline-variant hover:shadow-xl hover:-translate-y-2 transition-all cursor-pointer">
+<div class="w-14 h-14 bg-secondary-container text-on-secondary-container rounded-lg flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-3xl">cardiology</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-primary mb-3">Cardiology</h4>
+<p class="text-on-surface-variant text-label-lg mb-6">World-class heart care focusing on diagnostics and complex interventions.</p>
+<span class="text-secondary font-label-lg">Learn More</span>
+</div>
+<!-- Orthopaedics -->
+<div class="p-8 rounded-xl bg-surface border border-outline-variant hover:shadow-xl hover:-translate-y-2 transition-all cursor-pointer">
+<div class="w-14 h-14 bg-secondary-container text-on-secondary-container rounded-lg flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-3xl">orthopedics</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-primary mb-3">Orthopaedics</h4>
+<p class="text-on-surface-variant text-label-lg mb-6">Advanced joint replacements and sports medicine with rehab support.</p>
+<span class="text-secondary font-label-lg">Learn More</span>
+</div>
+<!-- Oncology -->
+<div class="p-8 rounded-xl bg-surface border border-outline-variant hover:shadow-xl hover:-translate-y-2 transition-all cursor-pointer">
+<div class="w-14 h-14 bg-secondary-container text-on-secondary-container rounded-lg flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-3xl">oncology</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-primary mb-3">Oncology</h4>
+<p class="text-on-surface-variant text-label-lg mb-6">Comprehensive cancer care including radiation, chemo, and immunotherapy.</p>
+<span class="text-secondary font-label-lg">Learn More</span>
+</div>
+<!-- Neurology -->
+<div class="p-8 rounded-xl bg-surface border border-outline-variant hover:shadow-xl hover:-translate-y-2 transition-all cursor-pointer">
+<div class="w-14 h-14 bg-secondary-container text-on-secondary-container rounded-lg flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-3xl">neurology</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-primary mb-3">Neurology</h4>
+<p class="text-on-surface-variant text-label-lg mb-6">Specialized care for disorders of the brain and nervous system.</p>
+<span class="text-secondary font-label-lg">Learn More</span>
+</div>
+</div>
+</section>
+<!-- Testimonials (Asymmetric Layout) -->
+<section class="bg-primary text-on-primary py-section-gap overflow-hidden">
+<div class="max-w-container-max mx-auto px-margin-desktop">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+<div class="lg:col-span-5">
+<h2 class="text-display-lg font-display-lg mb-6">Patient Stories</h2>
+<p class="text-on-primary-container text-body-lg mb-8 opacity-80">Hear from our patients about their journey to recovery and the care they received at St. Marina.</p>
+<div class="flex gap-4">
+<button class="p-3 rounded-full border border-white/20 hover:bg-white/10 transition-colors" id="prevTest">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<button class="p-3 rounded-full border border-white/20 hover:bg-white/10 transition-colors" id="nextTest">
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="lg:col-span-7">
+<div class="relative flex gap-6 overflow-hidden pb-8">
+<!-- Card 1 -->
+<div class="min-w-full md:min-w-[500px] bg-white/5 backdrop-blur-lg p-10 rounded-2xl border border-white/10">
+<span class="material-symbols-outlined text-secondary-fixed text-6xl mb-6 opacity-30">format_quote</span>
+<p class="text-xl italic leading-relaxed mb-8">"The surgical team was incredible. From the moment I arrived in the emergency ward to my discharge after knee surgery, the care was world-class. I felt safe and informed every step of the way."</p>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A portrait of a smiling middle-aged man in casual attire, looking healthy and vibrant. The background is a soft, natural garden setting with warm afternoon sunlight. The photography style is sharp and professional, conveying a sense of relief and successful recovery. Colors are warm and naturalistic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAa6Lr8N0D5l1Fh24o6sifmAiqdgjEWQgkk7xOodx7MY3_IbEKyKNcCChixi_X4wbBN27gj43vJaCTnfhTi5vO_Kyb8ZqylPjPViymph1g4Fv4_pVXkPNjaX8NP-z_C4kfPJ9rGkxqE5hzihwsF0HjyuSbwKzgw7bGv4rgYZ4pCF_X7RCgZ2f__AX-zYYavxfDYVGcgW1aalxWMAMuYFac0fO-E29BsKcO0Pexb_fbFA_jQG9zi5_5fdM0BkGRhnZrIs4umXyUmTVQ"/>
+</div>
+<div>
+<div class="font-bold">Robert M. Chen</div>
+<div class="text-label-md opacity-60">Orthopaedic Patient</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Latest News -->
+<section class="py-section-gap max-w-container-max mx-auto px-margin-desktop">
+<h2 class="text-headline-lg font-headline-lg text-primary mb-12">Latest from Our Hospital</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<article class="group cursor-pointer">
+<div class="rounded-xl overflow-hidden mb-6 aspect-video">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A modern medical research laboratory with scientists in white lab coats working with high-tech microscopes and glowing blue monitors. The room is exceptionally clean, with a sterile white and surgical cyan aesthetic. The image conveys professional progress and clinical innovation in medical science. High-key lighting, professional laboratory photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBF8OKF9d5GN9fCm7tX0nZY0XmY3HP1K7p9-wRF3CbWQDmm8T7h6g5TptlKSnvjEDAaVUQvG-Zi2B6YrIq5kvwOj-ZJVWqXfh6SZ-8-FRVQN3VKLHJjT0OGtraKXB2cLXdVVDTHb9JfyIGqmVz-Snlld4qIhcJyhLm9E4GPOVPUU_jyCyPjHi_PnurzTIUcN3mmk-7jYf2yjYkurFMNaKN01AEmdcyC3aGKrjylUFZXhuPSoql61XaUJLOaTa4sTKhv8zb3Mv7CMtM"/>
+</div>
+<span class="text-secondary font-label-md mb-2 block">June 15, 2024</span>
+<h4 class="font-headline-md text-headline-md text-primary mb-3 group-hover:text-secondary transition-colors">St. Marina Launches New AI-Driven Diagnostic Suite</h4>
+<p class="text-on-surface-variant text-label-lg line-clamp-2">The new wing will integrate artificial intelligence to provide faster and more accurate heart scans...</p>
+</article>
+<article class="group cursor-pointer">
+<div class="rounded-xl overflow-hidden mb-6 aspect-video">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A close-up of a doctor's hand holding a small, glowing digital medical device over a patient's arm. The lighting is warm and reassuring, focused on the interaction between the healthcare professional and the patient. The aesthetic is clean and modern, highlighting portable medical technology and personalized care. Shallow depth of field with a focus on the technology and the gentle touch." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_K2qqJZZbCMEAju2rYeXWavQVKp2zDQ9_3zsRez4O_36FyJ8CYfJ6LSyTiTnCq0I62JQ0NZEasWw4dQklSdkcmuUKjtIx0d7lC_bNvO0-wnXJtE-fUZK8W10c0ySycnp1xvWeMTMT-YwgtQcq436SsOQOiDa1cKLZ9D4Vl1s-diV8NnmpRnpcRTh0N4w8xBS66NykpOWnM6kD1-XLfQLk7nyH4vcis0twRDmbbEy2iVmbaqlFKUsxGPEHF07IZ62b_Rc3usRVVTQ"/>
+</div>
+<span class="text-secondary font-label-md mb-2 block">May 28, 2024</span>
+<h4 class="font-headline-md text-headline-md text-primary mb-3 group-hover:text-secondary transition-colors">Our Annual Health Awareness Camp: A Huge Success</h4>
+<p class="text-on-surface-variant text-label-lg line-clamp-2">Over 5,000 residents participated in our free health screenings and wellness seminars held across the city...</p>
+</article>
+<article class="group cursor-pointer">
+<div class="rounded-xl overflow-hidden mb-6 aspect-video">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A diverse group of cheerful medical professionals—doctors, nurses, and technicians—standing together in a brightly lit hospital corridor. They are wearing clean, colorful scrubs and white coats, looking directly into the camera with confident, warm smiles. The background shows a clean, modern hospital environment with soft recessed lighting and glass partitions. The mood is highly positive and unified." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzjKmpeOoBmSz9oWujUn_9q46ZjcggrEo1fomU3yRQAkvZ5CIHBpQktE8WhOglrdsm6UlStx3cpUSDuqSz5PxnbJPJiO84T-pcesFs1uh21vJSvWXyxvcKSka8vcORS_CnIIshChlHiII9-oGWY-BDZ34fPrxkVpVqrcRgraEjcbiSzlgs1_6rWfzC1lTcjUvYHXwvaPC3pqX7Z1yChGpK1l8dN5IyKAFO3dl5CXXyUBBh74cxv6b9rsPRwVL66siiV1npStaX8Sk"/>
+</div>
+<span class="text-secondary font-label-md mb-2 block">May 10, 2024</span>
+<h4 class="font-headline-md text-headline-md text-primary mb-3 group-hover:text-secondary transition-colors">Recognizing Excellence: Nursing Awards 2024</h4>
+<p class="text-on-surface-variant text-label-lg line-clamp-2">Celebrating the dedicated nursing staff who go above and beyond for patient care and comfort daily...</p>
+</article>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-primary dark:bg-surface-container-highest text-on-primary dark:text-on-surface w-full py-section-gap px-margin-desktop grid grid-cols-1 md:grid-cols-4 gap-gutter border-t border-outline-variant dark:border-outline">
+<div class="md:col-span-1">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-white text-3xl">medical_services</span>
+<span class="text-headline-md font-headline-md font-bold text-on-primary dark:text-on-surface">St. Marina</span>
+</div>
+<p class="text-on-primary/70 dark:text-on-surface-variant mb-6 text-label-lg">Precision Care, Compassionate Healing. Leading the future of medical excellence since 1999.</p>
+<div class="flex gap-4">
+<a class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary transition-colors" href="#"><span class="material-symbols-outlined">public</span></a>
+<a class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary transition-colors" href="#"><span class="material-symbols-outlined">mail</span></a>
+<a class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary transition-colors" href="#"><span class="material-symbols-outlined">call</span></a>
+</div>
+</div>
+<div>
+<h5 class="text-secondary-fixed dark:text-secondary font-bold mb-6 font-label-lg">Hospital Links</h5>
+<ul class="space-y-4">
+<li><a class="text-on-primary/80 dark:text-on-surface-variant hover:text-secondary-fixed-dim dark:hover:text-secondary underline transition-all text-label-md font-label-md" href="#">Home</a></li>
+<li><a class="text-on-primary/80 dark:text-on-surface-variant hover:text-secondary-fixed-dim dark:hover:text-secondary underline transition-all text-label-md font-label-md" href="#">View Specialities</a></li>
+<li><a class="text-on-primary/80 dark:text-on-surface-variant hover:text-secondary-fixed-dim dark:hover:text-secondary underline transition-all text-label-md font-label-md" href="#">Careers</a></li>
+<li><a class="text-on-primary/80 dark:text-on-surface-variant hover:text-secondary-fixed-dim dark:hover:text-secondary underline transition-all text-label-md font-label-md" href="#">Patient Portal</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-secondary-fixed dark:text-secondary font-bold mb-6 font-label-lg">Support</h5>
+<ul class="space-y-4">
+<li><a class="text-on-primary/80 dark:text-on-surface-variant hover:text-secondary-fixed-dim dark:hover:text-secondary underline transition-all text-label-md font-label-md" href="#">Privacy Policy</a></li>
+<li><a class="text-on-primary/80 dark:text-on-surface-variant hover:text-secondary-fixed-dim dark:hover:text-secondary underline transition-all text-label-md font-label-md" href="#">Terms of Service</a></li>
+<li><a class="text-on-primary/80 dark:text-on-surface-variant hover:text-secondary-fixed-dim dark:hover:text-secondary underline transition-all text-label-md font-label-md" href="#">Contact Us</a></li>
+<li><a class="text-on-primary/80 dark:text-on-surface-variant hover:text-secondary-fixed-dim dark:hover:text-secondary underline transition-all text-label-md font-label-md" href="#">FAQs</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-secondary-fixed dark:text-secondary font-bold mb-6 font-label-lg">Emergency Contact</h5>
+<div class="bg-white/10 p-6 rounded-xl border border-white/10">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-error fill-icon">emergency</span>
+<span class="text-xl font-bold">1066</span>
+</div>
+<p class="text-label-md opacity-70">24/7 Dispatch Center. Immediate medical assistance is just a call away.</p>
+</div>
+</div>
+<div class="md:col-span-4 mt-section-gap pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6">
+<p class="text-label-md opacity-60">© 2024 St. Marina General Hospital. All rights reserved. Precision Care, Compassionate Healing.</p>
+<div class="flex items-center gap-8 opacity-60 grayscale brightness-200">
+<span class="text-label-md font-bold">JCI ACCREDITED</span>
+<span class="text-label-md font-bold">ISO 9001</span>
+<span class="text-label-md font-bold">NABH CERTIFIED</span>
+</div>
+</div>
+</footer>
+<script>
+        // Simple interactive elements
+        document.addEventListener('DOMContentLoaded', () => {
+            const buttons = document.querySelectorAll('button, a');
+            buttons.forEach(btn => {
+                btn.addEventListener('mousedown', () => {
+                    btn.classList.add('opacity-80');
+                    setTimeout(() => btn.classList.remove('opacity-80'), 150);
+                });
+            });
+
+            // Smooth reveal on scroll logic (simplified)
+            const observerOptions = {
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('translate-y-0', 'opacity-100');
+                        entry.target.classList.remove('translate-y-10', 'opacity-0');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('section > div').forEach(el => {
+                el.classList.add('transition-all', 'duration-700', 'translate-y-10', 'opacity-0');
+                observer.observe(el);
+            });
+        });
+    </script>
+</body></html>

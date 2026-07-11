@@ -29,35 +29,35 @@ export default function HomePage() {
     <>
       <SiteHeader activePath="/" />
       <main className="pb-24">
-        <section className="relative overflow-hidden">
-          <div className="absolute inset-0">
+        <section className="relative overflow-hidden rounded-sm sm:mx-20">
+          <div className="absolute inset-0 rounded-sm">
             <Image
-              src="https://images.unsplash.com/photo-1586773860418-d3b3de97e683?auto=format&fit=crop&q=80&w=1600&h=900"
+              src="/hero.jpeg"
               alt="V.K. Medical Center Clinic"
               fill
               priority
-              className="object-cover"
+              className="rounded-sm object-cover object-center"
               sizes="100vw"
             />
             <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(211,47,47,0.78),rgba(13,71,161,0.65),rgba(0,0,0,0.15))]" />
           </div>
-          <div className="site-container relative flex min-h-[36rem] items-center py-24 md:min-h-[44rem]">
-            <div className="max-w-3xl space-y-7 text-white">
+          <div className="site-container relative flex min-h-[22rem] items-center py-12 sm:min-h-[26rem] sm:py-16 md:min-h-[44rem] md:py-24">
+            <div className="max-w-3xl space-y-5 text-white md:space-y-7">
               <span className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-4 py-1 text-sm font-semibold tracking-[0.22em] uppercase text-white/80 backdrop-blur">
-                V.K. Medical Center • Akbarpur
+                V.K. Medical Center &middot; Akbarpur
               </span>
-              <h1 className="max-w-2xl text-4xl font-extrabold leading-tight md:text-6xl">
+              <h1 className="max-w-2xl text-3xl font-extrabold leading-tight sm:text-4xl md:text-6xl">
                 Expert Consultations, Patient-First Care.
               </h1>
-              <p className="max-w-2xl text-lg leading-8 text-rose-50/90 md:text-xl">
+              <p className="max-w-2xl text-base leading-7 text-rose-50/90 sm:text-lg sm:leading-8 md:text-xl">
                 Bringing senior specialists from AIIMS Delhi & KGMU Lucknow to Akbarpur. Expert medical consultations for gastrointestinal and neurological conditions.
               </p>
-              <div className="flex flex-wrap gap-4">
-                <Link className="btn-primary bg-white text-[var(--color-primary)] hover:bg-rose-50" href="/book-appointment">
+              <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
+                <Link className="btn-primary justify-center bg-white text-[var(--color-primary)] hover:bg-rose-50 sm:justify-start" href="/book-appointment">
                   <CalendarCheck2 className="h-5 w-5" />
                   Book OPD Appointment
                 </Link>
-                <a className="btn-glass" href="tel:+919450987101">
+                <a className="btn-glass justify-center sm:justify-start" href="tel:+919450987101">
                   <Phone className="h-5 w-5" />
                   Call: +91 9450987101
                 </a>
@@ -103,7 +103,7 @@ export default function HomePage() {
           <div className="relative">
             <div className="relative aspect-[0.95] overflow-hidden rounded-[2rem] shadow-[var(--shadow-strong)]">
               <Image
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOjQcjEbC-QdAvuis7MAI3YqDQY5GmkHolkgoxq5fneImtdJCPSFH78wMm6LW2x9o7UL4qjTmdDCk_m0zg49JG5KgYy72AjXsPCcv8cXcFWxZ0Lc8WnoVtgYW2wov5sqfD9RN7qWuidGquKWt_PL8Msq6HJwEiNqyv-DA1WlZzoatxw0ORDrHAvMVRckB3J8SASYptpGZpxwOGGSwy5PdxRxBgQWeLhTquGSnOhb4k2giN0HSw3JX76kV7AzdgqZeQBiZ8jFg0Too"
+                src="/machine.jpeg"
                 alt="Robotic surgery suite"
                 fill
                 className="object-cover"
@@ -200,7 +200,7 @@ export default function HomePage() {
             </div>
             <article className="rounded-[2rem] border border-white/10 bg-white/7 p-8 shadow-[0_24px_60px_rgba(0,0,0,0.25)] backdrop-blur-md md:p-10">
               <p className="text-5xl leading-none text-[var(--color-secondary-fixed)]">
-                “
+                &ldquo;
               </p>
               <p className="mt-5 text-xl leading-9 text-white/92">
                 {patientStory.quote}

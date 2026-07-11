@@ -1,10 +1,15 @@
+"use client";
+
+import { useState } from "react";
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { ArrowRight, Mail, Menu, Phone, Share2 } from "lucide-react";
+import { ArrowRight, Mail, Menu, Phone, Share2, X } from "lucide-react";
 import { navigation } from "@/lib/site-data";
 import { VKLogo } from "./vk-logo";
 
 export function SiteHeader({ activePath }: { activePath: string }) {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <header className="sticky top-0 z-50 border-b border-[color:color-mix(in_oklab,var(--color-outline-variant)_55%,white)] bg-[color:color-mix(in_oklab,var(--color-surface)_86%,white)]/90 backdrop-blur-xl">
       <div className="site-container flex h-20 items-center justify-between gap-6">
@@ -30,9 +35,6 @@ export function SiteHeader({ activePath }: { activePath: string }) {
           })}
         </nav>
         <div className="hidden items-center gap-3 md:flex">
-          <Link href="/admin/login" className="btn-outline border-[var(--color-outline-variant)] text-[var(--color-primary)] px-4 py-2 text-sm font-semibold hover:bg-[var(--color-surface-container-high)]">
-            Admin
-          </Link>
           <a href="tel:+919450987101" className="btn-outline px-4 py-2 text-sm font-semibold">
             Call: +91 9450987101
           </a>
@@ -42,12 +44,56 @@ export function SiteHeader({ activePath }: { activePath: string }) {
         </div>
         <button
           type="button"
-          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[var(--color-outline-variant)] text-[var(--color-primary)] md:hidden"
-          aria-label="Open navigation"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[var(--color-outline-variant)] text-[var(--color-primary)] md:hidden focus:outline-none"
+          aria-label="Toggle navigation"
+          onClick={() => setIsOpen(!isOpen)}
         >
-          <Menu className="h-5 w-5" />
+          {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
       </div>
+
+      {/* Mobile navigation panel */}
+      {isOpen && (
+        <div className="border-t border-[color:color-mix(in_oklab,var(--color-outline-variant)_55%,white)] bg-[color:color-mix(in_oklab,var(--color-surface)_96%,white)] py-6 md:hidden">
+          <div className="site-container flex flex-col gap-6">
+            <nav className="flex flex-col gap-4">
+              {navigation.map((item) => {
+                const active = item.href === activePath;
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setIsOpen(false)}
+                    className={`text-xs font-bold uppercase tracking-[0.18em] py-2 transition ${
+                      active
+                        ? "text-[var(--color-primary)] border-l-2 border-[var(--color-primary)] pl-3"
+                        : "text-[var(--color-on-surface-variant)] hover:text-[var(--color-secondary)] pl-3"
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
+            </nav>
+            <div className="flex flex-col gap-3 pt-4 border-t border-[color:color-mix(in_oklab,var(--color-outline-variant)_55%,white)]">
+              <a 
+                href="tel:+919450987101" 
+                onClick={() => setIsOpen(false)}
+                className="btn-outline w-full justify-center py-2.5 text-sm font-semibold text-center"
+              >
+                Call: +91 9450987101
+              </a>
+              <Link 
+                href="/book-appointment" 
+                onClick={() => setIsOpen(false)}
+                className="btn-primary w-full justify-center py-2.5 text-sm text-center"
+              >
+                Book Appointment
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
     </header>
   );
 }
@@ -78,9 +124,9 @@ export function SiteFooter() {
             links={[
               { href: "/", label: "Home" },
               { href: "/services", label: "View Specialities" },
+              { href: "/about", label: "About Us" },
               { href: "/book-appointment", label: "Book Appointment" },
               { href: "/contact", label: "Contact Us" },
-              { href: "/admin/login", label: "Admin Portal" },
             ]}
           />
           <FooterColumn

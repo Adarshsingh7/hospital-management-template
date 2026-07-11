@@ -19,6 +19,8 @@ import {
   ArrowUpDown,
   FileSpreadsheet,
   Mail,
+  Plus,
+  Trash2,
 } from "lucide-react";
 import { VKLogo } from "@/components/vk-logo";
 
@@ -35,12 +37,38 @@ interface AppointmentData {
   createdAt: string;
 }
 
+interface DepartmentData {
+  _id: string;
+  name: string;
+  icon: string;
+  createdAt: string;
+}
+
+interface DoctorData {
+  _id: string;
+  name: string;
+  department: string;
+  specialty: string;
+  subspecialty?: string;
+  availability?: string;
+  rating?: string;
+  image?: string;
+  opdDays: number[];
+  startTime: string;
+  endTime: string;
+}
+
 export default function AdminDashboardPage() {
   const router = useRouter();
   const [appointments, setAppointments] = useState<AppointmentData[]>([]);
   const [filteredAppointments, setFilteredAppointments] = useState<AppointmentData[]>([]);
+  const [departments, setDepartments] = useState<DepartmentData[]>([]);
+  const [doctors, setDoctors] = useState<DoctorData[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  // Tab State
+  const [activeTab, setActiveTab] = useState<"appointments" | "departments" | "doctors">("appointments");
 
   // Search & Filter state
   const [searchTerm, setSearchTerm] = useState("");
@@ -50,13 +78,29 @@ export default function AdminDashboardPage() {
   // Selected appointment for detail modal
   const [activeAppointment, setActiveAppointment] = useState<AppointmentData | null>(null);
 
+  // New Department Form State
+  const [newDeptName, setNewDeptName] = useState("");
+  const [newDeptIcon, setNewDeptIcon] = useState("calendar");
+  const [deptSubmitting, setDeptSubmitting] = useState(false);
+
+  // New Doctor Form State
+  const [newDocName, setNewDocName] = useState("");
+  const [newDocDept, setNewDocDept] = useState("");
+  const [newDocSpecialty, setNewDocSpecialty] = useState("");
+  const [newDocSubspecialty, setNewDocSubspecialty] = useState("");
+  const [newDocAvailability, setNewDocAvailability] = useState("");
+  const [newDocRating, setNewDocRating] = useState("4.8");
+  const [newDocImage, setNewDocImage] = useState("");
+  const [newDocOpdDays, setNewDocOpdDays] = useState<number[]>([]);
+  const [newDocStartTime, setNewDocStartTime] = useState("11:00 AM");
+  const [newDocEndTime, setNewDocEndTime] = useState("03:30 PM");
+  const [docSubmitting, setDocSubmitting] = useState(false);
+
   // Fetch appointments
   const fetchAppointments = useCallback(async () => {
     try {
-      setLoading(true);
       const res = await fetch("/api/appointments");
       if (res.status === 401) {
-        // Redirect to login if unauthorized
         router.push("/admin/login");
         return;
       }
@@ -71,14 +115,44 @@ export default function AdminDashboardPage() {
     } catch (err) {
       console.error(err);
       setError("Failed to fetch data. Make sure server is running and database is connected.");
-    } finally {
-      setLoading(false);
     }
   }, [router]);
 
-  useEffect(() => {
-    fetchAppointments();
+  // Fetch departments
+  const fetchDepartments = async () => {
+    try {
+      const res = await fetch("/api/departments");
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setDepartments(data.departments);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // Fetch doctors
+  const fetchDoctors = async () => {
+    try {
+      const res = await fetch("/api/doctors");
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setDoctors(data.doctors);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const loadAllData = useCallback(async () => {
+    setLoading(true);
+    await Promise.all([fetchAppointments(), fetchDepartments(), fetchDoctors()]);
+    setLoading(false);
   }, [fetchAppointments]);
+
+  useEffect(() => {
+    loadAllData();
+  }, [loadAllData]);
 
   // Filter and search appointments
   useEffect(() => {
@@ -121,6 +195,128 @@ export default function AdminDashboardPage() {
     }
   };
 
+  // Handle Add Department
+  const handleAddDept = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newDeptName.trim()) return;
+    setDeptSubmitting(true);
+    setError("");
+    try {
+      const res = await fetch("/api/departments", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: newDeptName.trim(), icon: newDeptIcon }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setNewDeptName("");
+        fetchDepartments();
+      } else {
+        setError(data.error || "Failed to create department");
+      }
+    } catch (err) {
+      console.error(err);
+      setError("Failed to create department");
+    } finally {
+      setDeptSubmitting(false);
+    }
+  };
+
+  // Handle Delete Department
+  const handleDeleteDept = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this department? This will not delete appointments but doctors in this department will need their department re-assigned.")) return;
+    try {
+      const res = await fetch(`/api/departments?id=${id}`, { method: "DELETE" });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        fetchDepartments();
+      } else {
+        setError(data.error || "Failed to delete department");
+      }
+    } catch (err) {
+      console.error(err);
+      setError("Failed to delete department");
+    }
+  };
+
+  // Handle Add Doctor
+  const handleAddDoctor = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newDocName.trim() || !newDocDept || !newDocSpecialty.trim() || newDocOpdDays.length === 0 || !newDocStartTime || !newDocEndTime) {
+      setError("Please fill all required doctor fields and select at least one OPD day.");
+      return;
+    }
+    setDocSubmitting(true);
+    setError("");
+
+    const dayNamesShort = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const activeDaysText = newDocOpdDays.map((d) => dayNamesShort[d]).join(", ");
+    const computedAvailability = `Every ${activeDaysText} (${newDocStartTime} - ${newDocEndTime})`;
+
+    try {
+      const res = await fetch("/api/doctors", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: newDocName.trim(),
+          department: newDocDept,
+          specialty: newDocSpecialty.trim(),
+          subspecialty: newDocSubspecialty.trim(),
+          availability: newDocAvailability.trim() || computedAvailability,
+          rating: newDocRating || "4.8",
+          image: newDocImage.trim() || undefined,
+          opdDays: newDocOpdDays,
+          startTime: newDocStartTime,
+          endTime: newDocEndTime,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setNewDocName("");
+        setNewDocDept("");
+        setNewDocSpecialty("");
+        setNewDocSubspecialty("");
+        setNewDocAvailability("");
+        setNewDocRating("4.8");
+        setNewDocImage("");
+        setNewDocOpdDays([]);
+        fetchDoctors();
+      } else {
+        setError(data.error || "Failed to create doctor");
+      }
+    } catch (err) {
+      console.error(err);
+      setError("Failed to create doctor");
+    } finally {
+      setDocSubmitting(false);
+    }
+  };
+
+  // Handle Delete Doctor
+  const handleDeleteDoctor = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this doctor?")) return;
+    try {
+      const res = await fetch(`/api/doctors?id=${id}`, { method: "DELETE" });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        fetchDoctors();
+      } else {
+        setError(data.error || "Failed to delete doctor");
+      }
+    } catch (err) {
+      console.error(err);
+      setError("Failed to delete doctor");
+    }
+  };
+
+  const handleOpdDayToggle = (day: number) => {
+    if (newDocOpdDays.includes(day)) {
+      setNewDocOpdDays(newDocOpdDays.filter((d) => d !== day));
+    } else {
+      setNewDocOpdDays([...newDocOpdDays, day].sort());
+    }
+  };
+
   // Helper to format date strings
   const formatBookedDate = (dateString: string) => {
     const d = new Date(dateString);
@@ -134,10 +330,6 @@ export default function AdminDashboardPage() {
 
   // Calculate Metrics
   const totalCount = appointments.length;
-  const gastroCount = appointments.filter((a) => a.department === "Gastroenterology").length;
-  const neuroCount = appointments.filter((a) => a.department === "Neurosurgery").length;
-  const orthoCount = appointments.filter((a) => a.department === "Orthopedics").length;
-  const gynoCount = appointments.filter((a) => a.department === "Gynecology").length;
 
   // Format today's date for comparison
   const todayStr = new Date().toLocaleDateString("en-US", {
@@ -146,6 +338,11 @@ export default function AdminDashboardPage() {
     year: "numeric",
   });
   const todayCount = appointments.filter((a) => a.date === todayStr).length;
+
+  // Count per department dynamically
+  const getDeptCount = (deptName: string) => {
+    return appointments.filter((a) => a.department.toLowerCase() === deptName.toLowerCase()).length;
+  };
 
   const toggleSort = () => {
     setSortOrder((prev) => (prev === "desc" ? "asc" : "desc"));
@@ -198,167 +395,552 @@ export default function AdminDashboardPage() {
           </div>
         )}
 
-        {/* Dashboard Overview Cards */}
-        <section className="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
-          <MetricCard
-            title="Total Booked"
-            value={totalCount}
-            icon={<Users className="h-5 w-5 text-indigo-600" />}
-            colorClass="bg-indigo-50 border-indigo-100"
-          />
-          <MetricCard
-            title="Gastro (OPD)"
-            value={gastroCount}
-            icon={<HeartPulse className="h-5 w-5 text-rose-600" />}
-            colorClass="bg-rose-50 border-rose-100"
-          />
-          <MetricCard
-            title="Neuro (OPD)"
-            value={neuroCount}
-            icon={<ShieldPlus className="h-5 w-5 text-blue-600" />}
-            colorClass="bg-blue-50 border-blue-100"
-          />
-          <MetricCard
-            title="Ortho (OPD)"
-            value={orthoCount}
-            icon={<Stethoscope className="h-5 w-5 text-emerald-600" />}
-            colorClass="bg-emerald-50 border-emerald-100"
-          />
-          <MetricCard
-            title="Gyno (OPD)"
-            value={gynoCount}
-            icon={<CalendarDays className="h-5 w-5 text-purple-600" />}
-            colorClass="bg-purple-50 border-purple-100"
-          />
-          <MetricCard
-            title="Today's OPD"
-            value={todayCount}
-            icon={<Activity className="h-5 w-5 text-amber-600" />}
-            colorClass="bg-amber-50 border-amber-100"
-            subtext="Reserved for today"
-          />
-        </section>
+        {/* Tab Navigation */}
+        <div className="flex border-b border-[var(--color-outline-variant)]">
+          <button
+            onClick={() => {
+              setActiveTab("appointments");
+              setError("");
+            }}
+            className={`px-6 py-3 font-semibold text-sm transition-all border-b-2 cursor-pointer ${
+              activeTab === "appointments"
+                ? "border-[var(--color-primary)] text-[var(--color-primary)] font-bold"
+                : "border-transparent text-[var(--color-outline)] hover:text-[var(--color-primary)]"
+            }`}
+          >
+            Appointments List
+          </button>
+          <button
+            onClick={() => {
+              setActiveTab("departments");
+              setError("");
+            }}
+            className={`px-6 py-3 font-semibold text-sm transition-all border-b-2 cursor-pointer ${
+              activeTab === "departments"
+                ? "border-[var(--color-primary)] text-[var(--color-primary)] font-bold"
+                : "border-transparent text-[var(--color-outline)] hover:text-[var(--color-primary)]"
+            }`}
+          >
+            Manage Departments
+          </button>
+          <button
+            onClick={() => {
+              setActiveTab("doctors");
+              setError("");
+            }}
+            className={`px-6 py-3 font-semibold text-sm transition-all border-b-2 cursor-pointer ${
+              activeTab === "doctors"
+                ? "border-[var(--color-primary)] text-[var(--color-primary)] font-bold"
+                : "border-transparent text-[var(--color-outline)] hover:text-[var(--color-primary)]"
+            }`}
+          >
+            Manage Doctors
+          </button>
+        </div>
 
-        {/* Filters and Controls */}
-        <section className="surface-card p-4 md:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div className="flex-1 relative">
-            <Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-[var(--color-outline)]" />
-            <input
-              type="text"
-              placeholder="Search by Patient Name or Contact Number..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="form-field pl-10"
-            />
-          </div>
+        {/* Tab Content */}
+        {activeTab === "appointments" && (
+          <>
+            {/* Dashboard Overview Cards */}
+            <section className="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
+              <MetricCard
+                title="Total Booked"
+                value={totalCount}
+                icon={<Users className="h-5 w-5 text-indigo-600" />}
+                colorClass="bg-indigo-50 border-indigo-100"
+              />
+              {departments.slice(0, 4).map((dept, index) => {
+                const colors = [
+                  "bg-rose-50 border-rose-100 text-rose-600",
+                  "bg-blue-50 border-blue-100 text-blue-600",
+                  "bg-emerald-50 border-emerald-100 text-emerald-600",
+                  "bg-purple-50 border-purple-100 text-purple-600",
+                ];
+                const colorSelected = colors[index % colors.length];
+                const count = getDeptCount(dept.name);
+                return (
+                  <MetricCard
+                    key={dept._id}
+                    title={`${dept.name.slice(0, 10)}...`}
+                    value={count}
+                    icon={
+                      dept.icon === "neurology" ? (
+                        <ShieldPlus className="h-5 w-5" />
+                      ) : dept.icon === "orthopedics" ? (
+                        <Stethoscope className="h-5 w-5" />
+                      ) : dept.icon === "cardiology" ? (
+                        <HeartPulse className="h-5 w-5" />
+                      ) : (
+                        <CalendarDays className="h-5 w-5" />
+                      )
+                    }
+                    colorClass={colorSelected.split(" ").slice(0, 2).join(" ")}
+                  />
+                );
+              })}
+              <MetricCard
+                title="Today's OPD"
+                value={todayCount}
+                icon={<Activity className="h-5 w-5 text-amber-600" />}
+                colorClass="bg-amber-50 border-amber-100"
+                subtext="Reserved for today"
+              />
+            </section>
 
-          <div className="flex flex-wrap items-center gap-3">
-            <div className="flex items-center gap-2">
-              <Filter className="h-4 w-4 text-[var(--color-outline)]" />
-              <span className="text-sm font-semibold text-[var(--color-outline)]">Department:</span>
-            </div>
-            <select
-              value={selectedDept}
-              onChange={(e) => setSelectedDept(e.target.value)}
-              className="form-field py-2.5 px-4 h-11 w-[185px] cursor-pointer"
-            >
-              <option value="All">All Specialities</option>
-              <option value="Gastroenterology">Gastroenterology</option>
-              <option value="Neurosurgery">Neurosurgery</option>
-              <option value="Orthopedics">Orthopedics</option>
-              <option value="Gynecology">Gynecology</option>
-            </select>
+            {/* Filters and Controls */}
+            <section className="surface-card p-4 md:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div className="flex-1 relative">
+                <Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-[var(--color-outline)]" />
+                <input
+                  type="text"
+                  placeholder="Search by Patient Name or Contact Number..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="form-field pl-10"
+                />
+              </div>
 
-            <button
-              onClick={toggleSort}
-              className="btn-outline flex items-center gap-2 h-11 px-4 cursor-pointer"
-              title="Toggle Booked Date Sort"
-            >
-              <ArrowUpDown className="h-4 w-4" />
-              <span className="text-sm">Sort: {sortOrder === "desc" ? "Newest" : "Oldest"}</span>
-            </button>
+              <div className="flex flex-wrap items-center gap-3">
+                <div className="flex items-center gap-2">
+                  <Filter className="h-4 w-4 text-[var(--color-outline)]" />
+                  <span className="text-sm font-semibold text-[var(--color-outline)]">Department:</span>
+                </div>
+                <select
+                  value={selectedDept}
+                  onChange={(e) => setSelectedDept(e.target.value)}
+                  className="form-field py-2.5 px-4 h-11 w-[185px] cursor-pointer"
+                >
+                  <option value="All">All Specialities</option>
+                  {departments.map((dept) => (
+                    <option key={dept._id} value={dept.name}>
+                      {dept.name}
+                    </option>
+                  ))}
+                </select>
 
-            <button
-              onClick={fetchAppointments}
-              className="btn-secondary h-11 flex items-center justify-center cursor-pointer"
-            >
-              Refresh
-            </button>
-          </div>
-        </section>
+                <button
+                  onClick={toggleSort}
+                  className="btn-outline flex items-center gap-2 h-11 px-4 cursor-pointer"
+                  title="Toggle Booked Date Sort"
+                >
+                  <ArrowUpDown className="h-4 w-4" />
+                  <span className="text-sm">Sort: {sortOrder === "desc" ? "Newest" : "Oldest"}</span>
+                </button>
 
-        {/* Appointment Table list */}
-        <section className="surface-card overflow-hidden p-0 border border-[var(--color-outline-variant)]">
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse text-sm">
-              <thead className="bg-[var(--color-surface-container-high)] text-[var(--color-primary)] border-b border-[var(--color-outline-variant)] font-bold uppercase tracking-wider text-2xs">
-                <tr>
-                  <th className="px-6 py-4">Booked Date</th>
-                  <th className="px-6 py-4">Patient Name</th>
-                  <th className="px-6 py-4">Contact Number</th>
-                  <th className="px-6 py-4">Department</th>
-                  <th className="px-6 py-4">OPD Doctor</th>
-                  <th className="px-6 py-4">Consultation Date & Slot</th>
-                  <th className="px-6 py-4">Reason</th>
-                  <th className="px-6 py-4 text-center">Action</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-[var(--color-outline-variant)]">
-                {filteredAppointments.length > 0 ? (
-                  filteredAppointments.map((app) => (
-                    <tr key={app._id} className="hover:bg-[var(--color-surface-container-low)] transition-colors">
-                      <td className="px-6 py-4 whitespace-nowrap text-[var(--color-outline)] font-mono text-xs">
-                        {formatBookedDate(app.createdAt)}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap font-semibold text-[var(--color-primary)]">
-                        {app.fullName}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-[var(--color-on-surface-variant)] font-semibold">
-                        {app.contactNumber}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <DeptBadge dept={app.department} />
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap font-medium text-[var(--color-primary)]">
-                        {app.doctor}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex flex-col">
-                          <span className="font-semibold flex items-center gap-1.5 text-[var(--color-primary)]">
-                            <Calendar className="h-3.5 w-3.5 text-[var(--color-secondary)]" />
-                            {app.date}
-                          </span>
-                          <span className="text-xs text-[var(--color-outline)] flex items-center gap-1.5 mt-0.5">
-                            <Clock className="h-3.5 w-3.5" />
-                            {app.timeSlot}
-                          </span>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 max-w-[200px] truncate text-[var(--color-on-surface-variant)]">
-                        {app.reason ? app.reason : <span className="text-[var(--color-outline)] italic">None</span>}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-center">
-                        <button
-                          onClick={() => setActiveAppointment(app)}
-                          className="text-xs font-semibold px-3 py-1.5 rounded-lg border border-[var(--color-outline-variant)] hover:bg-[var(--color-primary)] hover:text-white transition cursor-pointer"
-                        >
-                          View details
-                        </button>
-                      </td>
+                <button
+                  onClick={fetchAppointments}
+                  className="btn-secondary h-11 flex items-center justify-center cursor-pointer"
+                >
+                  Refresh
+                </button>
+              </div>
+            </section>
+
+            {/* Appointment Table list */}
+            <section className="surface-card overflow-hidden p-0 border border-[var(--color-outline-variant)]">
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse text-sm">
+                  <thead className="bg-[var(--color-surface-container-high)] text-[var(--color-primary)] border-b border-[var(--color-outline-variant)] font-bold uppercase tracking-wider text-2xs">
+                    <tr>
+                      <th className="px-6 py-4">Booked Date</th>
+                      <th className="px-6 py-4">Patient Name</th>
+                      <th className="px-6 py-4">Contact Number</th>
+                      <th className="px-6 py-4">Department</th>
+                      <th className="px-6 py-4">OPD Doctor</th>
+                      <th className="px-6 py-4">Consultation Date & Slot</th>
+                      <th className="px-6 py-4">Reason</th>
+                      <th className="px-6 py-4 text-center">Action</th>
                     </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan={8} className="px-6 py-12 text-center text-[var(--color-outline)]">
-                      <FileSpreadsheet className="h-10 w-10 mx-auto text-[var(--color-outline-variant)] mb-2" />
-                      No appointments matching the current filters.
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+                  </thead>
+                  <tbody className="divide-y divide-[var(--color-outline-variant)]">
+                    {filteredAppointments.length > 0 ? (
+                      filteredAppointments.map((app) => (
+                        <tr key={app._id} className="hover:bg-[var(--color-surface-container-low)] transition-colors">
+                          <td className="px-6 py-4 whitespace-nowrap text-[var(--color-outline)] font-mono text-xs">
+                            {formatBookedDate(app.createdAt)}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap font-semibold text-[var(--color-primary)]">
+                            {app.fullName}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-[var(--color-on-surface-variant)] font-semibold">
+                            {app.contactNumber}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <DeptBadge dept={app.department} />
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap font-medium text-[var(--color-primary)]">
+                            {app.doctor}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <div className="flex flex-col">
+                              <span className="font-semibold flex items-center gap-1.5 text-[var(--color-primary)]">
+                                <Calendar className="h-3.5 w-3.5 text-[var(--color-secondary)]" />
+                                {app.date}
+                              </span>
+                              <span className="text-xs text-[var(--color-outline)] flex items-center gap-1.5 mt-0.5">
+                                <Clock className="h-3.5 w-3.5" />
+                                {app.timeSlot}
+                              </span>
+                            </div>
+                          </td>
+                          <td className="px-6 py-4 max-w-[200px] truncate text-[var(--color-on-surface-variant)]">
+                            {app.reason ? app.reason : <span className="text-[var(--color-outline)] italic">None</span>}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-center">
+                            <button
+                              onClick={() => setActiveAppointment(app)}
+                              className="text-xs font-semibold px-3 py-1.5 rounded-lg border border-[var(--color-outline-variant)] hover:bg-[var(--color-primary)] hover:text-white transition cursor-pointer"
+                            >
+                              View details
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan={8} className="px-6 py-12 text-center text-[var(--color-outline)]">
+                          <FileSpreadsheet className="h-10 w-10 mx-auto text-[var(--color-outline-variant)] mb-2" />
+                          No appointments matching the current filters.
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          </>
+        )}
+
+        {activeTab === "departments" && (
+          <div className="grid gap-8 lg:grid-cols-[1fr_2fr]">
+            {/* Add Department Form */}
+            <div className="surface-card p-6 h-fit">
+              <h3 className="text-xl font-bold text-[var(--color-primary)] mb-6">
+                Add New Department
+              </h3>
+              <form onSubmit={handleAddDept} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-semibold text-[var(--color-on-surface)] mb-2">
+                    Department Name
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={newDeptName}
+                    onChange={(e) => setNewDeptName(e.target.value)}
+                    className="form-field"
+                    placeholder="e.g. Neurology"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-[var(--color-on-surface)] mb-2">
+                    Icon Style
+                  </label>
+                  <select
+                    value={newDeptIcon}
+                    onChange={(e) => setNewDeptIcon(e.target.value)}
+                    className="form-field cursor-pointer"
+                  >
+                    <option value="cardiology">Cardiology / Gastro (Heart)</option>
+                    <option value="neurology">Neurology / Neurosurgery (Brain)</option>
+                    <option value="orthopedics">Orthopedics (Joints/Activity)</option>
+                    <option value="calendar">Gynecology / General (Calendar)</option>
+                  </select>
+                </div>
+                <button
+                  type="submit"
+                  disabled={deptSubmitting}
+                  className="btn-primary w-full justify-center py-3 mt-6 cursor-pointer"
+                >
+                  {deptSubmitting ? "Saving..." : "Create Department"}
+                </button>
+              </form>
+            </div>
+
+            {/* Departments Table List */}
+            <div className="surface-card p-0 overflow-hidden border border-[var(--color-outline-variant)]">
+              <div className="p-6 border-b border-[var(--color-outline-variant)] bg-[var(--color-surface-container-high)]">
+                <h3 className="text-xl font-bold text-[var(--color-primary)]">
+                  Current Departments
+                </h3>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse text-sm">
+                  <thead className="bg-[var(--color-surface-container-high)] text-[var(--color-primary)] border-b border-[var(--color-outline-variant)] font-bold uppercase tracking-wider text-2xs">
+                    <tr>
+                      <th className="px-6 py-4">Name</th>
+                      <th className="px-6 py-4">Icon Type</th>
+                      <th className="px-6 py-4 text-center">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-[var(--color-outline-variant)]">
+                    {departments.length > 0 ? (
+                      departments.map((dept) => (
+                        <tr key={dept._id} className="hover:bg-[var(--color-surface-container-low)] transition-colors">
+                          <td className="px-6 py-4 font-semibold text-[var(--color-primary)]">
+                            {dept.name}
+                          </td>
+                          <td className="px-6 py-4 font-mono text-xs text-[var(--color-outline)]">
+                            {dept.icon}
+                          </td>
+                          <td className="px-6 py-4 text-center">
+                            <button
+                              onClick={() => handleDeleteDept(dept._id)}
+                              className="text-xs font-semibold px-3 py-1.5 rounded-lg border border-rose-200 text-rose-700 hover:bg-rose-50 flex items-center gap-1 mx-auto transition cursor-pointer"
+                            >
+                              <Trash2 className="h-3.5 w-3.5" />
+                              Delete
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan={3} className="px-6 py-12 text-center text-[var(--color-outline)]">
+                          No departments created yet.
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
-        </section>
+        )}
+
+        {activeTab === "doctors" && (
+          <div className="grid gap-8 lg:grid-cols-[1.2fr_2fr]">
+            {/* Add Doctor Form */}
+            <div className="surface-card p-6 h-fit">
+              <h3 className="text-xl font-bold text-[var(--color-primary)] mb-6">
+                Add New Specialist
+              </h3>
+              <form onSubmit={handleAddDoctor} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-semibold text-[var(--color-on-surface)] mb-1">
+                    Doctor Name
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={newDocName}
+                    onChange={(e) => setNewDocName(e.target.value)}
+                    className="form-field"
+                    placeholder="e.g. Dr. Amit Sharma"
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-semibold text-[var(--color-on-surface)] mb-1">
+                      Department
+                    </label>
+                    <select
+                      required
+                      value={newDocDept}
+                      onChange={(e) => setNewDocDept(e.target.value)}
+                      className="form-field cursor-pointer"
+                    >
+                      <option value="">Select Dept</option>
+                      {departments.map((dept) => (
+                        <option key={dept._id} value={dept.name}>
+                          {dept.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-[var(--color-on-surface)] mb-1">
+                      Rating
+                    </label>
+                    <input
+                      type="text"
+                      value={newDocRating}
+                      onChange={(e) => setNewDocRating(e.target.value)}
+                      className="form-field"
+                      placeholder="4.8"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-[var(--color-on-surface)] mb-1">
+                    Specialty Title
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={newDocSpecialty}
+                    onChange={(e) => setNewDocSpecialty(e.target.value)}
+                    className="form-field"
+                    placeholder="e.g. Orthopedic Surgeon • MBBS, MS (Orthopedics)"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-[var(--color-on-surface)] mb-1">
+                    Subspecialty / Focus Area
+                  </label>
+                  <input
+                    type="text"
+                    value={newDocSubspecialty}
+                    onChange={(e) => setNewDocSubspecialty(e.target.value)}
+                    className="form-field"
+                    placeholder="e.g. Bone, Joint Replacement & Fracture Specialist"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-[var(--color-on-surface)] mb-1">
+                    OPD Hours (Start & End Time)
+                  </label>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <span className="text-2xs text-[var(--color-outline)] block mb-1">Start Time</span>
+                      <input
+                        type="text"
+                        required
+                        value={newDocStartTime}
+                        onChange={(e) => setNewDocStartTime(e.target.value)}
+                        className="form-field"
+                        placeholder="e.g. 11:00 AM"
+                      />
+                    </div>
+                    <div>
+                      <span className="text-2xs text-[var(--color-outline)] block mb-1">End Time</span>
+                      <input
+                        type="text"
+                        required
+                        value={newDocEndTime}
+                        onChange={(e) => setNewDocEndTime(e.target.value)}
+                        className="form-field"
+                        placeholder="e.g. 03:30 PM"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-[var(--color-on-surface)] mb-2">
+                    Select Weekly OPD Days
+                  </label>
+                  <div className="flex flex-wrap gap-2">
+                    {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((dayName, index) => {
+                      const isActive = newDocOpdDays.includes(index);
+                      return (
+                        <button
+                          key={dayName}
+                          type="button"
+                          onClick={() => handleOpdDayToggle(index)}
+                          className={`px-3 py-1.5 text-xs font-semibold rounded-lg border transition cursor-pointer ${
+                            isActive
+                              ? "bg-[var(--color-primary)] text-white border-[var(--color-primary)]"
+                              : "bg-white text-[var(--color-on-surface)] border-[var(--color-outline-variant)] hover:border-[var(--color-primary)]"
+                          }`}
+                        >
+                          {dayName}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-[var(--color-on-surface)] mb-1">
+                    Doctor Image URL (Optional)
+                  </label>
+                  <input
+                    type="text"
+                    value={newDocImage}
+                    onChange={(e) => setNewDocImage(e.target.value)}
+                    className="form-field text-xs"
+                    placeholder="https://images.unsplash.com/..."
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={docSubmitting}
+                  className="btn-primary w-full justify-center py-3 mt-6 cursor-pointer"
+                >
+                  {docSubmitting ? "Saving..." : "Create Doctor"}
+                </button>
+              </form>
+            </div>
+
+            {/* Doctors List */}
+            <div className="surface-card p-0 overflow-hidden border border-[var(--color-outline-variant)]">
+              <div className="p-6 border-b border-[var(--color-outline-variant)] bg-[var(--color-surface-container-high)]">
+                <h3 className="text-xl font-bold text-[var(--color-primary)]">
+                  Current Doctors
+                </h3>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse text-sm">
+                  <thead className="bg-[var(--color-surface-container-high)] text-[var(--color-primary)] border-b border-[var(--color-outline-variant)] font-bold uppercase tracking-wider text-2xs">
+                    <tr>
+                      <th className="px-6 py-4">Specialist Info</th>
+                      <th className="px-6 py-4">Department</th>
+                      <th className="px-6 py-4">Timings / Days</th>
+                      <th className="px-6 py-4 text-center">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-[var(--color-outline-variant)]">
+                    {doctors.length > 0 ? (
+                      doctors.map((doc) => (
+                        <tr key={doc._id} className="hover:bg-[var(--color-surface-container-low)] transition-colors">
+                          <td className="px-6 py-4">
+                            <div className="flex items-center gap-3">
+                              {doc.image && (
+                                <img
+                                  src={doc.image}
+                                  alt={doc.name}
+                                  className="h-10 w-10 rounded-full object-cover border border-black/5 shrink-0"
+                                />
+                              )}
+                              <div>
+                                <div className="font-semibold text-[var(--color-primary)]">{doc.name}</div>
+                                <div className="text-xs text-[var(--color-outline)] truncate max-w-[180px]" title={doc.specialty}>
+                                  {doc.specialty}
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <DeptBadge dept={doc.department} />
+                          </td>
+                          <td className="px-6 py-4">
+                            <div className="text-xs font-semibold text-[var(--color-primary)]">
+                              {doc.availability || `${doc.startTime} - ${doc.endTime}`}
+                            </div>
+                            <div className="text-2xs text-[var(--color-outline)] mt-0.5">
+                              Days: {doc.opdDays.map((d: number) => ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][d]).join(", ")}
+                            </div>
+                          </td>
+                          <td className="px-6 py-4 text-center whitespace-nowrap">
+                            <button
+                              onClick={() => handleDeleteDoctor(doc._id)}
+                              className="text-xs font-semibold px-3 py-1.5 rounded-lg border border-rose-200 text-rose-700 hover:bg-rose-50 flex items-center gap-1 mx-auto transition cursor-pointer"
+                            >
+                              <Trash2 className="h-3.5 w-3.5" />
+                              Delete
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan={4} className="px-6 py-12 text-center text-[var(--color-outline)]">
+                          No doctors created yet.
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        )}
       </main>
 
       {/* Appointment Details Modal */}
@@ -471,7 +1053,7 @@ function MetricCard({
         <span className="text-xs font-bold uppercase tracking-wider text-[var(--color-primary)]/80">
           {title}
         </span>
-        <div className="rounded-xl bg-white p-2 shadow-sm border border-black/5">
+        <div className="rounded-xl bg-white p-2 shadow-sm border border-black/5 text-[var(--color-primary)]">
           {icon}
         </div>
       </div>
@@ -490,30 +1072,31 @@ function MetricCard({
 }
 
 function DeptBadge({ dept }: { dept: string }) {
-  if (dept === "Gastroenterology") {
+  const lowercaseDept = dept.toLowerCase();
+  if (lowercaseDept.includes("gastro")) {
     return (
       <span className="inline-flex items-center rounded-full bg-rose-50 border border-rose-200 px-2.5 py-0.5 text-xs font-bold text-rose-700">
-        Gastroenterology
+        {dept}
       </span>
     );
   }
-  if (dept === "Neurosurgery") {
+  if (lowercaseDept.includes("neuro")) {
     return (
       <span className="inline-flex items-center rounded-full bg-blue-50 border border-blue-200 px-2.5 py-0.5 text-xs font-bold text-blue-700">
-        Neurosurgery
+        {dept}
       </span>
     );
   }
-  if (dept === "Orthopedics") {
+  if (lowercaseDept.includes("ortho")) {
     return (
       <span className="inline-flex items-center rounded-full bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 text-xs font-bold text-emerald-700">
-        Orthopedics
+        {dept}
       </span>
     );
   }
   return (
     <span className="inline-flex items-center rounded-full bg-purple-50 border border-purple-200 px-2.5 py-0.5 text-xs font-bold text-purple-700">
-      Gynecology
+      {dept}
     </span>
   );
 }

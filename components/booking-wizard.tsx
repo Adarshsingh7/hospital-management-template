@@ -18,12 +18,7 @@ import {
   PartyPopper,
   Mail,
 } from "lucide-react";
-import {
-  appointmentDepartments,
-  appointmentDoctors,
-  appointmentTimeSlots,
-  bookingSteps,
-} from "@/lib/site-data";
+import { bookingSteps } from "@/lib/site-data";
 
 interface AppointmentData {
   _id?: string;
@@ -45,14 +40,40 @@ interface DateItem {
   isPast: boolean;
 }
 
+interface DepartmentData {
+  _id: string;
+  name: string;
+  icon?: string;
+  createdAt?: string;
+}
+
+interface DoctorData {
+  _id: string;
+  name: string;
+  department: string;
+  specialty: string;
+  subspecialty?: string;
+  availability?: string;
+  rating?: string;
+  image?: string;
+  opdDays: number[];
+  startTime: string;
+  endTime: string;
+}
+
 export function BookingWizard() {
   const [currentStep, setCurrentStep] = useState(0);
 
+  // Database Data States
+  const [dbDepartments, setDbDepartments] = useState<DepartmentData[]>([]);
+  const [dbDoctors, setDbDoctors] = useState<DoctorData[]>([]);
+  const [dbLoading, setDbLoading] = useState(true);
+
   // Form State
-  const [selectedDepartment, setSelectedDepartment] = useState("Gastroenterology");
+  const [selectedDepartment, setSelectedDepartment] = useState("");
   const [selectedDoctor, setSelectedDoctor] = useState("");
   const [selectedDateStr, setSelectedDateStr] = useState("");
-  const [selectedTimeSlot, setSelectedTimeSlot] = useState("11:30 AM");
+  const [selectedTimeSlot, setSelectedTimeSlot] = useState("");
   const [fullName, setFullName] = useState("");
   const [contactNumber, setContactNumber] = useState("");
   const [email, setEmail] = useState("");
@@ -63,64 +84,168 @@ export function BookingWizard() {
   const [error, setError] = useState("");
   const [successData, setSuccessData] = useState<AppointmentData | null>(null);
 
-  // Generate next 14 days from today
+  // Dynamic Available Dates State
   const [availableDates, setAvailableDates] = useState<DateItem[]>([]);
 
+  // Fetch departments & doctors from backend database
   useEffect(() => {
-    const dates = [];
-    const today = new Date();
-    // Default to today if none selected
-    const defaultDateStr = today.toLocaleDateString("en-US", {
+    const loadData = async () => {
+      try {
+        setDbLoading(true);
+        const [deptsRes, docsRes] = await Promise.all([
+          fetch("/api/departments"),
+          fetch("/api/doctors"),
+        ]);
+        const deptsData = await deptsRes.json();
+        const docsData = await docsRes.json();
+        if (deptsRes.ok && deptsData.success) {
+          setDbDepartments(deptsData.departments);
+        }
+        if (docsRes.ok && docsData.success) {
+          setDbDoctors(docsData.doctors);
+        }
+      } catch (err) {
+        console.error("Failed to load departments/doctors:", err);
+      } finally {
+        setDbLoading(false);
+      }
+    };
+    loadData();
+  }, []);
+
+  // Helper to parse "11:00 AM" into 24h hours/minutes
+  const parseTimeString = (timeStr: string): { hour: number; minute: number } => {
+    const match = timeStr.match(/^(\d+):(\d+)\s*(AM|PM)$/i);
+    if (!match) return { hour: 9, minute: 0 };
+    let hour = parseInt(match[1], 10);
+    const minute = parseInt(match[2], 10);
+    const ampm = match[3].toUpperCase();
+    if (ampm === "PM" && hour !== 12) hour += 12;
+    if (ampm === "AM" && hour === 12) hour = 0;
+    return { hour, minute };
+  };
+
+  // Generate 30-minute slots dynamically based on active doctor's timings
+  const getTimeSlots = (): { time: string; disabled: boolean }[] => {
+    if (!selectedDoctor) return [];
+    const docObj = dbDoctors.find((d) => d.name === selectedDoctor);
+    if (!docObj) return [];
+
+    const start = parseTimeString(docObj.startTime);
+    const end = parseTimeString(docObj.endTime);
+
+    const startMinutes = start.hour * 60 + start.minute;
+    const endMinutes = end.hour * 60 + end.minute;
+
+    const slots = [];
+    let currentMinutes = startMinutes;
+
+    const now = new Date();
+    const todayFormatted = now.toLocaleDateString("en-US", {
       day: "numeric",
       month: "long",
       year: "numeric",
     });
-    setSelectedDateStr(defaultDateStr);
 
-    for (let i = 0; i < 14; i++) {
+    const isSelectedDateToday = selectedDateStr === todayFormatted;
+    const nowHour = now.getHours();
+    const nowMinute = now.getMinutes();
+    const currentTotalMinutes = nowHour * 60 + nowMinute;
+
+    while (currentMinutes < endMinutes) {
+      const hr = Math.floor(currentMinutes / 60);
+      const min = currentMinutes % 60;
+
+      const ampm = hr >= 12 ? "PM" : "AM";
+      const displayHour = hr % 12 === 0 ? 12 : hr % 12;
+      const displayMin = min < 10 ? `0${min}` : min;
+      const timeString = `${displayHour}:${displayMin} ${ampm}`;
+
+      const isPastSlot = isSelectedDateToday && currentMinutes <= currentTotalMinutes;
+
+      slots.push({
+        time: timeString,
+        disabled: isPastSlot,
+      });
+
+      currentMinutes += 30;
+    }
+    return slots;
+  };
+
+  // Generate next 30 days filtered by doctor's opdDays
+  useEffect(() => {
+    if (!selectedDoctor) return;
+    const docObj = dbDoctors.find((d) => d.name === selectedDoctor);
+    if (!docObj) return;
+
+    const activeOpdDays = docObj.opdDays || [];
+    const dates: DateItem[] = [];
+    const today = new Date();
+
+    for (let i = 0; i < 30; i++) {
       const d = new Date(today);
       d.setDate(today.getDate() + i);
-      const formatted = d.toLocaleDateString("en-US", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-      });
-      const label = d.toLocaleDateString("en-US", { weekday: "short" });
-      dates.push({
-        date: d,
-        formatted,
-        label,
-        isPast: false,
-      });
+      const dayOfWeek = d.getDay();
+
+      if (activeOpdDays.includes(dayOfWeek)) {
+        const formatted = d.toLocaleDateString("en-US", {
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        });
+        const label = d.toLocaleDateString("en-US", { weekday: "short" });
+        dates.push({
+          date: d,
+          formatted,
+          label,
+          isPast: false,
+        });
+      }
     }
     setAvailableDates(dates);
-  }, []);
+
+    if (dates.length > 0) {
+      const stillValid = dates.some((d) => d.formatted === selectedDateStr);
+      if (!stillValid) {
+        setSelectedDateStr(dates[0].formatted);
+        setSelectedTimeSlot("");
+      }
+    } else {
+      setSelectedDateStr("");
+      setSelectedTimeSlot("");
+    }
+  }, [selectedDoctor, dbDoctors, selectedDateStr]);
+
+  // Helper to check if step is allowed to be visited
+  const canNavigateToStep = (index: number) => {
+    if (index === 0) return true;
+    if (index === 1) return selectedDepartment !== "";
+    if (index === 2) return selectedDepartment !== "" && selectedDoctor !== "";
+    if (index === 3) return selectedDepartment !== "" && selectedDoctor !== "" && selectedDateStr !== "" && selectedTimeSlot !== "";
+    return false;
+  };
 
   // Filter doctors based on selected department
-  const filteredDoctors = appointmentDoctors.filter(
+  const filteredDoctors = dbDoctors.filter(
     (doc) => doc.department === selectedDepartment
   );
 
-  // Set default doctor when department changes
+  // Reset selected doctor when department changes
   useEffect(() => {
-    const docs = appointmentDoctors.filter((doc) => doc.department === selectedDepartment);
-    if (docs.length > 0) {
-      setSelectedDoctor(docs[0].name);
-    } else {
-      setSelectedDoctor("");
-    }
+    setSelectedDoctor("");
   }, [selectedDepartment]);
 
   // Handle department select
   const handleDepartmentSelect = (deptName: string) => {
     setSelectedDepartment(deptName);
-    if (currentStep === 0) setCurrentStep(1); // Advance to Doctor step
+    if (currentStep === 0) setCurrentStep(1);
   };
 
   // Handle doctor select
   const handleDoctorSelect = (docName: string) => {
     setSelectedDoctor(docName);
-    if (currentStep === 1) setCurrentStep(2); // Advance to Schedule step
+    if (currentStep === 1) setCurrentStep(2);
   };
 
   // Handle slot select
@@ -131,6 +256,7 @@ export function BookingWizard() {
   // Handle date select
   const handleDateSelect = (dateStr: string) => {
     setSelectedDateStr(dateStr);
+    setSelectedTimeSlot(""); // Reset slot choice when date changes
   };
 
   // Submit appointment
@@ -177,6 +303,17 @@ export function BookingWizard() {
       setLoading(false);
     }
   };
+
+  if (dbLoading) {
+    return (
+      <div className="flex items-center justify-center p-12 min-h-[400px]">
+        <div className="text-center">
+          <Loader2 className="h-10 w-10 text-[var(--color-primary)] animate-spin mx-auto" />
+          <p className="mt-4 text-sm font-semibold text-[var(--color-primary)]">Loading booking information...</p>
+        </div>
+      </div>
+    );
+  }
 
   // Success view
   if (successData) {
@@ -271,17 +408,19 @@ export function BookingWizard() {
               setReason("");
               setCurrentStep(0);
             }}
-            className="btn-primary justify-center px-6 py-3"
+            className="btn-primary justify-center px-6 py-3 cursor-pointer"
           >
             Book Another Appointment
           </button>
-          <Link href="/" className="btn-outline justify-center px-6 py-3">
+          <Link href="/" className="btn-outline justify-center px-6 py-3 cursor-pointer">
             Go to Homepage
           </Link>
         </div>
       </div>
     );
   }
+
+  const generatedTimeSlots = getTimeSlots();
 
   return (
     <div className="grid gap-8 lg:grid-cols-[280px_1fr]">
@@ -295,11 +434,19 @@ export function BookingWizard() {
             {bookingSteps.map((step, index) => {
               const active = index === currentStep;
               const completed = index < currentStep;
+              const clickable = canNavigateToStep(index);
               return (
                 <button
                   key={step}
-                  onClick={() => setCurrentStep(index)}
-                  className="flex items-center gap-4 text-left w-full hover:opacity-85 transition"
+                  disabled={!clickable}
+                  onClick={() => {
+                    if (clickable) {
+                      setCurrentStep(index);
+                    }
+                  }}
+                  className={`flex items-center gap-4 text-left w-full transition ${
+                    clickable ? "hover:opacity-85 cursor-pointer" : "opacity-50 cursor-not-allowed"
+                  }`}
                 >
                   <div
                     className={`flex h-11 w-11 items-center justify-center rounded-full border-2 text-sm font-bold transition ${
@@ -357,7 +504,7 @@ export function BookingWizard() {
               </span>
             </div>
             <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-              {appointmentDepartments.map((dept) => {
+              {dbDepartments.map((dept) => {
                 const isSelected = selectedDepartment === dept.name;
                 return (
                   <button
@@ -408,13 +555,15 @@ export function BookingWizard() {
                       {doc.rating}
                     </div>
                     <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-[1rem] bg-[var(--color-surface-container)]">
-                      <Image
-                        src={doc.image}
-                        alt={doc.name}
-                        fill
-                        className="object-cover"
-                        sizes="96px"
-                      />
+                      {doc.image && (
+                        <Image
+                          src={doc.image}
+                          alt={doc.name}
+                          fill
+                          className="object-cover"
+                          sizes="96px"
+                        />
+                      )}
                     </div>
                     <div className="flex-1">
                       <h3 className="text-lg font-semibold text-[var(--color-primary)]">
@@ -428,7 +577,7 @@ export function BookingWizard() {
                       </p>
                       <div className="mt-3 inline-flex items-center gap-2 text-xs font-semibold px-2 py-1 rounded bg-[var(--color-surface-container)] text-[var(--color-tertiary)]">
                         <Check className="h-3.5 w-3.5" />
-                        {doc.availability}
+                        {doc.availability || `${doc.startTime} - ${doc.endTime}`}
                       </div>
                     </div>
                   </article>
@@ -439,7 +588,7 @@ export function BookingWizard() {
               <button
                 type="button"
                 onClick={() => setCurrentStep(0)}
-                className="btn-outline"
+                className="btn-outline cursor-pointer"
               >
                 Back
               </button>
@@ -473,7 +622,7 @@ export function BookingWizard() {
                         key={item.formatted}
                         type="button"
                         onClick={() => handleDateSelect(item.formatted)}
-                        className={`rounded-xl p-3 flex flex-col items-center justify-center transition border ${
+                        className={`rounded-xl p-3 flex flex-col items-center justify-center transition border cursor-pointer ${
                           isSelected
                             ? "bg-[var(--color-primary)] font-semibold text-white border-[var(--color-primary)]"
                             : "bg-white text-[var(--color-on-surface)] border-[var(--color-outline-variant)] hover:border-[var(--color-primary)]"
@@ -500,7 +649,7 @@ export function BookingWizard() {
                   Available Slots for {selectedDateStr.split(",")[0]}
                 </div>
                 <div className="mt-4 grid grid-cols-2 gap-3 max-h-[300px] overflow-y-auto pr-2">
-                  {appointmentTimeSlots.map((slot) => {
+                  {generatedTimeSlots.map((slot) => {
                     const isSelected = selectedTimeSlot === slot.time;
                     return (
                       <button
@@ -527,14 +676,19 @@ export function BookingWizard() {
               <button
                 type="button"
                 onClick={() => setCurrentStep(1)}
-                className="btn-outline"
+                className="btn-outline cursor-pointer"
               >
                 Back
               </button>
               <button
                 type="button"
-                onClick={() => setCurrentStep(3)}
-                className="btn-secondary"
+                disabled={!selectedDateStr || !selectedTimeSlot}
+                onClick={() => {
+                  if (selectedDateStr && selectedTimeSlot) {
+                    setCurrentStep(3);
+                  }
+                }}
+                className={`btn-secondary cursor-pointer ${(!selectedDateStr || !selectedTimeSlot) ? "opacity-50 cursor-not-allowed" : ""}`}
               >
                 Continue
               </button>
@@ -639,14 +793,14 @@ export function BookingWizard() {
                 <button
                   type="button"
                   onClick={() => setCurrentStep(2)}
-                  className="btn-outline"
+                  className="btn-outline cursor-pointer"
                   disabled={loading}
                 >
                   Back
                 </button>
                 <button
                   type="submit"
-                  className="btn-danger flex items-center justify-center gap-2 min-w-[180px]"
+                  className="btn-danger flex items-center justify-center gap-2 min-w-[180px] cursor-pointer"
                   disabled={loading}
                 >
                   {loading ? (
@@ -668,8 +822,9 @@ export function BookingWizard() {
 }
 
 function DepartmentIcon({ name }: { name: string }) {
-  if (name === "Gastroenterology") return <HeartPulse className="h-6 w-6" />;
-  if (name === "Neurosurgery") return <ShieldPlus className="h-6 w-6" />;
-  if (name === "Orthopedics") return <Stethoscope className="h-6 w-6" />;
+  const lowercase = name.toLowerCase();
+  if (lowercase.includes("gastro")) return <HeartPulse className="h-6 w-6" />;
+  if (lowercase.includes("neuro")) return <ShieldPlus className="h-6 w-6" />;
+  if (lowercase.includes("ortho")) return <Stethoscope className="h-6 w-6" />;
   return <CalendarDays className="h-6 w-6" />;
 }

@@ -2,13 +2,14 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { ArrowRight, Mail, Menu, Phone, Share2 } from "lucide-react";
 import { navigation } from "@/lib/site-data";
+import { VKLogo } from "./vk-logo";
 
 export function SiteHeader({ activePath }: { activePath: string }) {
   return (
     <header className="sticky top-0 z-50 border-b border-[color:color-mix(in_oklab,var(--color-outline-variant)_55%,white)] bg-[color:color-mix(in_oklab,var(--color-surface)_86%,white)]/90 backdrop-blur-xl">
       <div className="site-container flex h-20 items-center justify-between gap-6">
-        <Link href="/" className="text-2xl font-bold tracking-tight text-[var(--color-primary)]">
-          St. Marina General
+        <Link href="/" className="flex items-center">
+          <VKLogo className="h-10 md:h-12 w-auto" />
         </Link>
         <nav className="hidden items-center gap-8 md:flex">
           {navigation.map((item) => {
@@ -17,7 +18,7 @@ export function SiteHeader({ activePath }: { activePath: string }) {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`text-sm font-semibold uppercase tracking-[0.18em] transition ${
+                className={`text-xs font-bold uppercase tracking-[0.18em] transition ${
                   active
                     ? "border-b-2 border-[var(--color-primary)] pb-1 text-[var(--color-primary)]"
                     : "text-[var(--color-on-surface-variant)] hover:text-[var(--color-secondary)]"
@@ -29,8 +30,11 @@ export function SiteHeader({ activePath }: { activePath: string }) {
           })}
         </nav>
         <div className="hidden items-center gap-3 md:flex">
-          <a href="tel:+18001066" className="btn-outline px-4 py-2 text-sm">
-            Emergency
+          <Link href="/admin/login" className="btn-outline border-[var(--color-outline-variant)] text-[var(--color-primary)] px-4 py-2 text-sm font-semibold hover:bg-[var(--color-surface-container-high)]">
+            Admin
+          </Link>
+          <a href="tel:+919450987101" className="btn-outline px-4 py-2 text-sm font-semibold">
+            Call: +91 9450987101
           </a>
           <Link href="/book-appointment" className="btn-primary px-4 py-2 text-sm">
             Book Appointment
@@ -50,67 +54,96 @@ export function SiteHeader({ activePath }: { activePath: string }) {
 
 export function SiteFooter() {
   return (
-    <footer className="bg-[var(--color-primary)] py-16 text-white">
-      <div className="site-container grid gap-10 md:grid-cols-4">
-        <div className="md:col-span-1">
-          <h2 className="text-2xl font-bold">St. Marina</h2>
-          <p className="mt-4 max-w-sm text-sm leading-7 text-blue-100/72">
-            Precision Care, Compassionate Healing. Leading the future of medical
-            excellence with accessible emergency, specialist, and preventive care.
-          </p>
-          <div className="mt-6 flex gap-3">
-            {[Share2, Mail, Phone].map((Icon) => (
-              <span
-                key={Icon.displayName}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white/85"
-              >
-                <Icon className="h-4 w-4" />
-              </span>
-            ))}
-          </div>
-        </div>
-        <FooterColumn
-          title="Hospital Links"
-          links={[
-            { href: "/", label: "Home" },
-            { href: "/services", label: "View Specialities" },
-            { href: "/book-appointment", label: "Book Appointment" },
-            { href: "/contact", label: "Contact Us" },
-          ]}
-        />
-        <FooterColumn
-          title="Support"
-          links={[
-            { href: "#", label: "Privacy Policy" },
-            { href: "#", label: "Terms of Service" },
-            { href: "#", label: "Patient Portal" },
-            { href: "#", label: "Careers" },
-          ]}
-        />
-        <div>
-          <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-100/70">
-            Emergency Contact
-          </h3>
-          <div className="mt-5 rounded-[1.5rem] border border-white/10 bg-white/10 p-6">
-            <div className="text-sm font-semibold uppercase tracking-[0.18em] text-blue-100/65">
-              24/7 Dispatch Center
-            </div>
-            <div className="mt-3 text-3xl font-bold">1066</div>
-            <p className="mt-3 text-sm leading-7 text-blue-100/74">
-              Immediate medical assistance is one call away.
+    <>
+      <footer className="bg-[var(--color-primary)] py-16 text-white">
+        <div className="site-container grid gap-10 md:grid-cols-4">
+          <div className="md:col-span-1">
+            <VKLogo className="h-12 w-auto mb-4" white={true} />
+            <p className="mt-4 max-w-sm text-sm leading-7 text-rose-100/75">
+              Super-specialty Gastroenterology and Neurosurgery consultations by KGMU and AIIMS Delhi alum specialists in Akbarpur, Ambedkar Nagar.
             </p>
+            <div className="mt-6 flex gap-3">
+              {[Share2, Mail, Phone].map((Icon, idx) => (
+                <span
+                  key={idx}
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white/85"
+                >
+                  <Icon className="h-4 w-4" />
+                </span>
+              ))}
+            </div>
+          </div>
+          <FooterColumn
+            title="Quick Links"
+            links={[
+              { href: "/", label: "Home" },
+              { href: "/services", label: "View Specialities" },
+              { href: "/book-appointment", label: "Book Appointment" },
+              { href: "/contact", label: "Contact Us" },
+              { href: "/admin/login", label: "Admin Portal" },
+            ]}
+          />
+          <FooterColumn
+            title="Specialities"
+            links={[
+              { href: "/services", label: "Gastroenterology" },
+              { href: "/services", label: "Neurosurgery" },
+              { href: "/services", label: "General Checkup" },
+            ]}
+          />
+          <div>
+            <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-rose-100/70">
+              Emergency & Booking
+            </h3>
+            <div className="mt-5 rounded-[1.5rem] border border-white/10 bg-white/10 p-6">
+              <div className="text-xs font-semibold uppercase tracking-[0.18em] text-rose-100/65">
+                OPD Booking Lines
+              </div>
+              <div className="mt-3 text-lg font-bold block">+91 9450987101</div>
+              <div className="text-lg font-bold block">+91 9839454508</div>
+              <p className="mt-3 text-xs leading-5 text-rose-100/70">
+                Akbarpur, Baskhari Road, near Kisan Nursery, Ambedkar Nagar.
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="site-container mt-14 flex flex-col gap-5 border-t border-white/10 pt-8 text-sm text-blue-100/65 md:flex-row md:items-center md:justify-between">
-        <p>© 2024 St. Marina General Hospital. All rights reserved.</p>
-        <div className="flex items-center gap-6 font-semibold tracking-[0.18em] uppercase">
-          <span>JCI Accredited</span>
-          <span>ISO 9001</span>
-          <span>NABH Certified</span>
+        <div className="site-container mt-14 flex flex-col gap-5 border-t border-white/10 pt-8 text-sm text-rose-100/65 md:flex-row md:items-center md:justify-between">
+          <p>© {new Date().getFullYear()} V.K. Medical Center. All rights reserved.</p>
+          <div className="flex items-center gap-6 font-semibold tracking-[0.18em] uppercase text-xs">
+            <span>AIIMS & KGMU Alumni</span>
+            <span>Quality Patient Care</span>
+            <span>Akbarpur, Ambedkar Nagar</span>
+          </div>
         </div>
+      </footer>
+
+      {/* Floating Action Buttons */}
+      <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3 sm:bottom-8 sm:right-8">
+        {/* WhatsApp Button */}
+        <a
+          href="https://wa.me/919450987101"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_4px_14px_rgba(37,211,102,0.38)] transition-all duration-300 hover:scale-110 hover:shadow-[0_6px_20px_rgba(37,211,102,0.5)] active:scale-95"
+          aria-label="Chat on WhatsApp"
+          title="Chat on WhatsApp"
+        >
+          <svg className="h-7 w-7" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.458 5.704 1.459h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+          </svg>
+        </a>
+
+        {/* Call Button */}
+        <a
+          href="tel:+919450987101"
+          className="flex h-14 w-14 items-center justify-center rounded-full bg-[#0066cc] text-white shadow-[0_4px_14px_rgba(0,102,204,0.38)] transition-all duration-300 hover:scale-110 hover:shadow-[0_6px_20px_rgba(0,102,204,0.5)] active:scale-95"
+          aria-label="Call Us"
+          title="Call Us"
+        >
+          <Phone className="h-6 w-6" />
+        </a>
       </div>
-    </footer>
+    </>
   );
 }
 
@@ -123,13 +156,13 @@ function FooterColumn({
 }) {
   return (
     <div>
-      <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-100/70">
+      <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-rose-100/70">
         {title}
       </h3>
       <ul className="mt-5 space-y-4">
         {links.map((link) => (
           <li key={link.label}>
-            <Link href={link.href} className="text-sm text-blue-100/80 underline transition hover:text-white">
+            <Link href={link.href} className="text-sm text-rose-100/80 underline transition hover:text-white">
               {link.label}
             </Link>
           </li>
@@ -148,9 +181,9 @@ export function PageHero({
 }) {
   return (
     <section className="relative overflow-hidden py-18">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(125,244,255,0.38),transparent_34%),radial-gradient(circle_at_80%_0%,rgba(214,227,255,0.8),transparent_36%),linear-gradient(180deg,rgba(249,249,255,0.96),rgba(240,243,255,0.92))]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(254,226,226,0.38),transparent_34%),radial-gradient(circle_at_80%_0%,rgba(219,234,254,0.8),transparent_36%),linear-gradient(180deg,rgba(254,254,254,0.96),rgba(243,244,246,0.92))]" />
       <div className="site-container relative py-8 text-center">
-        <h1 className="mx-auto max-w-4xl text-4xl font-extrabold tracking-tight text-[var(--color-primary)] md:text-6xl">
+        <h1 className="mx-auto max-w-4xl text-4xl font-extrabold tracking-tight text-[var(--color-primary)] md:text-5xl">
           {title}
         </h1>
         <p className="mx-auto mt-5 max-w-3xl text-base leading-8 text-[var(--color-on-surface-variant)] md:text-lg">

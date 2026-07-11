@@ -9,10 +9,10 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "St. Marina General",
-    template: "%s | St. Marina General",
+    default: "V.K. Medical Center | Gastroenterology & Neurosurgery",
+    template: "%s | V.K. Medical Center",
   },
-  description: "Modern healthcare portal built from Stitch screens.",
+  description: "Super-specialty Gastroenterology and Neurosurgery consultations by KGMU and AIIMS Delhi alum specialists in Akbarpur, Ambedkar Nagar. +91 9450987101, +91 9839454508.",
 };
 
 export default function RootLayout({

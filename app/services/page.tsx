@@ -85,8 +85,8 @@ export default function ServicesPage() {
             </div>
             <div className="relative min-h-[20rem] overflow-hidden rounded-[1.75rem] shadow-[var(--shadow-strong)]">
               <Image
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_KhZuAEIHOFlcJzJiW44FY-WPvxQBtIC_ViX4WbEAP1QsRQbIOOz9ljS0r2AZJoMHzorAmADMe-V8f7rlmxAqdMcqBfAWFv9McKJHNAVZrXAy5eWqD1vbIYwVAbqdS1RaQPDbxdYhywb72ilt_OjTGjH_MVyVSSBVWyQ0c4bMJInxWsjwvw0qtYrdSk5mac0jdmem7N2zFlCgNW1_awv_zxY1CXAzKCN_hnrmqBa3_BMEPc8WZgn7kO760fn3ksNMKkpFGp7qk0A"
-                alt="Doctor consulting elderly couple"
+                src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=1200&h=600"
+                alt="Doctor consulting patient at V.K. Medical Center"
                 fill
                 className="object-cover"
                 sizes="(min-width: 1024px) 45vw, 100vw"

@@ -8,229 +8,230 @@ export const navigation = [
 export const homeQuickLinks = [
   {
     title: "Find a Doctor",
-    description: "Search our expert medical team.",
+    description: "Consult our expert specialists Dr. V.R. Ray and Dr. Surjeet Patel.",
     href: "/services",
     icon: "doctor",
   },
   {
     title: "View Specialties",
-    description: "Explore our 40+ departments.",
+    description: "Explore our Gastroenterology & Neurosurgery Excellence Centers.",
     href: "/services",
     icon: "services",
   },
   {
-    title: "Health Checkups",
-    description: "Book your annual wellness screening.",
+    title: "Book OPD Appointment",
+    description: "Schedule your clinic visit online easily.",
     href: "/book-appointment",
     icon: "health",
   },
 ];
 
 export const metrics = {
-  years: "25+",
+  years: "15+",
 };
 
 export const trustFeatures = [
   {
-    title: "24/7 Emergency Care",
+    title: "Specialist Care",
     description:
-      "Our Level-1 trauma center is staffed round-the-clock with critical care specialists and immediate response teams.",
-    icon: "emergency",
+      "Direct consultation with DM Gastroenterology (AIIMS) and MCH Neurosurgery senior specialists.",
+    icon: "board",
   },
   {
-    title: "Advanced Technology",
+    title: "Accurate Diagnosis",
     description:
-      "Utilizing the latest AI-driven diagnostic tools and minimally invasive robotic surgical systems for faster recovery.",
+      "Advanced diagnostics for digestive, liver, brain, spine, and nerve disorders.",
     icon: "technology",
   },
   {
-    title: "Expert Medical Board",
+    title: "Patient First Treatment",
     description:
-      "Access world-renowned doctors and consultants across all major medical and surgical disciplines.",
-    icon: "board",
+      "Comprehensive consultation, personalized follow-ups, and clear recovery advice.",
+    icon: "emergency",
   },
 ];
 
 export const featuredSpecialties = [
   {
-    title: "Cardiology",
+    title: "Gastroenterology",
     description:
-      "World-class heart care focused on diagnostics and complex interventions.",
+      "Super-specialty care for stomach, liver, intestine, and pancreas conditions managed by Dr. V.R. Ray.",
     icon: "cardiology",
   },
   {
-    title: "Orthopaedics",
+    title: "Neurosurgery",
     description:
-      "Advanced joint replacements and sports medicine with rehab support.",
+      "Expert surgical interventions for brain, spine, and nervous system conditions managed by Dr. Surjeet Singh Patel.",
+    icon: "neurology",
+  },
+  {
+    title: "General Medicine",
+    description:
+      "Primary health care, diagnostics, preventive screenings, and general wellness counseling.",
     icon: "orthopedics",
   },
   {
-    title: "Oncology",
+    title: "Neurological Consultations",
     description:
-      "Comprehensive cancer care including radiation, chemo, and immunotherapy.",
+      "Tackle persistent headaches, chronic fatigue, irritability, and concentration issues with accurate diagnostic tests.",
     icon: "oncology",
-  },
-  {
-    title: "Neurology",
-    description:
-      "Specialized care for disorders of the brain and nervous system.",
-    icon: "neurology",
   },
 ];
 
 export const patientStory = {
-  heading: "Patient Stories",
+  heading: "Patient Testimonials",
   intro:
-    "Hear from our patients about their journey to recovery and the care they received at St. Marina.",
+    "Hear from patients who recovered from severe digestive and neuro-conditions under our doctors' care.",
   quote:
-    "The surgical team was incredible. From the emergency ward to discharge after knee surgery, the care was world-class. I felt safe and informed every step of the way.",
-  name: "Robert M. Chen",
-  role: "Orthopaedic Patient",
+    "Dr. V.R. Ray's treatment for my chronic liver issue was life-saving. The clarity with which he explains the diagnosis gave me immense confidence. Truly AIIMS-level care in Akbarpur.",
+  name: "Rajesh Kumar Yadav",
+  role: "Gastroenterology Patient",
   image:
-    "https://lh3.googleusercontent.com/aida-public/AB6AXuAa6Lr8N0D5l1Fh24o6sifmAiqdgjEWQgkk7xOodx7MY3_IbEKyKNcCChixi_X4wbBN27gj43vJaCTnfhTi5vO_Kyb8ZqylPjPViymph1g4Fv4_pVXkPNjaX8NP-z_C4kfPJ9rGkxqE5hzihwsF0HjyuSbwKzgw7bGv4rgYZ4pCF_X7RCgZ2f__AX-zYYavxfDYVGcgW1aalxWMAMuYFac0fO-E29BsKcO0Pexb_fbFA_jQG9zi5_5fdM0BkGRhnZrIs4umXyUmTVQ",
+    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150&h=150",
 };
 
 export const articles = [
   {
-    date: "June 15, 2024",
-    title: "St. Marina Launches New AI-Driven Diagnostic Suite",
+    date: "Summer Health Advisory",
+    title: "इस गर्मी, हीट स्ट्रोक से बचाव को बनाइए अपनी सुपरपावर!",
     description:
-      "The new wing integrates artificial intelligence to provide faster and more accurate heart scans.",
+      "1. भरपूर पानी पिएं | 2. धूप में निकलने से बचें | 3. हल्के और सूती कपड़े पहनें | 4. पर्याप्त आराम करें | 5. शरीर को ठंडा रखें। स्वस्थ रहें, सुरक्षित रहें।",
     image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuBF8OKF9d5GN9fCm7tX0nZY0XmY3HP1K7p9-wRF3CbWQDmm8T7h6g5TptlKSnvjEDAaVUQvG-Zi2B6YrIq5kvwOj-ZJVWqXfh6SZ-8-FRVQN3VKLHJjT0OGtraKXB2cLXdVVDTHb9JfyIGqmVz-Snlld4qIhcJyhLm9E4GPOVPUU_jyCyPjHi_PnurzTIUcN3mmk-7jYf2yjYkurFMNaKN01AEmdcyC3aGKrjylUFZXhuPSoql61XaUJLOaTa4sTKhv8zb3Mv7CMtM",
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=400&h=250",
   },
   {
-    date: "May 28, 2024",
-    title: "Our Annual Health Awareness Camp: A Huge Success",
+    date: "Neurology Bulletin",
+    title: "नींद पूरी हो जाती है... फिर भी थकान रहती है?",
     description:
-      "Over 5,000 residents participated in our free health screenings and wellness seminars held across the city.",
+      "यह सिर्फ काम का बोझ नहीं भी हो सकता। लगातार थकान, सिर दर्द, चिड़चिड़ापन, और ध्यान न लगना जैसी न्यूरोलॉजी समस्याओं के लिए समय पर जांच और सही सलाह आवश्यक है।",
     image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuB_K2qqJZZbCMEAju2rYeXWavQVKp2zDQ9_3zsRez4O_36FyJ8CYfJ6LSyTiTnCq0I62JQ0NZEasWw4dQklSdkcmuUKjtIx0d7lC_bNvO0-wnXJtE-fUZK8W10c0ySycnp1xvWeMTMT-YwgtQcq436SsOQOiDa1cKLZ9D4Vl1s-diV8NnmpRnpcRTh0N4w8xBS66NykpOWnM6kD1-XLfQLk7nyH4vcis0twRDmbbEy2iVmbaqlFKUsxGPEHF07IZ62b_Rc3usRVVTQ",
+      "https://images.unsplash.com/photo-1512438248247-f0f2a5a8b7f0?auto=format&fit=crop&q=80&w=400&h=250",
   },
   {
-    date: "May 10, 2024",
-    title: "Recognizing Excellence: Nursing Awards 2024",
+    date: "Clinic News",
+    title: "Regular OPD Services in Akbarpur, Ambedkar Nagar",
     description:
-      "Celebrating the dedicated nursing staff who go above and beyond for patient care and comfort daily.",
+      "Located near Kisan Nursery, Akbarpur-Baskhari Road. Booking online ensures prioritized consultation and minimal wait time.",
     image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuCzjKmpeOoBmSz9oWujUn_9q46ZjcggrEo1fomU3yRQAkvZ5CIHBpQktE8WhOglrdsm6UlStx3cpUSDuqSz5PxnbJPJiO84T-pcesFs1uh21vJSvWXyxvcKSka8vcORS_CnIIshChlHiII9-oGWY-BDZ34fPrxkVpVqrcRgraEjcbiSzlgs1_6rWfzC1lTcjUvYHXwvaPC3pqX7Z1yChGpK1l8dN5IyKAFO3dl5CXXyUBBh74cxv6b9rsPRwVL66siiV1npStaX8Sk",
+      "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=400&h=250",
   },
 ];
 
 export const bookingSteps = ["Department", "Doctor", "Schedule", "Details"];
 
 export const appointmentDepartments = [
-  { name: "Cardiology", icon: "cardiology" },
-  { name: "Neurology", icon: "neurology" },
+  { name: "Gastroenterology", icon: "cardiology" },
+  { name: "Neurosurgery", icon: "neurology" },
   { name: "Orthopedics", icon: "orthopedics" },
-  { name: "Pediatrics", icon: "calendar" },
-  { name: "Eye Care", icon: "calendar" },
-  { name: "Dermatology", icon: "calendar" },
-  { name: "Emergency Medicine", icon: "calendar" },
-  { name: "Mental Health", icon: "calendar" },
+  { name: "Gynecology", icon: "calendar" },
 ];
 
 export const appointmentDoctors = [
   {
-    name: "Dr. Sarah J. Bennett",
-    specialty: "Senior Cardiologist • 15 Yrs Exp",
-    availability: "Available Today",
+    name: "Dr. V.R. Ray",
+    department: "Gastroenterology",
+    specialty: "Gastroenterologist • MBBS, MD (KGMU), DM Gastro (AIIMS Delhi)",
+    subspecialty: "Stomach, Liver, Intestine & Pancreas Disease Specialist",
+    availability: "Every Thursday (11:00 AM - 3:30 PM)",
     rating: "4.9",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuDxKd-JE4ROElVJzopH2ih6-oOfleIZBwdaYmYTts0QOyX9w-lULFvprIpQ-VjPYHGO-XzXeBo50kxPXFTHXZuINcNSkxIAkJd4B1VjTkDGxgNaeSB5xpBb8RtbajID-sJESUFiZSoKWc7a_fFEmGjqEQWmXO97aQuu_c262zE2Iz-Y0TZ20TWzcnH5AdvkEsVAI9ffIDh1ZhjGgwWE_L-ViqV4LMUREwaFJ0LXtwLtxYRGkZ2x03q-3878ItV7Wtk5duLf4mlptZU",
+    image: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=250&h=250",
+    opdDay: 4, // Thursday
   },
   {
-    name: "Dr. Marcus Thorne",
-    specialty: "Electrophysiologist • 12 Yrs Exp",
-    availability: "Next: Tomorrow, 9:00 AM",
+    name: "Dr. Surjeet Singh Patel",
+    department: "Neurosurgery",
+    specialty: "Neuro Surgeon • MBBS, MS, MCH Neuro Surgery",
+    subspecialty: "Brain, Spine & Nerves Specialist",
+    availability: "2nd & 4th Saturday (11:00 AM - 3:30 PM)",
     rating: "4.8",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuB1P429ubEi5-z3kbt-GpAvtol4waWf5_Kiduzu4qXCHICjarNim3TEjFFMaX1w3Qkc2L0OLMICkBHuxrrcxcoisuoBaf4EYJ_l7-Kskvyp-5zlecFqHytRAC4TYILCmD7pRnY16wgnUkd6DvPEgGauL1orK36ovtGTrEFJw6s7B__FNh00TZw-umOiAOLcejPUXVbordmXeD90JRFJ9El82mEcVJi9AZqFHb_GRrzsIpuJSebHwYnR72Q0ozik_YqXKCZn0TpkdnI",
+    image: "https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&q=80&w=250&h=250",
+    opdDay: 6, // Saturday
+  },
+  {
+    name: "Dr. Amit Sharma",
+    department: "Orthopedics",
+    specialty: "Orthopedic Surgeon • MBBS, MS (Orthopedics)",
+    subspecialty: "Bone, Joint Replacement & Fracture Specialist",
+    availability: "Every Mon, Wed, Fri (11:00 AM - 3:30 PM)",
+    rating: "4.8",
+    image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=250&h=250",
+    opdDay: 1, // Monday
+  },
+  {
+    name: "Dr. Priya Singh",
+    department: "Gynecology",
+    specialty: "Gynecologist • MBBS, MD (Obstetrics & Gynecology)",
+    subspecialty: "Women Health & Maternity Care Specialist",
+    availability: "Every Tue, Sat (11:00 AM - 3:30 PM)",
+    rating: "4.9",
+    image: "https://images.unsplash.com/photo-1594824813573-246434de83fb?auto=format&fit=crop&q=80&w=250&h=250",
+    opdDay: 2, // Tuesday
   },
 ];
 
 export const appointmentTimeSlots = [
-  { time: "09:00 AM" },
-  { time: "10:30 AM" },
-  { time: "11:15 AM" },
+  { time: "11:00 AM" },
+  { time: "11:30 AM" },
+  { time: "12:00 PM" },
+  { time: "12:30 PM" },
   { time: "01:00 PM", disabled: true },
+  { time: "01:30 PM" },
+  { time: "02:00 PM" },
   { time: "02:30 PM" },
   { time: "03:00 PM" },
-  { time: "03:45 PM" },
-  { time: "04:30 PM" },
 ];
 
 export const specialties = [
   {
-    title: "Cardiology",
-    description:
-      "Comprehensive heart care focusing on prevention, diagnostics, and advanced interventional treatments.",
-    icon: "cardiology",
-  },
-  {
     title: "Gastroenterology",
     description:
-      "Expert management of digestive disorders, liver diseases, and therapeutic endoscopy procedures.",
+      "Stomach, Liver, Intestine & Pancreas consultation and procedures including therapeutic endoscopy under DM Gastro expert Dr. V.R. Ray.",
     icon: "gastroenterology",
   },
   {
-    title: "Nephrology",
+    title: "Neurosurgery & Neurology",
     description:
-      "Specialized treatment for kidney conditions, including dialysis services and transplant support.",
-    icon: "nephrology",
-  },
-  {
-    title: "Orthopedics",
-    description:
-      "Advanced surgical and non-surgical solutions for bone, joint, and musculoskeletal health.",
-    icon: "orthopedics",
-  },
-  {
-    title: "Neurology",
-    description:
-      "Comprehensive neurological care for brain, spine, and nerve disorders with precise diagnostic tools.",
+      "Brain, spine, spinal cord, and nerve surgeries, and management of conditions like persistent headache, fatigue, or nerve pain under MCH specialist Dr. Surjeet Singh Patel.",
     icon: "neurology",
   },
   {
-    title: "Oncology",
+    title: "Preventive General Medicine",
     description:
-      "Multidisciplinary cancer treatment providing chemotherapy, radiation, and surgical oncology.",
-    icon: "oncology",
+      "Comprehensive consultation, health management programs, screening for heatstroke, fever, and common medical issues.",
+    icon: "nephrology",
   },
 ];
 
 export const packageCards = [
   {
-    title: "Executive Heart Check",
-    description:
-      "Complete cardiovascular screening for busy professionals.",
+    title: "Gastro Health Screening",
+    description: "Complete stomach, bowel, and liver profile for digestive wellness.",
     icon: "heart",
   },
   {
-    title: "Senior Citizen Health",
-    description:
-      "Comprehensive geriatric evaluation and mobility screening.",
+    title: "Neuro & Nerve Screening",
+    description: "Detailed evaluations for chronic headaches, neuropathic pain, and sleep tracking.",
     icon: "senior",
   },
 ];
 
 export const contactFaqs = [
   {
-    title: "Where do I park?",
+    title: "How can I book an appointment?",
     description:
-      "Free parking is available in the multi-storey car park located at the north entrance. Disabled bays are directly in front of the main lobby.",
-    icon: "parking",
+      "You can book directly using our online booking wizard or by calling our clinic lines at +91 9450987101 / +91 9839454508.",
+    icon: "documents",
   },
   {
-    title: "Visiting hours?",
+    title: "What are Dr. V.R. Ray's OPD days?",
     description:
-      "Most wards are open to visitors from 8:00 AM to 8:00 PM. Specific units like ICU have restricted times, so check with the nurse station.",
+      "Dr. V.R. Ray is available for consultations every Thursday of the month from 11:00 AM to 03:30 PM.",
     icon: "visiting",
   },
   {
-    title: "Registration docs?",
+    title: "What are Dr. Surjeet Patel's OPD days?",
     description:
-      "Bring a valid ID, your insurance card, and any recent medical referrals. New patients are advised to arrive 15 minutes early.",
-    icon: "documents",
+      "Dr. Surjeet Singh Patel is available on the 2nd and 4th Saturday of each month from 11:00 AM to 03:30 PM.",
+    icon: "visiting",
   },
 ];

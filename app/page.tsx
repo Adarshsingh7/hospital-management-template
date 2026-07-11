@@ -32,36 +32,34 @@ export default function HomePage() {
         <section className="relative overflow-hidden">
           <div className="absolute inset-0">
             <Image
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBr9RrxGGyOf8Ku3KJcXXsmPAENM9y9ffh8YU8WZ1pTFmO5-9cJz-Bl5347TOYwT5m-DoGjiENTQeRS9pN0VMfO6_0RNcXGGvg_qiYcfKi2GOcBTTDf3tY2GY7VfTWJMP_OyUDh0tEGB0Tv-pSdDNldx3CgVYSidS7GrXYb9Xw0z8fxoivcVDFKuixWay96FEBwOIvHgWE4iqjZNl06y4Aa4J6v79XFsmDpbvU7aIy65bVcpUwB-mHInlDNyx_UZjif71L-xLt-_A8"
-              alt="Modern hospital campus at dawn"
+              src="https://images.unsplash.com/photo-1586773860418-d3b3de97e683?auto=format&fit=crop&q=80&w=1600&h=900"
+              alt="V.K. Medical Center Clinic"
               fill
               priority
               className="object-cover"
               sizes="100vw"
             />
-            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,42,88,0.86),rgba(0,42,88,0.54),rgba(0,42,88,0.08))]" />
+            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(211,47,47,0.78),rgba(13,71,161,0.65),rgba(0,0,0,0.15))]" />
           </div>
-          <div className="site-container relative flex min-h-[36rem] items-center py-24 md:min-h-[48rem]">
+          <div className="site-container relative flex min-h-[36rem] items-center py-24 md:min-h-[44rem]">
             <div className="max-w-3xl space-y-7 text-white">
               <span className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-4 py-1 text-sm font-semibold tracking-[0.22em] uppercase text-white/80 backdrop-blur">
-                Modern Healthcare Portal
+                V.K. Medical Center • Akbarpur
               </span>
               <h1 className="max-w-2xl text-4xl font-extrabold leading-tight md:text-6xl">
-                Compassionate Care, Clinical Excellence.
+                Expert Consultations, Patient-First Care.
               </h1>
-              <p className="max-w-2xl text-lg leading-8 text-blue-50/90 md:text-xl">
-                Combining advanced medical technology with a patient-first
-                approach to provide the highest standards of healthcare for you
-                and your family.
+              <p className="max-w-2xl text-lg leading-8 text-rose-50/90 md:text-xl">
+                Bringing senior specialists from AIIMS Delhi & KGMU Lucknow to Akbarpur. Expert medical consultations for gastrointestinal and neurological conditions.
               </p>
               <div className="flex flex-wrap gap-4">
-                <Link className="btn-danger" href="/book-appointment">
+                <Link className="btn-primary bg-white text-[var(--color-primary)] hover:bg-rose-50" href="/book-appointment">
                   <CalendarCheck2 className="h-5 w-5" />
-                  Book an Appointment
+                  Book OPD Appointment
                 </Link>
-                <a className="btn-glass" href="tel:+18001066">
+                <a className="btn-glass" href="tel:+919450987101">
                   <Phone className="h-5 w-5" />
-                  Emergency: 1066
+                  Call: +91 9450987101
                 </a>
               </div>
             </div>
@@ -97,8 +95,8 @@ export default function HomePage() {
 
         <PageSection
           eyebrow="Our Commitment"
-          title="Why Patients Trust St. Marina"
-          description="A modern tertiary hospital built around urgent access, surgical precision, and specialist-led continuity of care."
+          title="Why Patients Trust V.K. Medical Center"
+          description="Dedicated outpatient consultations and specialized treatment plans by highly qualified physicians."
           className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]"
           tinted
         >
@@ -228,7 +226,10 @@ export default function HomePage() {
           </div>
         </section>
 
-        <PageSection title="Latest from Our Hospital">
+        <PageSection
+          title="Health Advisories & Bulletins"
+          description="Important health guidelines and clinic announcements extracted from our expert doctor consults."
+        >
           <div className="grid gap-7 md:grid-cols-3">
             {articles.map((article) => (
               <article key={article.title} className="group">

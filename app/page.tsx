@@ -4,8 +4,6 @@ import {
   ArrowRight,
   Brain,
   CalendarCheck2,
-  ChevronLeft,
-  ChevronRight,
   HeartPulse,
   Microscope,
   Phone,
@@ -15,12 +13,12 @@ import {
   UserRoundSearch,
 } from "lucide-react";
 import { PageSection, SiteFooter, SiteHeader } from "@/components/site-shell";
+import { TestimonialsCarousel } from "@/components/testimonials-carousel";
 import {
   articles,
   featuredSpecialties,
   homeQuickLinks,
   metrics,
-  patientStory,
   trustFeatures,
 } from "@/lib/site-data";
 
@@ -162,67 +160,14 @@ export default function HomePage() {
                 <p className="mt-3 flex-1 text-sm leading-7 text-[var(--color-on-surface-variant)]">
                   {specialty.description}
                 </p>
-                <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-secondary)]">
-                  Learn More
-                  <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
-                </span>
               </article>
             ))}
           </div>
         </PageSection>
 
         <section className="bg-[var(--color-primary)] py-20 text-white">
-          <div className="site-container grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
-            <div className="space-y-6">
-              <span className="eyebrow text-blue-100/75">Patient Stories</span>
-              <h2 className="text-4xl font-bold md:text-5xl">
-                {patientStory.heading}
-              </h2>
-              <p className="max-w-xl text-lg leading-8 text-blue-100/80">
-                {patientStory.intro}
-              </p>
-              <div className="flex gap-3">
-                <button
-                  type="button"
-                  aria-label="Previous story"
-                  className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/20 text-white/90 transition hover:bg-white/10"
-                >
-                  <ChevronLeft className="h-5 w-5" />
-                </button>
-                <button
-                  type="button"
-                  aria-label="Next story"
-                  className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/20 text-white/90 transition hover:bg-white/10"
-                >
-                  <ChevronRight className="h-5 w-5" />
-                </button>
-              </div>
-            </div>
-            <article className="rounded-[2rem] border border-white/10 bg-white/7 p-8 shadow-[0_24px_60px_rgba(0,0,0,0.25)] backdrop-blur-md md:p-10">
-              <p className="text-5xl leading-none text-[var(--color-secondary-fixed)]">
-                &ldquo;
-              </p>
-              <p className="mt-5 text-xl leading-9 text-white/92">
-                {patientStory.quote}
-              </p>
-              <div className="mt-9 flex items-center gap-4">
-                <div className="relative h-14 w-14 overflow-hidden rounded-full">
-                  <Image
-                    src={patientStory.image}
-                    alt={patientStory.name}
-                    fill
-                    className="object-cover"
-                    sizes="56px"
-                  />
-                </div>
-                <div>
-                  <div className="font-semibold">{patientStory.name}</div>
-                  <div className="text-sm text-blue-100/75">
-                    {patientStory.role}
-                  </div>
-                </div>
-              </div>
-            </article>
+          <div className="site-container">
+            <TestimonialsCarousel />
           </div>
         </section>
 

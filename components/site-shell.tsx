@@ -139,9 +139,10 @@ export function SiteFooter() {
           <FooterColumn
             title="Specialities"
             links={[
-              { href: "/services", label: "Gastroenterology (Dr. V.R. Ray)" },
-              { href: "/services", label: "Neurosurgery (Dr. Surjeet Patel)" },
-              { href: "/services", label: "General Checkup (Dr. V.R. Ray)" },
+              { href: "/doctors/dr-v-r-ray", label: "Gastroenterology (Dr. V.R. Ray)" },
+              { href: "/doctors/dr-surjeet-singh-patel", label: "Neurosurgery (Dr. Surjeet Singh Patel)" },
+              { href: "/doctors/dr-amit-sharma", label: "Orthopedics (Dr. Amit Sharma)" },
+              { href: "/doctors/dr-priya-singh", label: "Gynecology (Dr. Priya Singh)" },
             ]}
           />
           <div>
@@ -161,7 +162,20 @@ export function SiteFooter() {
           </div>
         </div>
         <div className="site-container mt-14 flex flex-col gap-5 border-t border-white/10 pt-8 text-sm text-white md:flex-row md:items-center md:justify-between">
-          <p>© {new Date().getFullYear()} V.K. Medical Center. All rights reserved.</p>
+          <div>
+            <p>© {new Date().getFullYear()} V.K. Medical Center. All rights reserved.</p>
+            <p className="mt-1.5 text-xs text-white/70">
+              Made with{" "}
+              <a
+                href="https://stechwebsolution.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-white transition-colors"
+              >
+                STech Web Solution
+              </a>
+            </p>
+          </div>
           <div className="flex items-center gap-6 font-semibold tracking-[0.18em] uppercase text-xs">
             <span>AIIMS & KGMU Alumni</span>
             <span>Quality Patient Care</span>

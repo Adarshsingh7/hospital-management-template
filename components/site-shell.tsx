@@ -104,15 +104,15 @@ export function SiteFooter() {
       <footer className="bg-[var(--color-primary)] py-16 text-white">
         <div className="site-container grid gap-10 md:grid-cols-4">
           <div className="md:col-span-1">
-            <VKLogo className="h-12 w-auto mb-4" white={true} />
-            <p className="mt-4 max-w-sm text-sm leading-7 text-rose-100/75">
+            <VKLogo className="h-12 w-auto mb-4" white={false} />
+            <p className="mt-4 max-w-sm text-sm leading-7 text-white">
               Super-specialty Gastroenterology and Neurosurgery consultations by KGMU and AIIMS Delhi alum specialists in Akbarpur, Ambedkar Nagar.
             </p>
             <div className="mt-6 flex gap-3">
               {[Share2, Mail, Phone].map((Icon, idx) => (
                 <span
                   key={idx}
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white/85"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white"
                 >
                   <Icon className="h-4 w-4" />
                 </span>
@@ -138,22 +138,22 @@ export function SiteFooter() {
             ]}
           />
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-rose-100/70">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-white">
               Emergency & Booking
             </h3>
             <div className="mt-5 rounded-[1.5rem] border border-white/10 bg-white/10 p-6">
-              <div className="text-xs font-semibold uppercase tracking-[0.18em] text-rose-100/65">
+              <div className="text-xs font-semibold uppercase tracking-[0.18em] text-white">
                 OPD Booking Lines
               </div>
               <div className="mt-3 text-lg font-bold block">+91 9450987101</div>
               <div className="text-lg font-bold block">+91 9839454508</div>
-              <p className="mt-3 text-xs leading-5 text-rose-100/70">
+              <p className="mt-3 text-xs leading-5 text-white">
                 Akbarpur, Baskhari Road, near Kisan Nursery, Ambedkar Nagar.
               </p>
             </div>
           </div>
         </div>
-        <div className="site-container mt-14 flex flex-col gap-5 border-t border-white/10 pt-8 text-sm text-rose-100/65 md:flex-row md:items-center md:justify-between">
+        <div className="site-container mt-14 flex flex-col gap-5 border-t border-white/10 pt-8 text-sm text-white md:flex-row md:items-center md:justify-between">
           <p>© {new Date().getFullYear()} V.K. Medical Center. All rights reserved.</p>
           <div className="flex items-center gap-6 font-semibold tracking-[0.18em] uppercase text-xs">
             <span>AIIMS & KGMU Alumni</span>
@@ -202,13 +202,13 @@ function FooterColumn({
 }) {
   return (
     <div>
-      <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-rose-100/70">
+      <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-white">
         {title}
       </h3>
       <ul className="mt-5 space-y-4">
         {links.map((link) => (
           <li key={link.label}>
-            <Link href={link.href} className="text-sm text-rose-100/80 underline transition hover:text-white">
+            <Link href={link.href} className="text-sm text-white underline transition hover:opacity-80">
               {link.label}
             </Link>
           </li>

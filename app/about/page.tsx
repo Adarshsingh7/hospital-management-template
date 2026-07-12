@@ -56,6 +56,51 @@ export default function AboutPage() {
         </div>
       </PageSection>
 
+      <PageSection
+        className="grid gap-8 rounded-sm border border-[var(--color-outline-variant)] bg-white p-6 shadow-[var(--shadow-soft)] md:p-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-stretch"
+        tinted
+      >
+        <div className="relative overflow-hidden rounded-sm bg-[var(--color-primary)] p-8 text-white md:p-10">
+          <div className="absolute inset-y-0 left-0 w-1.5 bg-[var(--color-secondary)]" />
+          <div className="relative space-y-5">
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-rose-100/80">
+              {aboutPageData.missionSection.eyebrow}
+            </span>
+            <h2 className="text-3xl font-extrabold leading-tight text-white md:text-4xl">
+              {aboutPageData.missionSection.title}
+            </h2>
+            <p className="text-base leading-8 text-rose-100/85">
+              {aboutPageData.missionSection.description}
+            </p>
+          </div>
+        </div>
+        <div className="grid gap-4">
+          {aboutPageData.missionSection.items.map((item, index) => (
+            <article
+              key={item.title}
+              className="flex gap-5 rounded-sm border border-[var(--color-outline-variant)] bg-[var(--color-surface-container-lowest)] p-5 transition duration-200 hover:border-[var(--color-secondary-fixed-dim)] hover:shadow-[var(--shadow-soft)]"
+            >
+              <div className="shrink-0">
+                <div className="inline-flex h-11 w-11 items-center justify-center rounded-sm bg-[var(--color-secondary-container)] text-[var(--color-secondary)]">
+                  <Check className="h-5 w-5" />
+                </div>
+              </div>
+              <div>
+                <div className="text-xs font-bold uppercase tracking-[0.18em] text-[var(--color-secondary)]">
+                  Mission {index + 1}
+                </div>
+                <h3 className="mt-1 text-lg font-bold text-[var(--color-primary)]">
+                  {item.title}
+                </h3>
+                <p className="mt-2 text-sm leading-7 text-[var(--color-on-surface-variant)]">
+                  {item.description}
+                </p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </PageSection>
+
       <PageSection className="bg-[var(--color-surface-container-low)] py-16">
         <div className="text-center max-w-2xl mx-auto mb-12">
           <span className="text-xs uppercase tracking-[0.2em] font-bold text-[var(--color-secondary)]">

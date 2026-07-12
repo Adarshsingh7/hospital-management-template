@@ -414,25 +414,6 @@
                     setTimeout(() => btn.classList.remove('opacity-80'), 150);
                 });
             });
-
-            // Smooth reveal on scroll logic (simplified)
-            const observerOptions = {
-                threshold: 0.1
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('translate-y-0', 'opacity-100');
-                        entry.target.classList.remove('translate-y-10', 'opacity-0');
-                    }
-                });
-            }, observerOptions);
-
-            document.querySelectorAll('section > div').forEach(el => {
-                el.classList.add('transition-all', 'duration-700', 'translate-y-10', 'opacity-0');
-                observer.observe(el);
-            });
         });
     </script>
 </body></html>

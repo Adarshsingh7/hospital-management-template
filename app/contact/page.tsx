@@ -11,10 +11,10 @@ import {
   Users,
 } from "lucide-react";
 import { PageHero, PageSection, SiteFooter, SiteHeader } from "@/components/site-shell";
-import { contactFaqs } from "@/lib/site-data";
+import { contactFaqs, contactPageData } from "@/lib/site-data";
 
 export const metadata: Metadata = {
-  title: "Contact Us",
+  title: contactPageData.metadata.title,
 };
 
 export default function ContactPage() {
@@ -22,13 +22,13 @@ export default function ContactPage() {
     <>
       <SiteHeader activePath="/contact" />
       <PageHero
-        title="Contact Us"
-        description="We are dedicated to providing the highest level of care. Reach our team for services, scheduling, billing, or visit planning."
+        title={contactPageData.hero.title}
+        description={contactPageData.hero.description}
       />
       <PageSection className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr]">
         <section className="surface-card p-8 md:p-10">
           <h2 className="text-2xl font-semibold text-[var(--color-primary)]">
-            Send an Inquiry
+            {contactPageData.inquirySection.title}
           </h2>
           <form className="mt-8 space-y-6">
             <div className="grid gap-6 md:grid-cols-2">
@@ -40,10 +40,9 @@ export default function ContactPage() {
                 Subject
               </label>
               <select id="subject" className="form-field mt-2">
-                <option>General Inquiry</option>
-                <option>Appointment Help</option>
-                <option>Billing &amp; Insurance</option>
-                <option>Patient Feedback</option>
+                {contactPageData.inquirySection.subjectOptions.map((option) => (
+                  <option key={option}>{option}</option>
+                ))}
               </select>
             </div>
             <div>
@@ -58,105 +57,104 @@ export default function ContactPage() {
               />
             </div>
             <button type="submit" className="btn-primary">
-              Send Message
+              {contactPageData.inquirySection.submitLabel}
             </button>
           </form>
         </section>
 
         <div className="space-y-6">
           <section className="rounded-[1.75rem] bg-[var(--color-primary)] p-8 text-white shadow-[var(--shadow-strong)]">
-            <h2 className="text-2xl font-semibold">Contact Information</h2>
+            <h2 className="text-2xl font-semibold">{contactPageData.infoSection.title}</h2>
             <div className="mt-8 space-y-7">
-              <InfoRow
-                icon={<Phone className="h-5 w-5" />}
-                label="Booking Phone 1"
-                value="+91 9450987101"
-              />
-              <InfoRow
-                icon={<Phone className="h-5 w-5" />}
-                label="Booking Phone 2"
-                value="+91 9839454508"
-              />
-              <InfoRow
-                icon={<Mail className="h-5 w-5" />}
-                label="Email Us"
-                value="info@vkmedicalcenter.com"
-              />
-              <InfoRow
-                icon={<MapPin className="h-5 w-5" />}
-                label="Our Location"
-                value="Akbarpur, Baskhari Road, near Kisan Nursery, Ambedkar Nagar"
-              />
+              {contactPageData.infoSection.rows.map((row) => (
+                <InfoRow
+                  key={row.label}
+                  icon={getContactInfoIcon(row.icon)}
+                  label={row.label}
+                  value={row.value}
+                />
+              ))}
+            </div>
+            <div className="mt-8 rounded-[1.25rem] border border-white/15 bg-white/8 p-4">
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-blue-100/65">
+                {contactPageData.infoSection.siteAddress.label}
+              </p>
+              <a
+                href={contactPageData.infoSection.siteAddress.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-2 inline-flex text-base font-medium text-white underline underline-offset-4 transition hover:text-[var(--color-secondary-fixed)]"
+              >
+                {contactPageData.infoSection.siteAddress.text}
+              </a>
             </div>
             <div className="mt-10 border-t border-white/15 pt-6">
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-rose-100/70">
-                Follow Our Socials
+                {contactPageData.infoSection.socialsLabel}
               </p>
               <div className="mt-4 flex gap-3">
-                {[Share2, Mail, ThumbsUp].map((Icon, idx) => (
-                  <button
-                    key={idx}
-                    type="button"
-                    className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 transition hover:bg-[var(--color-secondary-fixed)] hover:text-[var(--color-primary)]"
-                    aria-label="Social link"
-                  >
-                    <Icon className="h-5 w-5" />
-                  </button>
-                ))}
+                {contactPageData.infoSection.socialIcons.map((icon, idx) => {
+                  const Icon = getSocialIcon(icon);
+                  return (
+                    <button
+                      key={idx}
+                      type="button"
+                      className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 transition hover:bg-[var(--color-secondary-fixed)] hover:text-[var(--color-primary)]"
+                      aria-label="Social link"
+                    >
+                      <Icon className="h-5 w-5" />
+                    </button>
+                  );
+                })}
               </div>
             </div>
           </section>
 
           <section className="surface-card bg-[var(--color-surface-container-high)] p-8">
             <h3 className="text-2xl font-semibold text-[var(--color-primary)]">
-              OPD Timings
+              {contactPageData.opdSection.title}
             </h3>
             <div className="mt-5 space-y-3 text-sm leading-7 text-[var(--color-on-surface)]">
-              <div className="flex justify-between gap-4 border-b border-[var(--color-outline-variant)] pb-2">
-                <span className="font-semibold text-[var(--color-primary)]">Dr. V.R. Ray (Gastro):</span>
-                <span className="text-right">Thursdays (11:00 AM - 3:30 PM)</span>
-              </div>
-              <div className="flex justify-between gap-4 pt-1">
-                <span className="font-semibold text-[var(--color-primary)]">Dr. Surjeet Patel (Neuro):</span>
-                <span className="text-right">2nd & 4th Saturdays (11:00 AM - 3:30 PM)</span>
-              </div>
+              {contactPageData.opdSection.timings.map((timing, index) => (
+                <div key={timing.label} className={`flex justify-between gap-4 ${index === 0 ? "border-b border-[var(--color-outline-variant)] pb-2" : "pt-1"}`}>
+                  <span className="font-semibold text-[var(--color-primary)]">{timing.label}</span>
+                  <span className="text-right">{timing.value}</span>
+                </div>
+              ))}
             </div>
             <div className="mt-6 flex gap-3 rounded-[1.25rem] bg-[var(--color-primary-container)] p-4 text-sm leading-6 text-[var(--color-on-primary-container)]">
               <Clock3 className="mt-0.5 h-4 w-4 shrink-0 text-[var(--color-primary)]" />
               <p>
-                Please bring previous prescriptions, reports, and MRI scans for the consultation.
+                {contactPageData.opdSection.note}
               </p>
             </div>
           </section>
         </div>
       </PageSection>
 
-      <section className="relative h-[32rem] overflow-hidden bg-[var(--color-surface-container)]">
-        <div
-          className="absolute inset-0 grayscale opacity-45"
-          style={{
-            backgroundImage:
-              "url(https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80&w=1200&h=600)",
-            backgroundPosition: "center",
-            backgroundSize: "cover",
-          }}
-        />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(250,250,252,0),rgba(250,250,252,0.86)_78%,rgba(250,250,252,1))]" />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="relative">
-            <div className="absolute -top-14 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-[var(--color-primary)] bg-white px-4 py-2 text-sm font-semibold text-[var(--color-primary)] shadow-[var(--shadow-strong)]">
-              V.K. Medical Center
+      <section className="bg-[var(--color-surface-container)] py-8 md:py-12">
+        <div className="site-container">
+          <div className="overflow-hidden rounded-[2rem] border border-[var(--color-outline-variant)] bg-white shadow-[var(--shadow-strong)]">
+            <div className="border-b border-[var(--color-outline-variant)] bg-[var(--color-surface-container-low)] px-6 py-4">
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-secondary)]">
+                {contactPageData.mapSection.badge}
+              </p>
             </div>
-            <div className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-[var(--color-primary)] text-white shadow-[var(--shadow-strong)] ring-8 ring-[color-mix(in_oklab,var(--color-primary)_18%,transparent)]">
-              <MapPin className="h-6 w-6" />
-            </div>
+            <iframe
+              title={contactPageData.mapSection.badge}
+              src={contactPageData.mapSection.embedUrl}
+              className="h-[26rem] w-full border-0 md:h-[34rem]"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
           </div>
         </div>
       </section>
 
       <PageSection
-        title="Common Questions"
-        description="Quick answers to help you navigate your visit."
+        title={contactPageData.faqSection.title}
+        description={contactPageData.faqSection.description}
       >
         <div className="grid gap-6 md:grid-cols-3">
           {contactFaqs.map((faq) => (
@@ -219,6 +217,18 @@ function InfoRow({
       </div>
     </div>
   );
+}
+
+function getContactInfoIcon(icon: string) {
+  if (icon === "phone") return <Phone className="h-5 w-5" />;
+  if (icon === "mail") return <Mail className="h-5 w-5" />;
+  return <MapPin className="h-5 w-5" />;
+}
+
+function getSocialIcon(icon: string) {
+  if (icon === "share") return Share2;
+  if (icon === "mail") return Mail;
+  return ThumbsUp;
 }
 
 function FaqIcon({ icon }: { icon: string }) {

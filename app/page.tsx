@@ -12,11 +12,12 @@ import {
   Syringe,
   UserRoundSearch,
 } from "lucide-react";
+import { GoogleReviewWall } from "@/components/google-review-wall";
 import { PageSection, SiteFooter, SiteHeader } from "@/components/site-shell";
-import { TestimonialsCarousel } from "@/components/testimonials-carousel";
 import {
   articles,
   featuredSpecialties,
+  homePageData,
   homeQuickLinks,
   metrics,
   trustFeatures,
@@ -42,22 +43,22 @@ export default function HomePage() {
           <div className="site-container relative flex min-h-[22rem] items-center py-12 sm:min-h-[26rem] sm:py-16 md:min-h-[44rem] md:py-24">
             <div className="max-w-3xl space-y-5 text-white md:space-y-7">
               <span className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-4 py-1 text-sm font-semibold tracking-[0.22em] uppercase text-white/80 backdrop-blur">
-                V.K. Medical Center &middot; Akbarpur
+                {homePageData.hero.badge}
               </span>
               <h1 className="max-w-2xl text-3xl font-extrabold leading-tight sm:text-4xl md:text-6xl">
-                Expert Consultations, Patient-First Care.
+                {homePageData.hero.title}
               </h1>
               <p className="max-w-2xl text-base leading-7 text-rose-50/90 sm:text-lg sm:leading-8 md:text-xl">
-                Bringing senior specialists from AIIMS Delhi & KGMU Lucknow to Akbarpur. Expert medical consultations for gastrointestinal and neurological conditions.
+                {homePageData.hero.description}
               </p>
               <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
-                <Link className="btn-primary justify-center bg-white text-[var(--color-primary)] hover:bg-rose-50 sm:justify-start" href="/book-appointment">
+                <Link className="btn-primary justify-center bg-white text-[var(--color-primary)] hover:bg-rose-50 sm:justify-start" href={homePageData.hero.primaryCtaHref}>
                   <CalendarCheck2 className="h-5 w-5" />
-                  Book OPD Appointment
+                  {homePageData.hero.primaryCtaLabel}
                 </Link>
-                <a className="btn-glass justify-center sm:justify-start" href="tel:+919450987101">
+                <a className="btn-glass justify-center sm:justify-start" href={homePageData.hero.secondaryCtaHref}>
                   <Phone className="h-5 w-5" />
-                  Call: +91 9450987101
+                  {homePageData.hero.secondaryCtaLabel}
                 </a>
               </div>
             </div>
@@ -92,9 +93,9 @@ export default function HomePage() {
         </PageSection>
 
         <PageSection
-          eyebrow="Our Commitment"
-          title="Why Patients Trust V.K. Medical Center"
-          description="Dedicated outpatient consultations and specialized treatment plans by highly qualified physicians."
+          eyebrow={homePageData.trustSection.eyebrow}
+          title={homePageData.trustSection.title}
+          description={homePageData.trustSection.description}
           className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]"
           tinted
         >
@@ -111,7 +112,7 @@ export default function HomePage() {
             <div className="absolute -right-3 -bottom-3 rounded-[1.4rem] bg-[var(--color-primary)] px-8 py-7 text-white shadow-[var(--shadow-strong)] md:-right-8 md:-bottom-8">
               <div className="text-4xl font-bold">{metrics.years}</div>
               <div className="mt-1 text-xs font-semibold uppercase tracking-[0.24em] text-blue-100/80">
-                Years of Excellence
+                {homePageData.trustSection.metricLabel}
               </div>
             </div>
           </div>
@@ -135,12 +136,12 @@ export default function HomePage() {
         </PageSection>
 
         <PageSection
-          eyebrow="Medical Excellence"
-          title="Featured Specialties"
-          description="Flagship departments designed around high-volume expertise and fast care coordination."
+          eyebrow={homePageData.specialtiesSection.eyebrow}
+          title={homePageData.specialtiesSection.title}
+          description={homePageData.specialtiesSection.description}
           action={
-            <Link className="section-link" href="/services">
-              View All Departments
+            <Link className="section-link" href={homePageData.specialtiesSection.actionHref}>
+              {homePageData.specialtiesSection.actionLabel}
               <ArrowRight className="h-4 w-4" />
             </Link>
           }
@@ -165,15 +166,15 @@ export default function HomePage() {
           </div>
         </PageSection>
 
-        <section className="bg-[var(--color-primary)] py-20 text-white">
+        <section className="bg-[var(--color-surface-container-low)] py-20">
           <div className="site-container">
-            <TestimonialsCarousel />
+            <GoogleReviewWall data={homePageData.reviews} />
           </div>
         </section>
 
         <PageSection
-          title="Health Advisories & Bulletins"
-          description="Important health guidelines and clinic announcements extracted from our expert doctor consults."
+          title={homePageData.articlesSection.title}
+          description={homePageData.articlesSection.description}
         >
           <div className="grid gap-7 md:grid-cols-3">
             {articles.map((article) => (

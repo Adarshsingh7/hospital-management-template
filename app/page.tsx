@@ -4,6 +4,7 @@ import {
   ArrowRight,
   Brain,
   CalendarCheck2,
+  CirclePlay,
   HeartPulse,
   Microscope,
   Phone,
@@ -24,6 +25,7 @@ import {
   metrics,
   trustFeatures,
   appointmentDoctors,
+  videoHighlights,
 } from "@/lib/site-data";
 
 export default function HomePage() {
@@ -259,54 +261,59 @@ export default function HomePage() {
         <PageSection
           eyebrow="Video Highlights"
           title="Patient Education & Clinic Gallery"
-          description="Watch our latest educational videos, patient guidelines, and medical checkup tips in short vertical format."
+          description="Watch our latest educational videos, patient guidelines, and clinic moments in a swipeable highlight reel."
         >
-          <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-4">
-            {[
-              {
-                title: "Gastro Health Care Tips",
-                description: "Understanding symptoms of acidity & liver care.",
-                videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-doctor-explaining-mri-to-patient-41619-large.mp4",
-                poster: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=400&h=711"
-              },
-              {
-                title: "Neurosurgery & Spine Advancements",
-                description: "Insights into modern micro-neurosurgical techniques.",
-                videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-female-doctor-working-with-microscope-in-lab-41614-large.mp4",
-                poster: "https://images.unsplash.com/photo-1530026405186-ed1ea0ac7a63?auto=format&fit=crop&q=80&w=400&h=711"
-              },
-              {
-                title: "Outpatient Clinic Walkthrough",
-                description: "A look inside the V.K. Medical Center consulting rooms.",
-                videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-medical-worker-checking-patient-details-on-tablet-41617-large.mp4",
-                poster: "https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&q=80&w=400&h=711"
-              },
-              {
-                title: "OPD Checkup Protocol",
-                description: "What to expect during your first consulting visit.",
-                videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-doctor-checking-a-patient-in-hospital-41618-large.mp4",
-                poster: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=400&h=711"
-              }
-            ].map((item, idx) => (
-              <div 
-                key={idx} 
-                className="group relative overflow-hidden rounded-[2rem] bg-black border border-[var(--color-outline-variant)] shadow-lg transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl aspect-[9/16]"
-              >
-                <video 
-                  controls 
-                  preload="metadata" 
-                  poster={item.poster} 
-                  className="w-full h-full object-cover opacity-90 transition-opacity duration-300 group-hover:opacity-100"
-                >
-                  <source src={item.videoUrl} type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-5 pt-10 text-white pointer-events-none transition-transform duration-300 group-hover:translate-y-0">
-                  <h4 className="text-sm font-bold leading-tight">{item.title}</h4>
-                  <p className="mt-1 text-[10px] text-gray-300 font-medium leading-normal">{item.description}</p>
-                </div>
+          <div className="rounded-[2rem] border border-[var(--color-outline-variant)] bg-[linear-gradient(135deg,rgba(13,71,161,0.05),rgba(211,47,47,0.06),rgba(255,255,255,0.92))] p-5 shadow-[var(--shadow-soft)] md:p-7">
+            <div className="mb-6 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+              <div className="max-w-2xl">
+                <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-secondary)]">
+                  Clinic Reel
+                </p>
+                <p className="mt-2 text-sm leading-7 text-[var(--color-on-surface-variant)] md:text-base">
+                  Browse four quick hospital-focused clips with smoother spacing, wider frames, and swipeable navigation across devices.
+                </p>
               </div>
-            ))}
+              <div className="inline-flex items-center rounded-full border border-white/70 bg-white/80 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-primary)] backdrop-blur">
+                4 Featured Videos
+              </div>
+            </div>
+
+            <div className="flex snap-x snap-mandatory gap-5 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              {videoHighlights.map((item) => (
+                <article
+                  key={item.title}
+                  className="group min-w-0 shrink-0 snap-start basis-[85%] sm:basis-[70%] lg:basis-[48%] xl:basis-[42%]"
+                >
+                  <div className="overflow-hidden rounded-[1.75rem] border border-white/70 bg-white shadow-[var(--shadow-soft)] transition duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-strong)]">
+                    <div className="relative aspect-[16/10] overflow-hidden bg-black">
+                      <video
+                        controls
+                        preload="metadata"
+                        poster={item.poster}
+                        className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.02]"
+                      >
+                        <source src={item.videoUrl} type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
+                      <div className="pointer-events-none absolute left-4 top-4 inline-flex items-center gap-2 rounded-full bg-white/92 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.16em] text-[var(--color-primary)] shadow-sm">
+                        <CirclePlay className="h-3.5 w-3.5 text-[var(--color-secondary)]" />
+                        {item.label}
+                      </div>
+                    </div>
+
+                    <div className="space-y-3 p-5">
+                      <h4 className="text-lg font-semibold leading-tight text-[var(--color-primary)] transition-colors group-hover:text-[var(--color-secondary)]">
+                        {item.title}
+                      </h4>
+                      <p className="text-sm leading-6 text-[var(--color-on-surface-variant)]">
+                        {item.description}
+                      </p>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
         </PageSection>
 

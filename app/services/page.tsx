@@ -45,6 +45,11 @@ export default function ServicesPage() {
                 <h2 className="mt-6 text-2xl font-semibold text-[var(--color-primary)]">
                   {specialty.title}
                 </h2>
+                {specialty.doctor ? (
+                  <p className="mt-1.5 text-sm font-semibold text-[var(--color-secondary)]">
+                    Consulting Doctor: {specialty.doctor}
+                  </p>
+                ) : null}
                 <p className="mt-4 flex-1 text-base leading-8 text-[var(--color-on-surface-variant)]">
                   {specialty.description}
                 </p>

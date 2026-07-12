@@ -3,9 +3,10 @@
 import { useState } from "react";
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { ArrowRight, Mail, Menu, Phone, Share2, X } from "lucide-react";
+import { ArrowRight, Menu, Phone, X } from "lucide-react";
 import { navigation } from "@/lib/site-data";
 import { VKLogo } from "./vk-logo";
+import { Facebook, Instagram, Youtube, Twitter } from "./social-icons";
 
 export function SiteHeader({ activePath }: { activePath: string }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -109,13 +110,20 @@ export function SiteFooter() {
               Super-specialty Gastroenterology and Neurosurgery consultations by KGMU and AIIMS Delhi alum specialists in Akbarpur, Ambedkar Nagar.
             </p>
             <div className="mt-6 flex gap-3">
-              {[Share2, Mail, Phone].map((Icon, idx) => (
-                <span
-                  key={idx}
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white"
+              {[
+                { Icon: Facebook, href: "#", label: "Facebook" },
+                { Icon: Instagram, href: "#", label: "Instagram" },
+                { Icon: Youtube, href: "#", label: "YouTube" },
+                { Icon: Twitter, href: "#", label: "Twitter" },
+              ].map(({ Icon, href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
+                  aria-label={label}
                 >
                   <Icon className="h-4 w-4" />
-                </span>
+                </a>
               ))}
             </div>
           </div>
@@ -125,16 +133,15 @@ export function SiteFooter() {
               { href: "/", label: "Home" },
               { href: "/services", label: "View Specialities" },
               { href: "/about", label: "About Us" },
-              { href: "/book-appointment", label: "Book Appointment" },
               { href: "/contact", label: "Contact Us" },
             ]}
           />
           <FooterColumn
             title="Specialities"
             links={[
-              { href: "/services", label: "Gastroenterology" },
-              { href: "/services", label: "Neurosurgery" },
-              { href: "/services", label: "General Checkup" },
+              { href: "/services", label: "Gastroenterology (Dr. V.R. Ray)" },
+              { href: "/services", label: "Neurosurgery (Dr. Surjeet Patel)" },
+              { href: "/services", label: "General Checkup (Dr. V.R. Ray)" },
             ]}
           />
           <div>

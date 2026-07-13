@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, Suspense, useEffect } from "react";
 import Image from "next/image";
+import { useSearchParams, useRouter } from "next/navigation";
 import {
   ArrowRight,
   Calendar,
@@ -14,12 +15,30 @@ import {
 import { SiteHeader, SiteFooter } from "@/components/site-shell";
 import { blogsPageData } from "@/lib/site-data";
 
-export default function BlogsPage() {
+function BlogsContent() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const articleId = searchParams.get("id");
+
   const [selectedArticle, setSelectedArticle] = useState<(typeof blogsPageData.articles)[number] | null>(null);
   const [activeCategory, setActiveCategory] = useState("All Insights");
   const [searchQuery, setSearchQuery] = useState("");
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
+
+  // Sync selectedArticle from URL query parameter 'id'
+  useEffect(() => {
+    if (articleId) {
+      const matched = blogsPageData.articles.find((a) => a.id === articleId);
+      if (matched) {
+        setSelectedArticle(matched);
+      } else {
+        setSelectedArticle(null);
+      }
+    } else {
+      setSelectedArticle(null);
+    }
+  }, [articleId]);
 
   const filteredArticles = useMemo(() => {
     return blogsPageData.articles.filter((article) => {
@@ -69,7 +88,7 @@ export default function BlogsPage() {
           <div className="site-container max-w-4xl">
             <button
               onClick={() => {
-                setSelectedArticle(null);
+                router.push("/blogs");
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }}
               className="inline-flex items-center gap-2 mb-8 text-sm font-bold text-[var(--color-secondary)] hover:opacity-80 transition cursor-pointer"
@@ -216,7 +235,7 @@ export default function BlogsPage() {
                   <article
                     key={insight.id}
                     onClick={() => {
-                      setSelectedArticle(insight);
+                      router.push(`/blogs?id=${insight.id}`);
                       window.scrollTo({ top: 0, behavior: "smooth" });
                     }}
                     className="surface-card p-5 cursor-pointer hover:-translate-y-1 hover:shadow-[var(--shadow-soft)] transition duration-200"
@@ -296,7 +315,7 @@ export default function BlogsPage() {
               <div className="space-y-8">
                 {featuredArticle ? (
                   <article
-                    onClick={() => setSelectedArticle(featuredArticle)}
+                    onClick={() => router.push(`/blogs?id=${featuredArticle.id}`)}
                     className="surface-card group grid gap-6 md:grid-cols-[1fr_1.2fr] p-6 hover:-translate-y-0.5 hover:shadow-[var(--shadow-strong)] transition duration-200 cursor-pointer"
                   >
                     <div className="relative aspect-[3/2] md:aspect-auto min-h-[200px] rounded-2xl overflow-hidden bg-[var(--color-surface-container)]">
@@ -346,7 +365,7 @@ export default function BlogsPage() {
                     {gridArticles.map((article) => (
                       <article
                         key={article.id}
-                        onClick={() => setSelectedArticle(article)}
+                        onClick={() => router.push(`/blogs?id=${article.id}`)}
                         className="surface-card group flex flex-col p-6 hover:-translate-y-0.5 hover:shadow-[var(--shadow-strong)] transition duration-200 cursor-pointer"
                       >
                         <div className="flex items-center justify-between mb-4">
@@ -402,5 +421,13 @@ export default function BlogsPage() {
 
       <SiteFooter />
     </>
+  );
+}
+
+export default function BlogsPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-[var(--color-primary)] font-bold">Loading Insights...</div>}>
+      <BlogsContent />
+    </Suspense>
   );
 }

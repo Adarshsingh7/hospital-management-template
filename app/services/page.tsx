@@ -96,6 +96,7 @@ export default function ServicesPage() {
         </PageSection>
 
         <PageSection
+          id="doctors"
           eyebrow="Consulting Doctors"
           title="Specialists Available For OPD"
           description="Book consultations with our visiting specialists based on the announced OPD schedule."

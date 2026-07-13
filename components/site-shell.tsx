@@ -105,7 +105,9 @@ export function SiteFooter() {
       <footer className="bg-[var(--color-primary)] py-16 text-white">
         <div className="site-container grid gap-10 md:grid-cols-4">
           <div className="md:col-span-1">
-            <VKLogo className="h-12 w-auto mb-4" white={false} />
+            <div className="inline-flex items-center justify-center bg-white p-2 px-3.5 rounded-xl mb-4">
+              <VKLogo className="h-8 w-auto" white={false} />
+            </div>
             <p className="mt-4 max-w-sm text-sm leading-7 text-white">
               Super-specialty Gastroenterology and Neurosurgery consultations by KGMU and AIIMS Delhi alum specialists in Akbarpur, Ambedkar Nagar.
             </p>
@@ -262,6 +264,7 @@ export function PageHero({
 }
 
 export function PageSection({
+  id,
   eyebrow,
   title,
   description,
@@ -270,6 +273,7 @@ export function PageSection({
   children,
   tinted = false,
 }: {
+  id?: string;
   eyebrow?: string;
   title?: string;
   description?: string;
@@ -301,10 +305,10 @@ export function PageSection({
   );
 
   if (tinted) {
-    return <section className="bg-[var(--color-surface-container-low)] py-20">{inner}</section>;
+    return <section id={id} className="bg-[var(--color-surface-container-low)] py-20">{inner}</section>;
   }
 
-  return <section className="py-20">{inner}</section>;
+  return <section id={id} className="py-20">{inner}</section>;
 }
 
 export function SectionLink({ href, children }: { href: string; children: ReactNode }) {

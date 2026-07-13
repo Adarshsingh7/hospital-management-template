@@ -100,12 +100,39 @@ export default function HomePage() {
         </PageSection>
 
         <PageSection
-          eyebrow={homePageData.trustSection.eyebrow}
-          title={homePageData.trustSection.title}
-          description={homePageData.trustSection.description}
-          className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]"
+          className="grid items-start gap-12 lg:grid-cols-[1.05fr_0.95fr]"
           tinted
         >
+          <div>
+            <div className="mb-10 max-w-3xl">
+              <span className="eyebrow">{homePageData.trustSection.eyebrow}</span>
+              <h2 className="mt-3 text-3xl font-bold tracking-tight text-[var(--color-primary)] md:text-4xl">
+                {homePageData.trustSection.title}
+              </h2>
+              <p className="mt-4 text-base leading-8 text-[var(--color-on-surface-variant)]">
+                {homePageData.trustSection.description}
+              </p>
+            </div>
+
+            <div className="space-y-7">
+              {trustFeatures.map((feature, idx) => (
+                <ScrollReveal key={feature.title} direction="up" delay={idx * 150} duration={600} className="flex gap-5">
+                  <div className="mt-1 inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white text-[var(--color-secondary)] shadow-[var(--shadow-soft)]">
+                    <TrustIcon icon={feature.icon} />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold text-[var(--color-primary)]">
+                      {feature.title}
+                    </h3>
+                    <p className="mt-2 max-w-xl text-base leading-7 text-[var(--color-on-surface-variant)]">
+                      {feature.description}
+                    </p>
+                  </div>
+                </ScrollReveal>
+              ))}
+            </div>
+          </div>
+
           <ScrollReveal direction="left" duration={800} className="relative">
             <div className="relative aspect-[0.95] overflow-hidden rounded-[2rem] shadow-[var(--shadow-strong)]">
               <Image
@@ -123,23 +150,6 @@ export default function HomePage() {
               </div>
             </div>
           </ScrollReveal>
-          <div className="space-y-7">
-            {trustFeatures.map((feature, idx) => (
-              <ScrollReveal key={feature.title} direction="up" delay={idx * 150} duration={600} className="flex gap-5">
-                <div className="mt-1 inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white text-[var(--color-secondary)] shadow-[var(--shadow-soft)]">
-                  <TrustIcon icon={feature.icon} />
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-[var(--color-primary)]">
-                    {feature.title}
-                  </h3>
-                  <p className="mt-2 max-w-xl text-base leading-7 text-[var(--color-on-surface-variant)]">
-                    {feature.description}
-                  </p>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
         </PageSection>
 
         <PageSection

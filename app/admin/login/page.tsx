@@ -128,9 +128,9 @@ export default function AdminLoginPage() {
             </div>
           </form>
 
-          <div className="mt-8 rounded-xl bg-[var(--color-surface-container)] p-4 text-xs text-[var(--color-on-surface-variant)] leading-5">
+          {/* <div className="mt-8 rounded-xl bg-[var(--color-surface-container)] p-4 text-xs text-[var(--color-on-surface-variant)] leading-5">
             <span className="font-semibold text-[var(--color-primary)]">Tip:</span> If the local database is fresh, the first attempt will auto-create a default administrator account with username <code className="bg-white/60 px-1 py-0.5 rounded border border-black/5 font-mono">admin</code> and password <code className="bg-white/60 px-1 py-0.5 rounded border border-black/5 font-mono">admin123</code>.
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

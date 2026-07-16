@@ -135,6 +135,7 @@ export function SiteFooter() {
               { href: "/", label: "Home" },
               { href: "/services", label: "View Specialities" },
               { href: "/about", label: "About Us" },
+              { href: "/director", label: "Director's Desk" },
               { href: "/contact", label: "Contact Us" },
             ]}
           />

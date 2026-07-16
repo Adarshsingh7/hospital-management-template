@@ -57,6 +57,40 @@ export default function AboutPage() {
       </PageSection>
 
       <PageSection
+        eyebrow="Leadership & Vision"
+        title="Director's Message"
+        description="A message from Dr. Vinay Maurya on our commitment to Ambedkar Nagar."
+      >
+        <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] items-center">
+          <div className="space-y-6">
+            <h3 className="text-2xl font-extrabold text-[var(--color-primary)]">
+              Leading with clinical values, accessibility, and a patient-first focus.
+            </h3>
+            <p className="text-base leading-8 text-[var(--color-on-surface-variant)]">
+              Welcome to V.K. Medical Center. When we founded this facility, our focus was clear: to ensure no resident of Akbarpur or Ambedkar Nagar has to travel hours to access premium super-specialty consultations.
+            </p>
+            <p className="text-base leading-8 text-[var(--color-on-surface-variant)]">
+              We brought senior specialists from institutions like KGMU and AIIMS Delhi right here to your neighborhood. Today, we are proud to offer advanced gastrointestinal care, neurosurgery, orthopedics, and maternity consultations under one roof with modern facilities.
+            </p>
+            <div className="pt-4">
+              <Link href="/director" className="btn-primary">
+                Read Full Director&apos;s Profile & Vision
+              </Link>
+            </div>
+          </div>
+          <div className="relative min-h-[350px] md:min-h-[400px] overflow-hidden rounded-[2.5rem] shadow-[var(--shadow-strong)] border border-[var(--color-outline-variant)]">
+            <Image
+              src="/director.jpeg"
+              alt="Dr. Vinay Maurya"
+              fill
+              className="object-cover object-top"
+              sizes="(min-width: 1024px) 40vw, 100vw"
+            />
+          </div>
+        </div>
+      </PageSection>
+
+      <PageSection
         className="grid gap-8 rounded-sm border border-[var(--color-outline-variant)] bg-white p-6 shadow-[var(--shadow-soft)] md:p-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-stretch"
         tinted
       >

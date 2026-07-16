@@ -153,6 +153,48 @@ export default function HomePage() {
         </PageSection>
 
         <PageSection
+          eyebrow="Leadership"
+          title="From the Director's Desk"
+          description="A message from Dr. Vinay Maurya, Director of V.K. Medical Center."
+        >
+          <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] items-center">
+            <ScrollReveal direction="right" duration={800} className="relative">
+              <div className="relative aspect-[4/5] sm:aspect-square md:aspect-[4/3] lg:aspect-[3/4] overflow-hidden rounded-[2.5rem] shadow-[var(--shadow-strong)] border border-[var(--color-outline-variant)]">
+                <Image
+                  src="/director.jpeg"
+                  alt="Dr. Vinay Maurya"
+                  fill
+                  className="object-cover object-top"
+                  sizes="(min-width: 1024px) 35vw, 100vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                <div className="absolute bottom-6 left-6 right-6 text-white">
+                  <h3 className="text-xl font-bold">Dr. Vinay Maurya</h3>
+                  <p className="text-xs text-rose-100 font-semibold tracking-wider uppercase mt-1">Director & Founder · BMAS</p>
+                </div>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal direction="left" duration={800} className="space-y-6">
+              <h3 className="text-2xl font-extrabold text-[var(--color-primary)]">
+                &quot;Our commitment is to bring top-tier super-specialty consultations directly to Ambedkar Nagar, saving lives and avoiding long journeys.&quot;
+              </h3>
+              <p className="text-base leading-8 text-[var(--color-on-surface-variant)]">
+                At V.K. Medical Center, we believe that advanced, high-quality medical care should be easily accessible without traveling to major metros. By bringing alumni specialists from premier institutions like KGMU Lucknow and AIIMS Delhi to Akbarpur, we&apos;ve bridged a long-standing healthcare gap for our community.
+              </p>
+              <p className="text-base leading-8 text-[var(--color-on-surface-variant)]">
+                We are dedicated to accurate diagnostics, patient-first care plans, and transparent consultations, helping families heal close to home.
+              </p>
+              <div className="pt-4">
+                <Link href="/director" className="btn-primary">
+                  Read Full Message & Profile
+                  <ArrowRight className="h-5 w-5" />
+                </Link>
+              </div>
+            </ScrollReveal>
+          </div>
+        </PageSection>
+
+        <PageSection
           eyebrow={homePageData.specialtiesSection.eyebrow}
           title={homePageData.specialtiesSection.title}
           description={homePageData.specialtiesSection.description}

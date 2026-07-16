@@ -92,6 +92,64 @@ export async function POST(request: Request) {
   }
 }
 
+export async function PUT(request: Request) {
+  try {
+    const cookieStore = await cookies();
+    const adminSession = cookieStore.get("admin_session");
+
+    if (!adminSession || adminSession.value !== "authenticated") {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized" },
+        { status: 401 }
+      );
+    }
+
+    await dbConnect();
+    const body = await request.json();
+    const { id, name, department, specialty, subspecialty, availability, rating, image, opdDays, startTime, endTime } = body;
+
+    if (!id || !name || !department || !specialty || !opdDays || !startTime || !endTime) {
+      return NextResponse.json(
+        { success: false, error: "Missing required doctor fields" },
+        { status: 400 }
+      );
+    }
+
+    const updatedDoc = await Doctor.findByIdAndUpdate(
+      id,
+      {
+        name,
+        department,
+        specialty,
+        subspecialty: subspecialty || "",
+        availability: availability || "",
+        rating: rating || "4.8",
+        image: image || "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=250&h=250",
+        opdDays,
+        startTime,
+        endTime,
+      },
+      { new: true }
+    );
+
+    if (!updatedDoc) {
+      return NextResponse.json(
+        { success: false, error: "Doctor not found" },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json({ success: true, doctor: updatedDoc });
+  } catch (error) {
+    console.error("Failed to update doctor:", error);
+    return NextResponse.json(
+      { success: false, error: "Failed to update doctor" },
+      { status: 500 }
+    );
+  }
+}
+
+
 export async function DELETE(request: Request) {
   try {
     const cookieStore = await cookies();

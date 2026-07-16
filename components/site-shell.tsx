@@ -134,6 +134,7 @@ export function SiteFooter() {
             links={[
               { href: "/", label: "Home" },
               { href: "/services", label: "View Specialities" },
+              { href: "/gallery", label: "Gallery" },
               { href: "/about", label: "About Us" },
               { href: "/director", label: "Director's Desk" },
               { href: "/contact", label: "Contact Us" },

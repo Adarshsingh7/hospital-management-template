@@ -21,6 +21,7 @@ import {
   Mail,
   Plus,
   Trash2,
+  Pencil,
 } from "lucide-react";
 import { VKLogo } from "@/components/vk-logo";
 
@@ -95,6 +96,7 @@ export default function AdminDashboardPage() {
   const [newDocStartTime, setNewDocStartTime] = useState("11:00 AM");
   const [newDocEndTime, setNewDocEndTime] = useState("03:30 PM");
   const [docSubmitting, setDocSubmitting] = useState(false);
+  const [editingDoctor, setEditingDoctor] = useState<DoctorData | null>(null);
 
   // Fetch appointments
   const fetchAppointments = useCallback(async () => {
@@ -239,8 +241,8 @@ export default function AdminDashboardPage() {
     }
   };
 
-  // Handle Add Doctor
-  const handleAddDoctor = async (e: React.FormEvent) => {
+  // Handle Add/Edit Doctor
+  const handleSaveDoctor = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newDocName.trim() || !newDocDept || !newDocSpecialty.trim() || newDocOpdDays.length === 0 || !newDocStartTime || !newDocEndTime) {
       setError("Please fill all required doctor fields and select at least one OPD day.");
@@ -254,21 +256,25 @@ export default function AdminDashboardPage() {
     const computedAvailability = `Every ${activeDaysText} (${newDocStartTime} - ${newDocEndTime})`;
 
     try {
+      const method = editingDoctor ? "PUT" : "POST";
+      const payload = {
+        id: editingDoctor?._id,
+        name: newDocName.trim(),
+        department: newDocDept,
+        specialty: newDocSpecialty.trim(),
+        subspecialty: newDocSubspecialty.trim(),
+        availability: newDocAvailability.trim() || computedAvailability,
+        rating: newDocRating || "4.8",
+        image: newDocImage.trim() || undefined,
+        opdDays: newDocOpdDays,
+        startTime: newDocStartTime,
+        endTime: newDocEndTime,
+      };
+
       const res = await fetch("/api/doctors", {
-        method: "POST",
+        method,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: newDocName.trim(),
-          department: newDocDept,
-          specialty: newDocSpecialty.trim(),
-          subspecialty: newDocSubspecialty.trim(),
-          availability: newDocAvailability.trim() || computedAvailability,
-          rating: newDocRating || "4.8",
-          image: newDocImage.trim() || undefined,
-          opdDays: newDocOpdDays,
-          startTime: newDocStartTime,
-          endTime: newDocEndTime,
-        }),
+        body: JSON.stringify(payload),
       });
       const data = await res.json();
       if (res.ok && data.success) {
@@ -280,17 +286,47 @@ export default function AdminDashboardPage() {
         setNewDocRating("4.8");
         setNewDocImage("");
         setNewDocOpdDays([]);
+        setEditingDoctor(null);
         fetchDoctors();
       } else {
-        setError(data.error || "Failed to create doctor");
+        setError(data.error || `Failed to ${editingDoctor ? "update" : "create"} doctor`);
       }
     } catch (err) {
       console.error(err);
-      setError("Failed to create doctor");
+      setError(`Failed to ${editingDoctor ? "update" : "create"} doctor`);
     } finally {
       setDocSubmitting(false);
     }
   };
+
+  const handleEditClick = (doc: DoctorData) => {
+    setEditingDoctor(doc);
+    setNewDocName(doc.name);
+    setNewDocDept(doc.department);
+    setNewDocSpecialty(doc.specialty);
+    setNewDocSubspecialty(doc.subspecialty || "");
+    setNewDocAvailability(doc.availability || "");
+    setNewDocRating(doc.rating || "4.8");
+    setNewDocImage(doc.image || "");
+    setNewDocOpdDays(doc.opdDays || []);
+    setNewDocStartTime(doc.startTime || "11:00 AM");
+    setNewDocEndTime(doc.endTime || "03:30 PM");
+  };
+
+  const handleCancelEdit = () => {
+    setEditingDoctor(null);
+    setNewDocName("");
+    setNewDocDept("");
+    setNewDocSpecialty("");
+    setNewDocSubspecialty("");
+    setNewDocAvailability("");
+    setNewDocRating("4.8");
+    setNewDocImage("");
+    setNewDocOpdDays([]);
+    setNewDocStartTime("11:00 AM");
+    setNewDocEndTime("03:30 PM");
+  };
+
 
   // Handle Delete Doctor
   const handleDeleteDoctor = async (id: string) => {
@@ -713,9 +749,9 @@ export default function AdminDashboardPage() {
             {/* Add Doctor Form */}
             <div className="surface-card p-6 h-fit">
               <h3 className="text-xl font-bold text-[var(--color-primary)] mb-6">
-                Add New Specialist
+                {editingDoctor ? "Edit Specialist" : "Add New Specialist"}
               </h3>
-              <form onSubmit={handleAddDoctor} className="space-y-4">
+              <form onSubmit={handleSaveDoctor} className="space-y-4">
                 <div>
                   <label className="block text-sm font-semibold text-[var(--color-on-surface)] mb-1">
                     Doctor Name
@@ -858,13 +894,24 @@ export default function AdminDashboardPage() {
                   />
                 </div>
 
-                <button
-                  type="submit"
-                  disabled={docSubmitting}
-                  className="btn-primary w-full justify-center py-3 mt-6 cursor-pointer"
-                >
-                  {docSubmitting ? "Saving..." : "Create Doctor"}
-                </button>
+                <div className="flex gap-3">
+                  {editingDoctor && (
+                    <button
+                      type="button"
+                      onClick={handleCancelEdit}
+                      className="btn-outline flex-1 justify-center py-3 mt-6 cursor-pointer"
+                    >
+                      Cancel
+                    </button>
+                  )}
+                  <button
+                    type="submit"
+                    disabled={docSubmitting}
+                    className="btn-primary flex-1 justify-center py-3 mt-6 cursor-pointer"
+                  >
+                    {docSubmitting ? "Saving..." : editingDoctor ? "Update Doctor" : "Create Doctor"}
+                  </button>
+                </div>
               </form>
             </div>
 
@@ -918,13 +965,22 @@ export default function AdminDashboardPage() {
                             </div>
                           </td>
                           <td className="px-6 py-4 text-center whitespace-nowrap">
-                            <button
-                              onClick={() => handleDeleteDoctor(doc._id)}
-                              className="text-xs font-semibold px-3 py-1.5 rounded-lg border border-rose-200 text-rose-700 hover:bg-rose-50 flex items-center gap-1 mx-auto transition cursor-pointer"
-                            >
-                              <Trash2 className="h-3.5 w-3.5" />
-                              Delete
-                            </button>
+                            <div className="flex items-center justify-center gap-2">
+                              <button
+                                onClick={() => handleEditClick(doc)}
+                                className="p-1.5 rounded-lg border border-blue-100 text-blue-600 hover:bg-blue-50 transition cursor-pointer"
+                                title="Edit Doctor"
+                              >
+                                <Pencil className="h-4 w-4" />
+                              </button>
+                              <button
+                                onClick={() => handleDeleteDoctor(doc._id)}
+                                className="p-1.5 rounded-lg border border-rose-100 text-rose-600 hover:bg-rose-50 transition cursor-pointer"
+                                title="Delete Doctor"
+                              >
+                                <Trash2 className="h-4 w-4" />
+                              </button>
+                            </div>
                           </td>
                         </tr>
                       ))
